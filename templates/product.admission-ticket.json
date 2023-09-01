@@ -50,6 +50,13 @@
           "settings": {
             "share_label": "Share"
           }
+        },
+        "1449c626-123b-4d5d-8bca-fc74d37289b2": {
+          "type": "text",
+          "settings": {
+            "text": "Some text",
+            "text_style": "body"
+          }
         }
       },
       "block_order": [
@@ -60,21 +67,23 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "description",
-        "share"
+        "share",
+        "1449c626-123b-4d5d-8bca-fc74d37289b2"
       ],
       "settings": {
         "enable_sticky_info": true,
         "media_size": "large",
         "constrain_to_viewport": true,
+        "media_fit": "contain",
         "gallery_layout": "stacked",
+        "media_position": "left",
+        "image_zoom": "lightbox",
         "mobile_thumbnails": "hide",
         "hide_variants": true,
         "enable_video_looping": false,
         "padding_top": 36,
         "padding_bottom": 12
       }
-
     }
   },
   "order": [
