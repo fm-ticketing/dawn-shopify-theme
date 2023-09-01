@@ -50,13 +50,6 @@
           "settings": {
             "share_label": "Share"
           }
-        },
-        "1449c626-123b-4d5d-8bca-fc74d37289b2": {
-          "type": "text",
-          "settings": {
-            "text": "Some text",
-            "text_style": "body"
-          }
         }
       },
       "block_order": [
@@ -67,8 +60,7 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "share",
-        "1449c626-123b-4d5d-8bca-fc74d37289b2"
+        "share"
       ],
       "settings": {
         "enable_sticky_info": true,
