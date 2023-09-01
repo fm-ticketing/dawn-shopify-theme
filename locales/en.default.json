@@ -105,6 +105,9 @@
     "collection_title": "Your collection's name"
   },
   "products": {
+    "admission_ticket": {
+      "exhibitions_list_title": "Exhibitions"
+    },
     "product": {
       "add_to_cart": "Add to cart",
       "choose_options": "Choose options",

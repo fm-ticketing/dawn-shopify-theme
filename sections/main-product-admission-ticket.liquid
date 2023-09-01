@@ -96,6 +96,14 @@
                   </h2>
                 </a>
               </div>
+              <div>
+                  <h3>{{ 'products.admission_ticket.exhibitions_list_title'  | t }}</h3>
+                <ul>
+                  {% for exhibition in shop.metaobjects.exhibition.values %}
+                      <li><b>{{ exhibition.title.value | escape }}</b> from {{ exhibition.start_date.value | escape }} to {{ exhibition.end_date.value  | escape }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
             {%- when 'price' -%}
               <div class="no-js-hidden" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                 {%- render 'price',
