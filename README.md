@@ -46,6 +46,24 @@ git pull upstream main
 
 There are a number of really useful tools that the Shopify Themes team uses during development. Dawn is already set up to work with these tools.
 
+### Exhibition date picker component
+
+Compiled from Elm and added as javascript node at id `exhibition-date`.
+
+`cd elm` before using dev and compile commands.
+
+#### Serve to localhost
+
+`elm-live src/ExhibitionDate.elm --hot -- --output=exhibition-date.js`
+
+#### Development
+
+`elm make src/ExhibitionDate.elm --output=../assets/exhibition-date.js`
+
+#### Production
+
+`elm make src/ExhibitionDate.elm --optimize --output=../assets/exhibition-date.js`
+
 ### Start local dev server
 
 Run with store flag first time `shopify theme dev --store {store-name}`

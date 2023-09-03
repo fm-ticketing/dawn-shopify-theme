@@ -1,0 +1,22 @@
+<html>
+<head>
+  <style>
+    /* custom styles here */
+  </style>
+</head>
+<body>
+  <div id="exhibition-date"></div>
+  <!-- Relative to index.html, lightbox.elm lives in `src/LightBox.elm`. -->
+  <!-- Prefixing that with `/_compile/` gives us magic! -->
+  <script src="/exhibition-date.js"></script>
+  <script>
+    var app = Elm.ExhibitionDate.init({
+      node: document.getElementById('exhibition-date'),
+        flags: { exhibitionList: [
+            {title: "An exhibition", start_date: "2023-08-10", end_date: "2023-10-10"},
+            {title: "Another exhibition", start_date: "2023-11-10", end_date: "2024-05-10"}
+        ] }
+    });
+  </script>
+</body>
+</html>
