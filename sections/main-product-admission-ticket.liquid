@@ -30,7 +30,8 @@
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'exhibition-date.js' | asset_url }}"></script>
+  {{ 'exhibition-date.js' | asset_url | script_tag }}
+  {{ 'exhibition-date.css' | asset_url | stylesheet_tag }}
 
   {%- if product.quantity_price_breaks_configured? -%}
     <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
