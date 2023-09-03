@@ -32,7 +32,6 @@
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'exhibition-date.js' | asset_url }}"></script>
 
-
   {%- if product.quantity_price_breaks_configured? -%}
     <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
@@ -99,14 +98,7 @@
                   </h2>
                 </a>
               </div>
-              <div>
-                  <h3>{{ 'products.admission_ticket.exhibitions_list_title'  | t }}</h3>
-                <ul>
-                  {% for exhibition in shop.metaobjects.exhibition.values %}
-                      <li><b>{{ exhibition.title.value | escape }}</b> from {{ exhibition.start_date.value | escape }} to {{ exhibition.end_date.value  | escape }}</li>
-                  {% endfor %}
-                </ul>
-              </div>
+
               <div id="exhibition-date"></div>
 
               <div>
@@ -622,6 +614,13 @@
   {%- endif -%}
 
   <script>
+    Elm.ExhibitionDate.init({
+      node: document.getElementById('exhibition-date'),
+      flags:{ exhibitionList: {{ shop.metaobjects.exhibition.values | json }}}
+    });
+  </script>
+
+  <script>
     document.addEventListener('DOMContentLoaded', function () {
       function isIE() {
         const ua = window.navigator.userAgent;
@@ -631,10 +630,6 @@
         return msie > 0 || trident > 0;
       }
 
-      Elm.ExhibitionDate.init({
-        node: document.getElementById('exhibition-date'),
-        flags:{}
-      });
 
       if (!isIE()) return;
       const hiddenInput = document.querySelector('#{{ product_form_id }} input[name="id"]');
