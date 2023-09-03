@@ -32,7 +32,6 @@ type alias Flags =
 
 type alias Model =
     { exhibitionList : List Exhibition
-    , selectedExhibition : String
     , date : Maybe Date.Date
     , datePicker : DatePicker.DatePicker
     }
@@ -74,7 +73,6 @@ init flags =
             DatePicker.init
     in
     ( { exhibitionList = decodedExhibitionList
-      , selectedExhibition = "My Exhibition"
       , date = Nothing
       , datePicker = datePicker
       }
@@ -161,7 +159,50 @@ view model =
                 Html.h1 [] [ Html.text "Select visit date" ]
 
             Just date ->
-                Html.h1 [] [ Html.text (Date.format "MMM d, yyyy" date) ]
+                Html.h1 []
+                    [ Html.text (String.join " " [ maybeExhibitionTitle model, Date.format "d MMM yyyy" date ])
+                    ]
         , DatePicker.view model.date (datePickerSettings model.datePicker) model.datePicker
             |> Html.map ToDatePickerMsg
         ]
+
+
+maybeExhibitionTitle : Model -> String
+maybeExhibitionTitle { date, exhibitionList } =
+    List.map
+        (\exhibition ->
+            let
+                startDate =
+                    case Date.fromIsoString exhibition.startDate of
+                        Ok aStartDate ->
+                            aStartDate
+
+                        Err _ ->
+                            Date.fromRataDie 1
+
+                endDate =
+                    case Date.fromIsoString exhibition.endDate of
+                        Ok anEndDate ->
+                            anEndDate
+
+                        Err _ ->
+                            Date.fromRataDie 1
+
+                selectedDate =
+                    case date of
+                        Just aSelectedDate ->
+                            aSelectedDate
+
+                        Nothing ->
+                            Date.fromRataDie 2
+            in
+            if Date.isBetween startDate endDate selectedDate then
+                exhibition.title
+
+            else
+                ""
+        )
+        exhibitionList
+        |> List.filter (\maybeDate -> maybeDate /= "")
+        |> List.head
+        |> Maybe.withDefault ""
