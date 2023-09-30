@@ -51,14 +51,17 @@ type alias ClosedDate =
     }
 
 
-datePickerSettings : DatePicker.DatePicker -> DatePicker.Settings
-datePickerSettings datePicker =
+datePickerSettings : Model -> DatePicker.Settings
+datePickerSettings model =
     let
         isDisabled : Date.Date -> Date.Date -> Bool
         isDisabled today date =
-            Date.compare today date /= LT
+            Date.compare today date
+                /= LT
+                || List.member date
+                    (List.concat (List.map (\{ closedOn } -> closedOn) model.closedDateList))
     in
-    { defaultSettings | isDisabled = isDisabled (getInitialDate datePicker) }
+    { defaultSettings | isDisabled = isDisabled (getInitialDate model.datePicker) }
 
 
 init : Flags -> ( Model, Cmd Msg )
@@ -155,7 +158,7 @@ update msg model =
         ToDatePickerMsg subMsg ->
             let
                 ( newDatePicker, dateEvent ) =
-                    DatePicker.update (datePickerSettings model.datePicker) subMsg model.datePicker
+                    DatePicker.update (datePickerSettings model) subMsg model.datePicker
 
                 newDate =
                     case dateEvent of
@@ -221,7 +224,7 @@ view model =
                 Html.h1 []
                     [ Html.text (String.join " " [ maybeExhibitionTitle model, Date.format "d MMM yyyy" date ])
                     ]
-        , DatePicker.view model.date (datePickerSettings model.datePicker) model.datePicker
+        , DatePicker.view model.date (datePickerSettings model) model.datePicker
             |> Html.map ToDatePickerMsg
         ]
 
