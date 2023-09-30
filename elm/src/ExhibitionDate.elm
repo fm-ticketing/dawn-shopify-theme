@@ -27,11 +27,13 @@ main =
 
 type alias Flags =
     { exhibitionList : Json.Decode.Value
+    , closedDateList : Json.Decode.Value
     }
 
 
 type alias Model =
     { exhibitionList : List Exhibition
+    , closedDateList : List ClosedDate
     , date : Maybe Date.Date
     , datePicker : DatePicker.DatePicker
     }
@@ -41,6 +43,11 @@ type alias Exhibition =
     { title : String
     , startDate : String
     , endDate : String
+    }
+
+
+type alias ClosedDate =
+    { closedOn : List Date.Date
     }
 
 
@@ -69,10 +76,21 @@ init flags =
                       }
                     ]
 
+        decodedClosedDateList =
+            case Json.Decode.decodeValue closedDateListDecoder flags.closedDateList of
+                Ok goodClosedDateData ->
+                    goodClosedDateData
+
+                Err _ ->
+                    [ { closedOn = []
+                      }
+                    ]
+
         ( datePicker, datePickerCmd ) =
             DatePicker.init
     in
     ( { exhibitionList = decodedExhibitionList
+      , closedDateList = decodedClosedDateList
       , date = Nothing
       , datePicker = datePicker
       }
@@ -92,6 +110,35 @@ exhibitionDecoder =
 exhibitionListDecoder : Json.Decode.Decoder (List Exhibition)
 exhibitionListDecoder =
     Json.Decode.list exhibitionDecoder
+
+
+closedDateDecoder : Json.Decode.Decoder ClosedDate
+closedDateDecoder =
+    Json.Decode.map
+        ClosedDate
+        (Json.Decode.field "museum_closed_on" (Json.Decode.list Json.Decode.string)
+            |> Json.Decode.andThen dateFromStringList
+        )
+
+
+closedDateListDecoder : Json.Decode.Decoder (List ClosedDate)
+closedDateListDecoder =
+    Json.Decode.list closedDateDecoder
+
+
+dateFromString : String -> Date.Date
+dateFromString maybeDate =
+    case Date.fromIsoString maybeDate of
+        Ok aDate ->
+            aDate
+
+        Err _ ->
+            Date.fromRataDie 1
+
+
+dateFromStringList : List String -> Json.Decode.Decoder (List Date.Date)
+dateFromStringList maybeDateStrings =
+    Json.Decode.succeed (List.map (\maybeDate -> dateFromString maybeDate) maybeDateStrings)
 
 
 
@@ -154,6 +201,18 @@ view model =
                 )
                 model.exhibitionList
             )
+        , Html.ul []
+            (List.map
+                (\date ->
+                    Html.li []
+                        [ Html.text (Date.format "d MMM yyy" date) ]
+                )
+                (List.concat
+                    (List.map (\{ closedOn } -> closedOn)
+                        model.closedDateList
+                    )
+                )
+            )
         , case model.date of
             Nothing ->
                 Html.h1 [] [ Html.text "Select visit date" ]
@@ -173,20 +232,10 @@ maybeExhibitionTitle { date, exhibitionList } =
         (\exhibition ->
             let
                 startDate =
-                    case Date.fromIsoString exhibition.startDate of
-                        Ok aStartDate ->
-                            aStartDate
-
-                        Err _ ->
-                            Date.fromRataDie 1
+                    dateFromString exhibition.startDate
 
                 endDate =
-                    case Date.fromIsoString exhibition.endDate of
-                        Ok anEndDate ->
-                            anEndDate
-
-                        Err _ ->
-                            Date.fromRataDie 1
+                    dateFromString exhibition.endDate
 
                 selectedDate =
                     case date of

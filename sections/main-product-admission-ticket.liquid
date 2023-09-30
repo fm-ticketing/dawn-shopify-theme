@@ -617,7 +617,12 @@
   <script>
     Elm.ExhibitionDate.init({
       node: document.getElementById('exhibition-date'),
-      flags:{ exhibitionList: {{ shop.metaobjects.exhibition.values | json }}}
+      flags:{
+        exhibitionList:
+          {{ shop.metaobjects.exhibition.values | json }},
+        closedDateList:
+          {{ shop.metaobjects.closed_dates.values | json }}
+      }
     });
   </script>
 
