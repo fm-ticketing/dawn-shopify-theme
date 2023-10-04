@@ -5,6 +5,7 @@ import Date
 import DatePicker exposing (DateEvent(..), defaultSettings, getInitialDate)
 import Html exposing (Html)
 import Html.Attributes
+import Html.Events
 import Json.Decode
 
 
@@ -41,14 +42,19 @@ type alias Model =
 
 type alias Exhibition =
     { title : String
-    , startDate : String
-    , endDate : String
+    , startDate : Date.Date
+    , endDate : Date.Date
     }
 
 
 type alias ClosedDate =
     { closedOn : List Date.Date
     }
+
+
+fmDateFormat : String
+fmDateFormat =
+    "d MMM yyyy"
 
 
 datePickerSettings : Model -> DatePicker.Settings
@@ -74,8 +80,8 @@ init flags =
 
                 Err _ ->
                     [ { title = ""
-                      , startDate = ""
-                      , endDate = ""
+                      , startDate = Date.fromRataDie 1
+                      , endDate = Date.fromRataDie 1
                       }
                     ]
 
@@ -106,8 +112,12 @@ exhibitionDecoder =
     Json.Decode.map3
         Exhibition
         (Json.Decode.field "title" Json.Decode.string)
-        (Json.Decode.field "start_date" Json.Decode.string)
-        (Json.Decode.field "end_date" Json.Decode.string)
+        (Json.Decode.field "start_date" Json.Decode.string
+            |> Json.Decode.map dateFromString
+        )
+        (Json.Decode.field "end_date" Json.Decode.string
+            |> Json.Decode.map dateFromString
+        )
 
 
 exhibitionListDecoder : Json.Decode.Decoder (List Exhibition)
@@ -150,6 +160,7 @@ dateFromStringList maybeDateStrings =
 
 type Msg
     = ToDatePickerMsg DatePicker.Msg
+    | ClickedResetDatePicker
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -175,6 +186,9 @@ update msg model =
             , Cmd.none
             )
 
+        ClickedResetDatePicker ->
+            ( { model | date = Nothing }, Cmd.none )
+
 
 
 -- HELPERS
@@ -199,33 +213,53 @@ view model =
                 (\{ title, startDate, endDate } ->
                     Html.li []
                         [ Html.b [] [ Html.text title ]
-                        , Html.text (String.join " " [ " from", startDate, "to", endDate ])
+                        , Html.text
+                            (String.join " "
+                                [ " from"
+                                , Date.format fmDateFormat startDate
+                                , "to"
+                                , Date.format fmDateFormat endDate
+                                ]
+                            )
                         ]
                 )
                 model.exhibitionList
             )
-        , Html.ul []
-            (List.map
-                (\date ->
-                    Html.li []
-                        [ Html.text (Date.format "d MMM yyy" date) ]
-                )
-                (List.concat
-                    (List.map (\{ closedOn } -> closedOn)
-                        model.closedDateList
-                    )
-                )
-            )
         , case model.date of
             Nothing ->
-                Html.h1 [] [ Html.text "Select visit date" ]
+                Html.div []
+                    [ Html.h2 [] [ Html.text "Select visit date" ]
+                    , DatePicker.view model.date (datePickerSettings model) model.datePicker
+                        |> Html.map ToDatePickerMsg
+                    ]
 
             Just date ->
-                Html.h1 []
-                    [ Html.text (String.join " " [ maybeExhibitionTitle model, Date.format "d MMM yyyy" date ])
+                Html.div []
+                    [ Html.h2 []
+                        [ Html.text
+                            (String.join " "
+                                [ "Book visit for: "
+                                , ticketDetailString model date
+                                ]
+                            )
+                        ]
+                    , Html.input
+                        [ Html.Attributes.name "properties[Exhibition]"
+                        , Html.Attributes.form "product-form-template--20869816942901__main-product-admission-ticket"
+                        , Html.Attributes.hidden True
+                        , Html.Attributes.value (ticketDetailString model date)
+                        ]
+                        []
+                    , Html.button [ Html.Events.onClick ClickedResetDatePicker ] [ Html.text "Choose a different date to visit" ]
                     ]
-        , DatePicker.view model.date (datePickerSettings model) model.datePicker
-            |> Html.map ToDatePickerMsg
+        ]
+
+
+ticketDetailString : Model -> Date.Date -> String
+ticketDetailString model date =
+    String.join " "
+        [ maybeExhibitionTitle model
+        , Date.format fmDateFormat date
         ]
 
 
@@ -234,12 +268,6 @@ maybeExhibitionTitle { date, exhibitionList } =
     List.map
         (\exhibition ->
             let
-                startDate =
-                    dateFromString exhibition.startDate
-
-                endDate =
-                    dateFromString exhibition.endDate
-
                 selectedDate =
                     case date of
                         Just aSelectedDate ->
@@ -248,7 +276,7 @@ maybeExhibitionTitle { date, exhibitionList } =
                         Nothing ->
                             Date.fromRataDie 2
             in
-            if Date.isBetween startDate endDate selectedDate then
+            if Date.isBetween exhibition.startDate exhibition.endDate selectedDate then
                 exhibition.title
 
             else
