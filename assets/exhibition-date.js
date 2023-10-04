@@ -7522,10 +7522,6 @@ var $elm$html$Html$Attributes$form = _VirtualDom_attribute('form');
 var $elm$html$Html$h2 = _VirtualDom_node('h2');
 var $elm$html$Html$h3 = _VirtualDom_node('h3');
 var $elm$html$Html$Attributes$hidden = $elm$html$Html$Attributes$boolProperty('hidden');
-var $elm$html$Html$input = _VirtualDom_node('input');
-var $elm$html$Html$li = _VirtualDom_node('li');
-var $elm$virtual_dom$VirtualDom$map = _VirtualDom_map;
-var $elm$html$Html$map = $elm$virtual_dom$VirtualDom$map;
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
@@ -7534,6 +7530,11 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 			key,
 			$elm$json$Json$Encode$string(string));
 	});
+var $elm$html$Html$Attributes$id = $elm$html$Html$Attributes$stringProperty('id');
+var $elm$html$Html$input = _VirtualDom_node('input');
+var $elm$html$Html$li = _VirtualDom_node('li');
+var $elm$virtual_dom$VirtualDom$map = _VirtualDom_map;
+var $elm$html$Html$map = $elm$virtual_dom$VirtualDom$map;
 var $elm$html$Html$Attributes$name = $elm$html$Html$Attributes$stringProperty('name');
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 0, a: a};
@@ -7608,6 +7609,7 @@ var $author$project$ExhibitionDate$ticketDetailString = F2(
 					A2($justinmimbs$date$Date$format, $author$project$ExhibitionDate$fmDateFormat, date)
 				]));
 	});
+var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
 var $elm$html$Html$ul = _VirtualDom_node('ul');
 var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
 var $CurrySoftware$elm_datepicker$DatePicker$Blur = {$: 6};
@@ -8128,7 +8130,6 @@ var $justinmimbs$date$Date$toRataDie = function (_v0) {
 	return rd;
 };
 var $elm$html$Html$tr = _VirtualDom_node('tr');
-var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
 var $CurrySoftware$elm_datepicker$DatePicker$Pick = function (a) {
 	return {$: 2, a: a};
 };
@@ -8553,7 +8554,6 @@ var $elm$core$List$filterMap = F2(
 			_List_Nil,
 			xs);
 	});
-var $elm$html$Html$Attributes$id = $elm$html$Html$Attributes$stringProperty('id');
 var $elm$html$Html$Events$onBlur = function (msg) {
 	return A2(
 		$elm$html$Html$Events$on,
@@ -8751,6 +8751,8 @@ var $author$project$ExhibitionDate$view = function (model) {
 									[
 										$elm$html$Html$Attributes$name('properties[Exhibition]'),
 										$elm$html$Html$Attributes$form('product-form-template--20869816942901__main-product-admission-ticket'),
+										$elm$html$Html$Attributes$type_('text'),
+										$elm$html$Html$Attributes$id('date'),
 										$elm$html$Html$Attributes$hidden(true),
 										$elm$html$Html$Attributes$value(
 										A2($author$project$ExhibitionDate$ticketDetailString, model, date))
