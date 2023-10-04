@@ -41,14 +41,19 @@ type alias Model =
 
 type alias Exhibition =
     { title : String
-    , startDate : String
-    , endDate : String
+    , startDate : Date.Date
+    , endDate : Date.Date
     }
 
 
 type alias ClosedDate =
     { closedOn : List Date.Date
     }
+
+
+fmDateFormat : String
+fmDateFormat =
+    "d MMM yyyy"
 
 
 datePickerSettings : Model -> DatePicker.Settings
@@ -74,8 +79,8 @@ init flags =
 
                 Err _ ->
                     [ { title = ""
-                      , startDate = ""
-                      , endDate = ""
+                      , startDate = Date.fromRataDie 1
+                      , endDate = Date.fromRataDie 1
                       }
                     ]
 
@@ -106,8 +111,12 @@ exhibitionDecoder =
     Json.Decode.map3
         Exhibition
         (Json.Decode.field "title" Json.Decode.string)
-        (Json.Decode.field "start_date" Json.Decode.string)
-        (Json.Decode.field "end_date" Json.Decode.string)
+        (Json.Decode.field "start_date" Json.Decode.string
+            |> Json.Decode.map dateFromString
+        )
+        (Json.Decode.field "end_date" Json.Decode.string
+            |> Json.Decode.map dateFromString
+        )
 
 
 exhibitionListDecoder : Json.Decode.Decoder (List Exhibition)
@@ -199,30 +208,25 @@ view model =
                 (\{ title, startDate, endDate } ->
                     Html.li []
                         [ Html.b [] [ Html.text title ]
-                        , Html.text (String.join " " [ " from", startDate, "to", endDate ])
+                        , Html.text
+                            (String.join " "
+                                [ " from"
+                                , Date.format fmDateFormat startDate
+                                , "to"
+                                , Date.format fmDateFormat endDate
+                                ]
+                            )
                         ]
                 )
                 model.exhibitionList
             )
-        , Html.ul []
-            (List.map
-                (\date ->
-                    Html.li []
-                        [ Html.text (Date.format "d MMM yyy" date) ]
-                )
-                (List.concat
-                    (List.map (\{ closedOn } -> closedOn)
-                        model.closedDateList
-                    )
-                )
-            )
         , case model.date of
             Nothing ->
-                Html.h1 [] [ Html.text "Select visit date" ]
+                Html.h2 [] [ Html.text "Select visit date" ]
 
             Just date ->
-                Html.h1 []
-                    [ Html.text (String.join " " [ maybeExhibitionTitle model, Date.format "d MMM yyyy" date ])
+                Html.h2 []
+                    [ Html.text (String.join " " [ maybeExhibitionTitle model, Date.format fmDateFormat date ])
                     ]
         , DatePicker.view model.date (datePickerSettings model) model.datePicker
             |> Html.map ToDatePickerMsg
@@ -234,12 +238,6 @@ maybeExhibitionTitle { date, exhibitionList } =
     List.map
         (\exhibition ->
             let
-                startDate =
-                    dateFromString exhibition.startDate
-
-                endDate =
-                    dateFromString exhibition.endDate
-
                 selectedDate =
                     case date of
                         Just aSelectedDate ->
@@ -248,7 +246,7 @@ maybeExhibitionTitle { date, exhibitionList } =
                         Nothing ->
                             Date.fromRataDie 2
             in
-            if Date.isBetween startDate endDate selectedDate then
+            if Date.isBetween exhibition.startDate exhibition.endDate selectedDate then
                 exhibition.title
 
             else
