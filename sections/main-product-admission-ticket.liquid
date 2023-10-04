@@ -102,13 +102,6 @@
 
               <div id="exhibition-date"></div>
 
-              <div>
-                <p class="line-item-property__field">
-                    <label for="date">Date of visit</label>
-                    <input required class="required" id="date" type="text" name="properties[Exhibition]" form="{{ product_form_id }}">
-                </p>
-
-              </div>
             {%- when 'price' -%}
               <div class="no-js-hidden" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                 {%- render 'price',
