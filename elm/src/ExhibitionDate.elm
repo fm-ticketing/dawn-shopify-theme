@@ -246,6 +246,8 @@ view model =
                     , Html.input
                         [ Html.Attributes.name "properties[Exhibition]"
                         , Html.Attributes.form "product-form-template--20869816942901__main-product-admission-ticket"
+                        , Html.Attributes.type_ "text"
+                        , Html.Attributes.id "date"
                         , Html.Attributes.hidden True
                         , Html.Attributes.value (ticketDetailString model date)
                         ]
