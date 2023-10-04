@@ -5,6 +5,7 @@ import Date
 import DatePicker exposing (DateEvent(..), defaultSettings, getInitialDate)
 import Html exposing (Html)
 import Html.Attributes
+import Html.Events
 import Json.Decode
 
 
@@ -159,6 +160,7 @@ dateFromStringList maybeDateStrings =
 
 type Msg
     = ToDatePickerMsg DatePicker.Msg
+    | ClickedResetDatePicker
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -183,6 +185,9 @@ update msg model =
               }
             , Cmd.none
             )
+
+        ClickedResetDatePicker ->
+            ( { model | date = Nothing }, Cmd.none )
 
 
 
@@ -222,14 +227,39 @@ view model =
             )
         , case model.date of
             Nothing ->
-                Html.h2 [] [ Html.text "Select visit date" ]
+                Html.div []
+                    [ Html.h2 [] [ Html.text "Select visit date" ]
+                    , DatePicker.view model.date (datePickerSettings model) model.datePicker
+                        |> Html.map ToDatePickerMsg
+                    ]
 
             Just date ->
-                Html.h2 []
-                    [ Html.text (String.join " " [ maybeExhibitionTitle model, Date.format fmDateFormat date ])
+                Html.div []
+                    [ Html.h2 []
+                        [ Html.text
+                            (String.join " "
+                                [ "Book visit for: "
+                                , ticketDetailString model date
+                                ]
+                            )
+                        ]
+                    , Html.input
+                        [ Html.Attributes.name "properties[Exhibition]"
+                        , Html.Attributes.form "product-form-template--20869816942901__main-product-admission-ticket"
+                        , Html.Attributes.hidden True
+                        , Html.Attributes.value (ticketDetailString model date)
+                        ]
+                        []
+                    , Html.button [ Html.Events.onClick ClickedResetDatePicker ] [ Html.text "Choose a different date to visit" ]
                     ]
-        , DatePicker.view model.date (datePickerSettings model) model.datePicker
-            |> Html.map ToDatePickerMsg
+        ]
+
+
+ticketDetailString : Model -> Date.Date -> String
+ticketDetailString model date =
+    String.join " "
+        [ maybeExhibitionTitle model
+        , Date.format fmDateFormat date
         ]
 
 
