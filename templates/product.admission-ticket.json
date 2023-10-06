@@ -22,29 +22,6 @@
             "text_style": "subtitle"
           }
         },
-        "price": {
-          "type": "price",
-          "settings": {
-          }
-        },
-        "variant_picker": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "button"
-          }
-        },
-        "quantity_selector": {
-          "type": "quantity_selector",
-          "settings": {
-          }
-        },
-        "buy_buttons": {
-          "type": "buy_buttons",
-          "settings": {
-            "show_dynamic_checkout": true,
-            "show_gift_card_recipient": true
-          }
-        },
         "share": {
           "type": "share",
           "settings": {
@@ -56,10 +33,6 @@
         "vendor",
         "title",
         "caption",
-        "price",
-        "variant_picker",
-        "quantity_selector",
-        "buy_buttons",
         "share"
       ],
       "settings": {
@@ -76,9 +49,20 @@
         "padding_top": 36,
         "padding_bottom": 12
       }
+    },
+    "5f99a0cd-7508-4054-b5bf-5ab5697f606b": {
+      "type": "quick-order-list",
+      "settings": {
+        "show_image": false,
+        "show_sku": false,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "main-product-admission-ticket"
+    "main-product-admission-ticket",
+    "5f99a0cd-7508-4054-b5bf-5ab5697f606b"
   ]
 }
