@@ -40,9 +40,9 @@
       "reset": "Clear search term"
     },
     "cart": {
-      "view": "View cart ({{ count }})",
-      "view_empty_cart": "View cart",
-      "item_added": "Item added to your cart"
+      "view": "View basket ({{ count }})",
+      "view_empty_cart": "View basket",
+      "item_added": "Item added to your basket"
     },
     "share": {
       "close": "Close share",
@@ -106,7 +106,7 @@
   },
   "products": {
     "product": {
-      "add_to_cart": "Add to cart",
+      "add_to_cart": "Add to basket",
       "choose_options": "Choose options",
       "choose_product_options": "Choose options for {{ product_name }}",
       "description": "Description",
@@ -137,7 +137,7 @@
         "minimum_of": "Minimum of {{ quantity }}",
         "maximum_of": "Maximum of {{ quantity }}",
         "multiples_of": "Increments of {{ quantity }}",
-        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> in cart",
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> in basket",
         "note": "View quantity rules"
       },
       "volume_pricing": {
@@ -240,7 +240,7 @@
       "pages": "Pages"
     },
     "cart": {
-      "cart": "Cart"
+      "cart": "Basket"
     },
     "contact": {
       "form": {
@@ -276,16 +276,16 @@
       }
     },
     "cart": {
-      "title": "Your cart",
-      "caption": "Cart items",
+      "title": "Your basket",
+      "caption": "Basket items",
       "remove_title": "Remove {{ title }}",
       "estimated_total": "Estimated total",
       "new_estimated_total": "New estimated total",
       "note": "Order special instructions",
       "checkout": "Check out",
-      "empty": "Your cart is empty",
-      "cart_error": "There was an error while updating your cart. Please try again.",
-      "cart_quantity_error_html": "You can only add {{ quantity }} of this item to your cart.",
+      "empty": "Your basket is empty",
+      "cart_error": "There was an error while updating your basket. Please try again.",
+      "cart_quantity_error_html": "You can only add {{ quantity }} of this item to your basket.",
       "taxes_and_shipping_policy_at_checkout_html": "Taxes, Discounts and <a href=\"{{ link }}\">shipping<\/a> calculated at checkout",
       "taxes_included_but_shipping_at_checkout": "Tax included and shipping and discounts calculated at checkout",
       "taxes_included_and_shipping_policy_html": "Tax included. <a href=\"{{ link }}\">Shipping<\/a> and discounts calculated at checkout.",
@@ -339,11 +339,11 @@
       "title": "Page title"
     },
     "quick_order_list": {
-      "product_total": "Product subtotal",
-      "view_cart": "View cart",
+      "product_total": "Subtotal",
+      "view_cart": "View basket",
       "each": "{{ money }}\/ea",
       "product": "Product",
-      "variant": "Variant",
+      "variant": "Ticket type",
       "variant_total": "Variant total",
       "items_added": {
         "one": "{{ quantity }} item added",
@@ -353,9 +353,9 @@
         "one": "{{ quantity }} item removed",
         "other": "{{ quantity }} items removed"
       },
-      "product_variants": "Product variants",
+      "product_variants": "Ticket types",
       "total_items": "Total items",
-      "remove_all_items_confirmation": "Remove all {{ quantity }} items from your cart?",
+      "remove_all_items_confirmation": "Remove all {{ quantity }} items from your basket?",
       "remove_all": "Remove all",
       "cancel": "Cancel"
     }
