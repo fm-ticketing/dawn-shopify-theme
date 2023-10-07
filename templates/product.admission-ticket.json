@@ -50,8 +50,8 @@
         "padding_bottom": 12
       }
     },
-    "5f99a0cd-7508-4054-b5bf-5ab5697f606b": {
-      "type": "quick-order-list",
+    "c5cda348-d062-41bf-808d-246605e1a663": {
+      "type": "fm-quick-order-list--admission-ticket",
       "settings": {
         "show_image": false,
         "show_sku": false,
@@ -63,6 +63,6 @@
   },
   "order": [
     "main-product-admission-ticket",
-    "5f99a0cd-7508-4054-b5bf-5ab5697f606b"
+    "c5cda348-d062-41bf-808d-246605e1a663"
   ]
 }
