@@ -339,11 +339,11 @@
       "title": "Page title"
     },
     "quick_order_list": {
-      "product_total": "Product subtotal",
-      "view_cart": "View cart",
+      "product_total": "Subtotal",
+      "view_cart": "View basket",
       "each": "{{ money }}\/ea",
       "product": "Product",
-      "variant": "Variant",
+      "variant": "Ticket type",
       "variant_total": "Variant total",
       "items_added": {
         "one": "{{ quantity }} item added",
@@ -353,7 +353,7 @@
         "one": "{{ quantity }} item removed",
         "other": "{{ quantity }} items removed"
       },
-      "product_variants": "Product variants",
+      "product_variants": "Ticket types",
       "total_items": "Total items",
       "remove_all_items_confirmation": "Remove all {{ quantity }} items from your cart?",
       "remove_all": "Remove all",
