@@ -159,14 +159,6 @@
     {%- endif -%}
   </td>
 
-  <td class="variant-item__totals right large-up-hide">
-    {%- render 'loading-overlay' -%}
-    {% comment %} TODO: enable theme-check once `line_items_for` is accepted as valid filter {% endcomment %}
-    {% # theme-check-disable %}
-    <span class="price">{{ cart | line_items_for: item | sum: 'original_line_price' | money }}</span>
-    {% # theme-check-enable %}
-  </td>
-
   <td class="variant-item__quantity">
     {%- liquid
       assign check_against_inventory = true
@@ -427,13 +419,6 @@
         {{ item.unit_price_measurement.reference_unit }}
       </div>
     {%- endif -%}
-  </td>
-  <td class="variant-item__totals right small-hide medium-hide">
-    {%- render 'loading-overlay' -%}
-    {% comment %} TODO: enable theme-check once `line_items_for` is accepted as valid filter {% endcomment %}
-    {% # theme-check-disable %}
-    <span class="price">{{ cart | line_items_for: item | sum: 'original_line_price' | money }}</span>
-    {% # theme-check-enable %}
   </td>
 </tr>
 <tr class="small-hide medium-hide hidden desktop-row-error">
