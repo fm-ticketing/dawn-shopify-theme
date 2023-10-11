@@ -29,6 +29,9 @@
     },
     "header": {
       "type": "header",
+      "custom_css": [
+        "a#cart-icon-bubble {display: none !important;}"
+      ],
       "settings": {
         "logo_position": "middle-center",
         "menu": "",
