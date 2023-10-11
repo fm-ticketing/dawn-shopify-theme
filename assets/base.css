@@ -3502,3 +3502,6 @@ details-disclosure > details {
 #shopify-section-header > sticky-header > header > div > details-modal {
     display: none !important;
 }
+details-modal.header__search {
+  display: none !important;
+}
