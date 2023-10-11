@@ -52,16 +52,31 @@
                     {{ 'sections.quick_order_list.variant' | t }}
                   {%- endif -%}
                 </th>
-                <th
-                  class="quick-order-list__table-heading--wide small-hide medium-hide caption-with-letter-spacing right"
-                  scope="col"
-                >
-                  {{ 'sections.cart.headings.price' | t }}
+                <th class="large-up-hide right caption-with-letter-spacing" scope="col">
+                  {%- if product.has_only_default_variant -%}
+                    {{ 'sections.quick_order_list.product_total' | t }}
+                  {%- else -%}
+                    {{ 'sections.quick_order_list.variant_total' | t }}
+                  {%- endif -%}
                 </th>
                 <th
                   class="quick-order-list__table-heading--wide small-hide medium-hide caption-with-letter-spacing"
                   scope="col"
                 >
+                  {{ 'products.product.quantity.label' | t }}
+                </th>
+                <th
+                  class="quick-order-list__table-heading--wide small-hide medium-hide caption-with-letter-spacing"
+                  scope="col"
+                >
+                  {{ 'sections.cart.headings.price' | t }}
+                </th>
+                <th class="small-hide medium-hide right caption-with-letter-spacing" scope="col">
+                  {%- if product.has_only_default_variant -%}
+                    {{ 'sections.quick_order_list.product_total' | t }}
+                  {%- else -%}
+                    {{ 'sections.quick_order_list.variant_total' | t }}
+                  {%- endif -%}
                 </th>
               </tr>
             </thead>
