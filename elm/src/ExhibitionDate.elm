@@ -6,7 +6,9 @@ import DatePicker exposing (DateEvent(..), defaultSettings, getInitialDate)
 import Html exposing (Html)
 import Html.Attributes
 import Html.Events
+import Http
 import Json.Decode
+import Json.Encode
 
 
 
@@ -29,12 +31,14 @@ main =
 type alias Flags =
     { exhibitionList : Json.Decode.Value
     , closedDateList : Json.Decode.Value
+    , productDetails : Json.Decode.Value
     }
 
 
 type alias Model =
     { exhibitionList : List Exhibition
     , closedDateList : List ClosedDate
+    , productDetails : ProductDetails
     , date : Maybe Date.Date
     , datePicker : DatePicker.DatePicker
     }
@@ -50,6 +54,14 @@ type alias Exhibition =
 type alias ClosedDate =
     { closedOn : List Date.Date
     }
+
+
+type alias ProductDetails =
+    { id : Int, variants : List ProductVariant }
+
+
+type alias ProductVariant =
+    { id : Int, title : String }
 
 
 fmDateFormat : String
@@ -95,16 +107,45 @@ init flags =
                       }
                     ]
 
+        decodedProductDetails =
+            case Json.Decode.decodeValue productDetailsDecoder flags.productDetails of
+                Ok goodProductDetails ->
+                    { id = goodProductDetails.id, variants = goodProductDetails.variants }
+
+                Err _ ->
+                    { id = 0, variants = [] }
+
         ( datePicker, datePickerCmd ) =
             DatePicker.init
     in
     ( { exhibitionList = decodedExhibitionList
       , closedDateList = decodedClosedDateList
+      , productDetails = decodedProductDetails
       , date = Nothing
       , datePicker = datePicker
       }
     , Cmd.map ToDatePickerMsg datePickerCmd
     )
+
+
+productDetailsDecoder : Json.Decode.Decoder ProductDetails
+productDetailsDecoder =
+    Json.Decode.map2
+        ProductDetails
+        (Json.Decode.field "id" Json.Decode.int)
+        (Json.Decode.field "variants" (Json.Decode.list productVariantDecoder))
+
+
+productVariantDecoder : Json.Decode.Decoder ProductVariant
+productVariantDecoder =
+    Json.Decode.map2 ProductVariant
+        (Json.Decode.field "id" Json.Decode.int)
+        (Json.Decode.field "title" Json.Decode.string)
+
+
+productIdDecoder : Json.Decode.Decoder Int
+productIdDecoder =
+    Json.Decode.field "id" Json.Decode.int
 
 
 exhibitionDecoder : Json.Decode.Decoder Exhibition
@@ -161,6 +202,7 @@ dateFromStringList maybeDateStrings =
 type Msg
     = ToDatePickerMsg DatePicker.Msg
     | ClickedResetDatePicker
+    | LineItemUpdated (Result Http.Error ())
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -184,10 +226,35 @@ update msg model =
                 , datePicker = newDatePicker
               }
             , Cmd.none
+              --, addLineItemPropertyPost { productId = 46485121106229 }
             )
 
         ClickedResetDatePicker ->
             ( { model | date = Nothing }, Cmd.none )
+
+        LineItemUpdated _ ->
+            ( model, Cmd.none )
+
+
+type alias CartChangePost =
+    { productId : Int }
+
+
+addLineItemPropertyPost : CartChangePost -> Cmd Msg
+addLineItemPropertyPost post =
+    Http.post
+        { url = "/cart/update.js"
+        , body = Http.jsonBody (cartChangeEncoder post)
+        , expect = Http.expectWhatever LineItemUpdated
+        }
+
+
+cartChangeEncoder : CartChangePost -> Json.Encode.Value
+cartChangeEncoder post =
+    Json.Encode.object
+        [ ( "id", Json.Encode.int post.productId )
+        , ( "properties", Json.Encode.object [ ( "Exhibition", Json.Encode.string "My line item" ) ] )
+        ]
 
 
 
@@ -206,8 +273,9 @@ subscriptions _ =
 
 view : Model -> Html Msg
 view model =
-    Html.div []
+    Html.div [ Html.Attributes.class "page-width" ]
         [ Html.h3 [] [ Html.text "Exhibitions" ]
+        , Html.div [] [ Html.text (String.fromInt model.productDetails.id) ]
         , Html.ul []
             (List.map
                 (\{ title, startDate, endDate } ->
@@ -243,18 +311,37 @@ view model =
                                 ]
                             )
                         ]
-                    , Html.input
-                        [ Html.Attributes.name "properties[Exhibition]"
-                        , Html.Attributes.form "product-form-template--20869816942901__main-product-admission-ticket"
-                        , Html.Attributes.type_ "text"
-                        , Html.Attributes.id "date"
-                        , Html.Attributes.hidden True
-                        , Html.Attributes.value (ticketDetailString model date)
-                        ]
-                        []
-                    , Html.button [ Html.Events.onClick ClickedResetDatePicker ] [ Html.text "Choose a different date to visit" ]
+                    , Html.button [ Html.Attributes.class "button", Html.Events.onClick ClickedResetDatePicker ] [ Html.text "Choose a different date to visit" ]
+                    , viewProductVariantSelector model.productDetails.variants
                     ]
         ]
+
+
+viewProductVariantSelector : List ProductVariant -> Html Msg
+viewProductVariantSelector productVariants =
+    Html.table [ Html.Attributes.style "margin-top" "2rem" ]
+        [ Html.thead []
+            [ Html.th [] [ Html.text "Ticket type" ]
+            , Html.th [] [ Html.text "Price per ticket" ]
+            , Html.th [] [ Html.text "Quantity" ]
+            ]
+        , viewProductVariants productVariants
+        ]
+
+
+viewProductVariants : List ProductVariant -> Html Msg
+viewProductVariants productVariants =
+    Html.tbody []
+        (List.map
+            (\variant ->
+                Html.tr []
+                    [ Html.td [] [ Html.text variant.title ]
+                    , Html.td [] [ Html.text "-TODO-" ]
+                    , Html.td [] [ Html.text "-TODO-" ]
+                    ]
+            )
+            productVariants
+        )
 
 
 ticketDetailString : Model -> Date.Date -> String
