@@ -61,7 +61,7 @@ type alias ProductDetails =
 
 
 type alias ProductVariant =
-    { id : Int, title : String }
+    { id : Int, title : String, price : Int }
 
 
 fmDateFormat : String
@@ -138,9 +138,10 @@ productDetailsDecoder =
 
 productVariantDecoder : Json.Decode.Decoder ProductVariant
 productVariantDecoder =
-    Json.Decode.map2 ProductVariant
+    Json.Decode.map3 ProductVariant
         (Json.Decode.field "id" Json.Decode.int)
         (Json.Decode.field "title" Json.Decode.string)
+        (Json.Decode.field "price" Json.Decode.int)
 
 
 productIdDecoder : Json.Decode.Decoder Int
@@ -203,6 +204,7 @@ type Msg
     = ToDatePickerMsg DatePicker.Msg
     | ClickedResetDatePicker
     | LineItemUpdated (Result Http.Error ())
+    | AddToCart Int
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -226,7 +228,6 @@ update msg model =
                 , datePicker = newDatePicker
               }
             , Cmd.none
-              --, addLineItemPropertyPost { productId = 46485121106229 }
             )
 
         ClickedResetDatePicker ->
@@ -235,25 +236,33 @@ update msg model =
         LineItemUpdated _ ->
             ( model, Cmd.none )
 
+        AddToCart variantId ->
+            ( model
+            , cartAddPost
+                { id = variantId
+                , lineItem = ticketDetailString model
+                }
+            )
+
 
 type alias CartChangePost =
-    { productId : Int }
+    { id : Int, lineItem : String }
 
 
-addLineItemPropertyPost : CartChangePost -> Cmd Msg
-addLineItemPropertyPost post =
+cartAddPost : CartChangePost -> Cmd Msg
+cartAddPost post =
     Http.post
-        { url = "/cart/update.js"
-        , body = Http.jsonBody (cartChangeEncoder post)
+        { url = "/cart/add.js"
+        , body = Http.jsonBody (cartAddEncoder post)
         , expect = Http.expectWhatever LineItemUpdated
         }
 
 
-cartChangeEncoder : CartChangePost -> Json.Encode.Value
-cartChangeEncoder post =
+cartAddEncoder : CartChangePost -> Json.Encode.Value
+cartAddEncoder post =
     Json.Encode.object
-        [ ( "id", Json.Encode.int post.productId )
-        , ( "properties", Json.Encode.object [ ( "Exhibition", Json.Encode.string "My line item" ) ] )
+        [ ( "id", Json.Encode.int post.id )
+        , ( "properties", Json.Encode.object [ ( "Exhibition", Json.Encode.string post.lineItem ) ] )
         ]
 
 
@@ -275,7 +284,6 @@ view : Model -> Html Msg
 view model =
     Html.div [ Html.Attributes.class "page-width" ]
         [ Html.h3 [] [ Html.text "Exhibitions" ]
-        , Html.div [] [ Html.text (String.fromInt model.productDetails.id) ]
         , Html.ul []
             (List.map
                 (\{ title, startDate, endDate } ->
@@ -293,27 +301,26 @@ view model =
                 )
                 model.exhibitionList
             )
-        , case model.date of
-            Nothing ->
-                Html.div []
-                    [ Html.h2 [] [ Html.text "Select visit date" ]
-                    , DatePicker.view model.date (datePickerSettings model) model.datePicker
-                        |> Html.map ToDatePickerMsg
-                    ]
+        , if model.date == Nothing then
+            Html.div []
+                [ Html.h2 [] [ Html.text "Select visit date" ]
+                , DatePicker.view model.date (datePickerSettings model) model.datePicker
+                    |> Html.map ToDatePickerMsg
+                ]
 
-            Just date ->
-                Html.div []
-                    [ Html.h2 []
-                        [ Html.text
-                            (String.join " "
-                                [ "Book visit for: "
-                                , ticketDetailString model date
-                                ]
-                            )
-                        ]
-                    , Html.button [ Html.Attributes.class "button", Html.Events.onClick ClickedResetDatePicker ] [ Html.text "Choose a different date to visit" ]
-                    , viewProductVariantSelector model.productDetails.variants
+          else
+            Html.div []
+                [ Html.h2 []
+                    [ Html.text
+                        (String.join " "
+                            [ "Book visit for: "
+                            , ticketDetailString model
+                            ]
+                        )
                     ]
+                , Html.button [ Html.Attributes.class "button", Html.Events.onClick ClickedResetDatePicker ] [ Html.text "Choose a different date to visit" ]
+                , viewProductVariantSelector model.productDetails.variants
+                ]
         ]
 
 
@@ -336,20 +343,40 @@ viewProductVariants productVariants =
             (\variant ->
                 Html.tr []
                     [ Html.td [] [ Html.text variant.title ]
-                    , Html.td [] [ Html.text "-TODO-" ]
-                    , Html.td [] [ Html.text "-TODO-" ]
+                    , Html.td [] [ Html.text (viewPrice variant.price) ]
+                    , Html.td []
+                        [ Html.text "-TODO-"
+                        , Html.button
+                            [ Html.Attributes.class "button"
+                            , Html.Events.onClick (AddToCart variant.id)
+                            ]
+                            [ Html.text "+" ]
+                        ]
                     ]
             )
             productVariants
         )
 
 
-ticketDetailString : Model -> Date.Date -> String
-ticketDetailString model date =
-    String.join " "
-        [ maybeExhibitionTitle model
-        , Date.format fmDateFormat date
-        ]
+viewPrice : Int -> String
+viewPrice priceInt =
+    "£"
+        ++ String.fromFloat (toFloat priceInt / 100)
+        -- plus 2 to account for the £ and .
+        |> String.padRight (String.length (String.fromInt priceInt) + 2) '0'
+
+
+ticketDetailString : Model -> String
+ticketDetailString model =
+    case model.date of
+        Nothing ->
+            ""
+
+        Just aDate ->
+            String.join " "
+                [ maybeExhibitionTitle model
+                , Date.format fmDateFormat aDate
+                ]
 
 
 maybeExhibitionTitle : Model -> String
