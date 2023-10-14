@@ -617,7 +617,7 @@
           {{ shop.metaobjects.closed_dates.values | json }},
         productDetails:
           { id: {{ product.id }}, variants: {{ product.variants | json }} },
-        cart: {{ cart | json }}
+        initialCart: {{ cart | json }}
       }
     });
   </script>
