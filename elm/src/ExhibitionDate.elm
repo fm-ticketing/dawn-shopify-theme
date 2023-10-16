@@ -32,6 +32,7 @@ type alias Flags =
     { exhibitionList : Json.Decode.Value
     , closedDateList : Json.Decode.Value
     , productDetails : Json.Decode.Value
+    , initialCart : Json.Decode.Value
     }
 
 
@@ -41,6 +42,7 @@ type alias Model =
     , productDetails : ProductDetails
     , date : Maybe Date.Date
     , datePicker : DatePicker.DatePicker
+    , cartItems : List CartItem
     }
 
 
@@ -62,6 +64,10 @@ type alias ProductDetails =
 
 type alias ProductVariant =
     { id : Int, title : String, price : Int }
+
+
+type alias CartItem =
+    { lineItemKey : String, variantId : Int, quantity : Int }
 
 
 fmDateFormat : String
@@ -115,6 +121,14 @@ init flags =
                 Err _ ->
                     { id = 0, variants = [] }
 
+        decodedInitialCartItems =
+            case Json.Decode.decodeValue cartItemsDecoder flags.initialCart of
+                Ok goodCartItems ->
+                    goodCartItems
+
+                Err _ ->
+                    []
+
         ( datePicker, datePickerCmd ) =
             DatePicker.init
     in
@@ -123,9 +137,23 @@ init flags =
       , productDetails = decodedProductDetails
       , date = Nothing
       , datePicker = datePicker
+      , cartItems = decodedInitialCartItems
       }
     , Cmd.map ToDatePickerMsg datePickerCmd
     )
+
+
+cartItemDecoder : Json.Decode.Decoder CartItem
+cartItemDecoder =
+    Json.Decode.map3 CartItem
+        (Json.Decode.field "key" Json.Decode.string)
+        (Json.Decode.field "variant_id" Json.Decode.int)
+        (Json.Decode.field "quantity" Json.Decode.int)
+
+
+cartItemsDecoder : Json.Decode.Decoder (List CartItem)
+cartItemsDecoder =
+    Json.Decode.field "items" (Json.Decode.list cartItemDecoder)
 
 
 productDetailsDecoder : Json.Decode.Decoder ProductDetails
@@ -263,6 +291,7 @@ cartAddEncoder post =
     Json.Encode.object
         [ ( "id", Json.Encode.int post.id )
         , ( "properties", Json.Encode.object [ ( "Exhibition", Json.Encode.string post.lineItem ) ] )
+        , ( "sections", Json.Encode.list Json.Encode.string [ "cart-icon-bubble" ] )
         ]
 
 
@@ -319,39 +348,32 @@ view model =
                         )
                     ]
                 , Html.button [ Html.Attributes.class "button", Html.Events.onClick ClickedResetDatePicker ] [ Html.text "Choose a different date to visit" ]
-                , viewProductVariantSelector model.productDetails.variants
+                , viewProductVariantSelector model.cartItems model.productDetails.variants
                 ]
         ]
 
 
-viewProductVariantSelector : List ProductVariant -> Html Msg
-viewProductVariantSelector productVariants =
+viewProductVariantSelector : List CartItem -> List ProductVariant -> Html Msg
+viewProductVariantSelector cartItems productVariants =
     Html.table [ Html.Attributes.style "margin-top" "2rem" ]
         [ Html.thead []
             [ Html.th [] [ Html.text "Ticket type" ]
             , Html.th [] [ Html.text "Price per ticket" ]
             , Html.th [] [ Html.text "Quantity" ]
             ]
-        , viewProductVariants productVariants
+        , viewProductVariants cartItems productVariants
         ]
 
 
-viewProductVariants : List ProductVariant -> Html Msg
-viewProductVariants productVariants =
+viewProductVariants : List CartItem -> List ProductVariant -> Html Msg
+viewProductVariants cartItems productVariants =
     Html.tbody []
         (List.map
             (\variant ->
                 Html.tr []
                     [ Html.td [] [ Html.text variant.title ]
                     , Html.td [] [ Html.text (viewPrice variant.price) ]
-                    , Html.td []
-                        [ Html.text "-TODO-"
-                        , Html.button
-                            [ Html.Attributes.class "button"
-                            , Html.Events.onClick (AddToCart variant.id)
-                            ]
-                            [ Html.text "+" ]
-                        ]
+                    , Html.td [] [ viewQuantity cartItems variant.id ]
                     ]
             )
             productVariants
@@ -364,6 +386,31 @@ viewPrice priceInt =
         ++ String.fromFloat (toFloat priceInt / 100)
         -- plus 2 to account for the £ and .
         |> String.padRight (String.length (String.fromInt priceInt) + 2) '0'
+
+
+viewQuantity : List CartItem -> Int -> Html Msg
+viewQuantity cartItems variantId =
+    Html.div [ Html.Attributes.class "quantity" ]
+        [ Html.button
+            [ Html.Attributes.class "quantity__button"
+            , Html.Events.onClick (AddToCart variantId)
+            ]
+            [ Html.text "-" ]
+        , Html.input [ Html.Attributes.class "quantity__input", Html.Attributes.value (String.fromInt (quantityFromVariantId cartItems variantId)) ] []
+        , Html.button
+            [ Html.Attributes.class "quantity__button"
+            , Html.Events.onClick (AddToCart variantId)
+            ]
+            [ Html.text "+" ]
+        ]
+
+
+quantityFromVariantId : List CartItem -> Int -> Int
+quantityFromVariantId cartItems variantId =
+    --todo
+    List.filter (\item -> item.variantId == variantId) cartItems
+        |> List.map (\itemWithVariantId -> itemWithVariantId.quantity)
+        |> List.sum
 
 
 ticketDetailString : Model -> String
