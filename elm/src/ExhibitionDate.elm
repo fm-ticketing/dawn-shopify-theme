@@ -262,10 +262,11 @@ update msg model =
             ( { model | date = Nothing }, Cmd.none )
 
         LineItemUpdated _ ->
+            -- todo parse returned cart for new cart items
             ( model, Cmd.none )
 
         AddToCart variantId ->
-            ( model
+            ( { model | cartItems = addOneOfVariant model.cartItems variantId }
             , cartAddPost
                 { id = variantId
                 , lineItem = ticketDetailString model
@@ -282,6 +283,8 @@ cartAddPost post =
     Http.post
         { url = "/cart/add.js"
         , body = Http.jsonBody (cartAddEncoder post)
+
+        -- todo expect valid cart items
         , expect = Http.expectWhatever LineItemUpdated
         }
 
@@ -293,6 +296,19 @@ cartAddEncoder post =
         , ( "properties", Json.Encode.object [ ( "Exhibition", Json.Encode.string post.lineItem ) ] )
         , ( "sections", Json.Encode.list Json.Encode.string [ "cart-icon-bubble" ] )
         ]
+
+
+addOneOfVariant : List CartItem -> Int -> List CartItem
+addOneOfVariant initialCartItems variantId =
+    initialCartItems
+        |> List.map
+            (\item ->
+                if item.variantId == variantId then
+                    { item | quantity = item.quantity + 1 }
+
+                else
+                    item
+            )
 
 
 
@@ -340,14 +356,9 @@ view model =
           else
             Html.div []
                 [ Html.h2 []
-                    [ Html.text
-                        (String.join " "
-                            [ "Book visit for: "
-                            , ticketDetailString model
-                            ]
-                        )
+                    [ Html.text (ticketDetailString model)
                     ]
-                , Html.button [ Html.Attributes.class "button", Html.Events.onClick ClickedResetDatePicker ] [ Html.text "Choose a different date to visit" ]
+                , Html.button [ Html.Attributes.class "button button--secondary", Html.Events.onClick ClickedResetDatePicker ] [ Html.text "Choose another date" ]
                 , viewProductVariantSelector model.cartItems model.productDetails.variants
                 ]
         ]
@@ -355,13 +366,16 @@ view model =
 
 viewProductVariantSelector : List CartItem -> List ProductVariant -> Html Msg
 viewProductVariantSelector cartItems productVariants =
-    Html.table [ Html.Attributes.style "margin-top" "2rem" ]
-        [ Html.thead []
-            [ Html.th [] [ Html.text "Ticket type" ]
-            , Html.th [] [ Html.text "Price per ticket" ]
-            , Html.th [] [ Html.text "Quantity" ]
+    Html.div []
+        [ Html.table [ Html.Attributes.style "margin" "2rem 0" ]
+            [ Html.thead []
+                [ Html.th [] [ Html.text "Ticket type" ]
+                , Html.th [] [ Html.text "Price per ticket" ]
+                , Html.th [] [ Html.text "Quantity" ]
+                ]
+            , viewProductVariants cartItems productVariants
             ]
-        , viewProductVariants cartItems productVariants
+        , Html.button [ Html.Attributes.class "button" ] [ Html.text "Update basket" ]
         ]
 
 
