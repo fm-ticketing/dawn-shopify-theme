@@ -43,6 +43,7 @@ type alias Model =
     , date : Maybe Date.Date
     , datePicker : DatePicker.DatePicker
     , cartItems : List CartItem
+    , cartEmptyInShopify : Bool
     }
 
 
@@ -138,6 +139,7 @@ init flags =
       , date = Nothing
       , datePicker = datePicker
       , cartItems = decodedInitialCartItems
+      , cartEmptyInShopify = List.length decodedInitialCartItems == 0
       }
     , Cmd.map ToDatePickerMsg datePickerCmd
     )
@@ -231,8 +233,9 @@ dateFromStringList maybeDateStrings =
 type Msg
     = ToDatePickerMsg DatePicker.Msg
     | ClickedResetDatePicker
-    | LineItemUpdated (Result Http.Error ())
+    | CartUpdated (Result Http.Error ())
     | AddToCart Int
+    | UpdateCart Int
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -261,7 +264,7 @@ update msg model =
         ClickedResetDatePicker ->
             ( { model | date = Nothing }, Cmd.none )
 
-        LineItemUpdated _ ->
+        CartUpdated _ ->
             -- todo parse returned cart for new cart items
             ( model, Cmd.none )
 
@@ -273,23 +276,46 @@ update msg model =
                 }
             )
 
+        UpdateCart variantId ->
+            ( { model | cartItems = addOneOfVariant model.cartItems variantId }
+            , cartUpdatePost
+                { id = variantId
+                , lineItem = ticketDetailString model
+                }
+            )
 
-type alias CartChangePost =
+
+type alias CartAddPost =
     { id : Int, lineItem : String }
 
 
-cartAddPost : CartChangePost -> Cmd Msg
+type alias CartUpdatePost =
+    { id : Int, lineItem : String }
+
+
+cartAddPost : CartAddPost -> Cmd Msg
 cartAddPost post =
     Http.post
         { url = "/cart/add.js"
         , body = Http.jsonBody (cartAddEncoder post)
 
         -- todo expect valid cart items
-        , expect = Http.expectWhatever LineItemUpdated
+        , expect = Http.expectWhatever CartUpdated
         }
 
 
-cartAddEncoder : CartChangePost -> Json.Encode.Value
+cartUpdatePost : CartUpdatePost -> Cmd Msg
+cartUpdatePost post =
+    Http.post
+        { url = "/cart/update.js"
+        , body = Http.jsonBody (cartAddEncoder post)
+
+        -- todo expect valid cart items
+        , expect = Http.expectWhatever CartUpdated
+        }
+
+
+cartAddEncoder : CartAddPost -> Json.Encode.Value
 cartAddEncoder post =
     Json.Encode.object
         [ ( "id", Json.Encode.int post.id )
