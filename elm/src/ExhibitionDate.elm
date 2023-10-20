@@ -1,6 +1,7 @@
 module ExhibitionDate exposing (..)
 
 import Browser
+import Browser.Navigation
 import Date
 import DatePicker exposing (DateEvent(..), defaultSettings, getInitialDate)
 import Html exposing (Html)
@@ -237,8 +238,7 @@ type Msg
     | ClickedRemoveVariant Int
     | InputVariantQuantity Int String
     | CartUpdated (Result Http.Error ())
-    | AddToCart Int
-    | UpdateCart Int
+    | ClickedUpdateCart
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -284,27 +284,25 @@ update msg model =
 
         CartUpdated _ ->
             -- todo parse returned cart for new cart items
-            ( model, Cmd.none )
+            ( model, Browser.Navigation.load "/cart" )
 
-        AddToCart variantId ->
-            ( { model | cartItems = addOneOfVariant model.cartItems variantId }
+        ClickedUpdateCart ->
+            ( model
             , cartAddPost
-                { id = variantId
-                , lineItem = ticketDetailString model
-                }
-            )
-
-        UpdateCart variantId ->
-            ( { model | cartItems = addOneOfVariant model.cartItems variantId }
-            , cartUpdatePost
-                { id = variantId
-                , lineItem = ticketDetailString model
-                }
+                (List.map
+                    (\item ->
+                        { id = item.variantId
+                        , lineItem = ticketDetailString model
+                        , quantity = item.quantity
+                        }
+                    )
+                    model.cartItems
+                )
             )
 
 
 type alias CartAddPost =
-    { id : Int, lineItem : String }
+    List { id : Int, lineItem : String, quantity : Int }
 
 
 type alias CartUpdatePost =
@@ -326,7 +324,7 @@ cartUpdatePost : CartUpdatePost -> Cmd Msg
 cartUpdatePost post =
     Http.post
         { url = "/cart/update.js"
-        , body = Http.jsonBody (cartAddEncoder post)
+        , body = Http.jsonBody (cartUpdateEncoder post)
 
         -- todo expect valid cart items
         , expect = Http.expectWhatever CartUpdated
@@ -334,7 +332,25 @@ cartUpdatePost post =
 
 
 cartAddEncoder : CartAddPost -> Json.Encode.Value
-cartAddEncoder post =
+cartAddEncoder posts =
+    Json.Encode.object
+        [ ( "items"
+          , Json.Encode.list
+                (\post ->
+                    Json.Encode.object
+                        [ ( "id", Json.Encode.int post.id )
+                        , ( "properties", Json.Encode.object [ ( "Exhibition", Json.Encode.string post.lineItem ) ] )
+                        , ( "quantity", Json.Encode.int post.quantity )
+                        , ( "sections", Json.Encode.list Json.Encode.string [ "cart-icon-bubble" ] )
+                        ]
+                )
+                posts
+          )
+        ]
+
+
+cartUpdateEncoder : CartUpdatePost -> Json.Encode.Value
+cartUpdateEncoder post =
     Json.Encode.object
         [ ( "id", Json.Encode.int post.id )
         , ( "properties", Json.Encode.object [ ( "Exhibition", Json.Encode.string post.lineItem ) ] )
@@ -475,7 +491,11 @@ viewProductVariantSelector cartItems productVariants =
                 ]
             , viewProductVariants cartItems productVariants
             ]
-        , Html.button [ Html.Attributes.class "button" ] [ Html.text "Update basket" ]
+        , Html.button
+            [ Html.Attributes.class "button"
+            , Html.Events.onClick ClickedUpdateCart
+            ]
+            [ Html.text "Update basket" ]
         ]
 
 
