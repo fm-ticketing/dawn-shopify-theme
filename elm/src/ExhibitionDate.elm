@@ -43,6 +43,7 @@ type alias Model =
     , date : Maybe Date.Date
     , datePicker : DatePicker.DatePicker
     , cartItems : List CartItem
+    , cartEmptyInShopify : Bool
     }
 
 
@@ -138,6 +139,7 @@ init flags =
       , date = Nothing
       , datePicker = datePicker
       , cartItems = decodedInitialCartItems
+      , cartEmptyInShopify = List.length decodedInitialCartItems == 0
       }
     , Cmd.map ToDatePickerMsg datePickerCmd
     )
@@ -231,8 +233,12 @@ dateFromStringList maybeDateStrings =
 type Msg
     = ToDatePickerMsg DatePicker.Msg
     | ClickedResetDatePicker
-    | LineItemUpdated (Result Http.Error ())
+    | ClickedAddVariant Int
+    | ClickedRemoveVariant Int
+    | InputVariantQuantity Int String
+    | CartUpdated (Result Http.Error ())
     | AddToCart Int
+    | UpdateCart Int
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -261,38 +267,125 @@ update msg model =
         ClickedResetDatePicker ->
             ( { model | date = Nothing }, Cmd.none )
 
-        LineItemUpdated _ ->
+        ClickedAddVariant variantId ->
+            ( { model | cartItems = addOneOfVariant model.cartItems variantId }
+            , Cmd.none
+            )
+
+        ClickedRemoveVariant variantId ->
+            ( { model | cartItems = removeOneOfVariant model.cartItems variantId }
+            , Cmd.none
+            )
+
+        InputVariantQuantity variantId input ->
+            ( { model | cartItems = updateVariantQuantity model.cartItems variantId input }
+            , Cmd.none
+            )
+
+        CartUpdated _ ->
+            -- todo parse returned cart for new cart items
             ( model, Cmd.none )
 
         AddToCart variantId ->
-            ( model
+            ( { model | cartItems = addOneOfVariant model.cartItems variantId }
             , cartAddPost
                 { id = variantId
                 , lineItem = ticketDetailString model
                 }
             )
 
+        UpdateCart variantId ->
+            ( { model | cartItems = addOneOfVariant model.cartItems variantId }
+            , cartUpdatePost
+                { id = variantId
+                , lineItem = ticketDetailString model
+                }
+            )
 
-type alias CartChangePost =
+
+type alias CartAddPost =
     { id : Int, lineItem : String }
 
 
-cartAddPost : CartChangePost -> Cmd Msg
+type alias CartUpdatePost =
+    { id : Int, lineItem : String }
+
+
+cartAddPost : CartAddPost -> Cmd Msg
 cartAddPost post =
     Http.post
         { url = "/cart/add.js"
         , body = Http.jsonBody (cartAddEncoder post)
-        , expect = Http.expectWhatever LineItemUpdated
+
+        -- todo expect valid cart items
+        , expect = Http.expectWhatever CartUpdated
         }
 
 
-cartAddEncoder : CartChangePost -> Json.Encode.Value
+cartUpdatePost : CartUpdatePost -> Cmd Msg
+cartUpdatePost post =
+    Http.post
+        { url = "/cart/update.js"
+        , body = Http.jsonBody (cartAddEncoder post)
+
+        -- todo expect valid cart items
+        , expect = Http.expectWhatever CartUpdated
+        }
+
+
+cartAddEncoder : CartAddPost -> Json.Encode.Value
 cartAddEncoder post =
     Json.Encode.object
         [ ( "id", Json.Encode.int post.id )
         , ( "properties", Json.Encode.object [ ( "Exhibition", Json.Encode.string post.lineItem ) ] )
         , ( "sections", Json.Encode.list Json.Encode.string [ "cart-icon-bubble" ] )
         ]
+
+
+addOneOfVariant : List CartItem -> Int -> List CartItem
+addOneOfVariant initialCartItems variantId =
+    initialCartItems
+        |> List.map
+            (\item ->
+                if item.variantId == variantId then
+                    { item | quantity = item.quantity + 1 }
+
+                else
+                    item
+            )
+
+
+removeOneOfVariant : List CartItem -> Int -> List CartItem
+removeOneOfVariant initialCartItems variantId =
+    initialCartItems
+        |> List.map
+            (\item ->
+                if item.variantId == variantId then
+                    { item
+                        | quantity =
+                            if item.quantity > 1 then
+                                item.quantity - 1
+
+                            else
+                                0
+                    }
+
+                else
+                    item
+            )
+
+
+updateVariantQuantity : List CartItem -> Int -> String -> List CartItem
+updateVariantQuantity initialCartItems variantId input =
+    initialCartItems
+        |> List.map
+            (\item ->
+                if item.variantId == variantId then
+                    { item | quantity = Maybe.withDefault 0 (String.toInt input) }
+
+                else
+                    item
+            )
 
 
 
@@ -340,14 +433,9 @@ view model =
           else
             Html.div []
                 [ Html.h2 []
-                    [ Html.text
-                        (String.join " "
-                            [ "Book visit for: "
-                            , ticketDetailString model
-                            ]
-                        )
+                    [ Html.text (ticketDetailString model)
                     ]
-                , Html.button [ Html.Attributes.class "button", Html.Events.onClick ClickedResetDatePicker ] [ Html.text "Choose a different date to visit" ]
+                , Html.button [ Html.Attributes.class "button button--secondary", Html.Events.onClick ClickedResetDatePicker ] [ Html.text "Choose another date" ]
                 , viewProductVariantSelector model.cartItems model.productDetails.variants
                 ]
         ]
@@ -355,13 +443,16 @@ view model =
 
 viewProductVariantSelector : List CartItem -> List ProductVariant -> Html Msg
 viewProductVariantSelector cartItems productVariants =
-    Html.table [ Html.Attributes.style "margin-top" "2rem" ]
-        [ Html.thead []
-            [ Html.th [] [ Html.text "Ticket type" ]
-            , Html.th [] [ Html.text "Price per ticket" ]
-            , Html.th [] [ Html.text "Quantity" ]
+    Html.div []
+        [ Html.table [ Html.Attributes.style "margin" "2rem 0" ]
+            [ Html.thead []
+                [ Html.th [] [ Html.text "Ticket type" ]
+                , Html.th [] [ Html.text "Price per ticket" ]
+                , Html.th [] [ Html.text "Quantity" ]
+                ]
+            , viewProductVariants cartItems productVariants
             ]
-        , viewProductVariants cartItems productVariants
+        , Html.button [ Html.Attributes.class "button" ] [ Html.text "Update basket" ]
         ]
 
 
@@ -390,16 +481,27 @@ viewPrice priceInt =
 
 viewQuantity : List CartItem -> Int -> Html Msg
 viewQuantity cartItems variantId =
+    let
+        quantity =
+            quantityFromVariantId cartItems variantId
+    in
     Html.div [ Html.Attributes.class "quantity" ]
         [ Html.button
             [ Html.Attributes.class "quantity__button"
-            , Html.Events.onClick (AddToCart variantId)
+            , Html.Attributes.disabled (quantity < 1)
+            , Html.Events.onClick (ClickedRemoveVariant variantId)
             ]
             [ Html.text "-" ]
-        , Html.input [ Html.Attributes.class "quantity__input", Html.Attributes.value (String.fromInt (quantityFromVariantId cartItems variantId)) ] []
+        , Html.input
+            [ Html.Attributes.class "quantity__input"
+            , Html.Attributes.value (String.fromInt quantity)
+            , Html.Attributes.type_ "number"
+            , Html.Events.onInput (InputVariantQuantity variantId)
+            ]
+            []
         , Html.button
             [ Html.Attributes.class "quantity__button"
-            , Html.Events.onClick (AddToCart variantId)
+            , Html.Events.onClick (ClickedAddVariant variantId)
             ]
             [ Html.text "+" ]
         ]
