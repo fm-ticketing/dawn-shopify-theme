@@ -4,6 +4,7 @@ import Browser
 import Browser.Navigation
 import Date
 import DatePicker exposing (DateEvent(..), defaultSettings, getInitialDate)
+import Dict
 import Html exposing (Html)
 import Html.Attributes
 import Html.Events
@@ -288,16 +289,23 @@ update msg model =
 
         ClickedUpdateCart ->
             ( model
-            , cartAddPost
-                (List.map
-                    (\item ->
-                        { id = item.variantId
-                        , lineItem = ticketDetailString model
-                        , quantity = item.quantity
-                        }
+            , if model.cartEmptyInShopify then
+                cartAddPost
+                    (List.map
+                        (\item ->
+                            { id = item.variantId
+                            , lineItem = ticketDetailString model
+                            , quantity = item.quantity
+                            }
+                        )
+                        model.cartItems
                     )
-                    model.cartItems
-                )
+
+              else
+                cartUpdatePost
+                    (List.map (\item -> { id = item.variantId, quantity = item.quantity })
+                        model.cartItems
+                    )
             )
 
 
@@ -306,7 +314,7 @@ type alias CartAddPost =
 
 
 type alias CartUpdatePost =
-    { id : Int, lineItem : String }
+    List { id : Int, quantity : Int }
 
 
 cartAddPost : CartAddPost -> Cmd Msg
@@ -350,11 +358,15 @@ cartAddEncoder posts =
 
 
 cartUpdateEncoder : CartUpdatePost -> Json.Encode.Value
-cartUpdateEncoder post =
+cartUpdateEncoder posts =
+    let
+        updates =
+            Dict.fromList (List.map (\post -> ( String.fromInt post.id, post.quantity )) posts)
+    in
     Json.Encode.object
-        [ ( "id", Json.Encode.int post.id )
-        , ( "properties", Json.Encode.object [ ( "Exhibition", Json.Encode.string post.lineItem ) ] )
-        , ( "sections", Json.Encode.list Json.Encode.string [ "cart-icon-bubble" ] )
+        [ ( "updates"
+          , Json.Encode.dict identity Json.Encode.int updates
+          )
         ]
 
 
