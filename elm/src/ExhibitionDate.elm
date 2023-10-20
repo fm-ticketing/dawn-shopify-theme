@@ -342,17 +342,31 @@ cartAddEncoder post =
         ]
 
 
+variantsInCart : List CartItem -> List Int
+variantsInCart cartItems =
+    List.map (\item -> item.variantId) cartItems
+
+
 addOneOfVariant : List CartItem -> Int -> List CartItem
 addOneOfVariant initialCartItems variantId =
-    initialCartItems
-        |> List.map
-            (\item ->
-                if item.variantId == variantId then
-                    { item | quantity = item.quantity + 1 }
+    if not (List.member variantId (variantsInCart initialCartItems)) then
+        initialCartItems
+            ++ [ { lineItemKey = ""
+                 , variantId = variantId
+                 , quantity = 1
+                 }
+               ]
 
-                else
-                    item
-            )
+    else
+        initialCartItems
+            |> List.map
+                (\item ->
+                    if item.variantId == variantId then
+                        { item | quantity = item.quantity + 1 }
+
+                    else
+                        item
+                )
 
 
 removeOneOfVariant : List CartItem -> Int -> List CartItem
@@ -377,15 +391,24 @@ removeOneOfVariant initialCartItems variantId =
 
 updateVariantQuantity : List CartItem -> Int -> String -> List CartItem
 updateVariantQuantity initialCartItems variantId input =
-    initialCartItems
-        |> List.map
-            (\item ->
-                if item.variantId == variantId then
-                    { item | quantity = Maybe.withDefault 0 (String.toInt input) }
+    if not (List.member variantId (variantsInCart initialCartItems)) then
+        initialCartItems
+            ++ [ { lineItemKey = ""
+                 , variantId = variantId
+                 , quantity = 1
+                 }
+               ]
 
-                else
-                    item
-            )
+    else
+        initialCartItems
+            |> List.map
+                (\item ->
+                    if item.variantId == variantId then
+                        { item | quantity = Maybe.withDefault 0 (String.toInt input) }
+
+                    else
+                        item
+                )
 
 
 
@@ -473,10 +496,14 @@ viewProductVariants cartItems productVariants =
 
 viewPrice : Int -> String
 viewPrice priceInt =
-    "£"
-        ++ String.fromFloat (toFloat priceInt / 100)
-        -- plus 2 to account for the £ and .
-        |> String.padRight (String.length (String.fromInt priceInt) + 2) '0'
+    if priceInt == 0 then
+        "Free"
+
+    else
+        "£"
+            ++ String.fromFloat (toFloat priceInt / 100)
+            -- plus 2 to account for the £ and .
+            |> String.padRight (String.length (String.fromInt priceInt) + 2) '0'
 
 
 viewQuantity : List CartItem -> Int -> Html Msg
