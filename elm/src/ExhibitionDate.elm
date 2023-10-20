@@ -1,8 +1,10 @@
 module ExhibitionDate exposing (..)
 
 import Browser
+import Browser.Navigation
 import Date
 import DatePicker exposing (DateEvent(..), defaultSettings, getInitialDate)
+import Dict
 import Html exposing (Html)
 import Html.Attributes
 import Html.Events
@@ -237,8 +239,7 @@ type Msg
     | ClickedRemoveVariant Int
     | InputVariantQuantity Int String
     | CartUpdated (Result Http.Error ())
-    | AddToCart Int
-    | UpdateCart Int
+    | ClickedUpdateCart
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -284,31 +285,36 @@ update msg model =
 
         CartUpdated _ ->
             -- todo parse returned cart for new cart items
-            ( model, Cmd.none )
+            ( model, Browser.Navigation.load "/cart" )
 
-        AddToCart variantId ->
-            ( { model | cartItems = addOneOfVariant model.cartItems variantId }
-            , cartAddPost
-                { id = variantId
-                , lineItem = ticketDetailString model
-                }
-            )
+        ClickedUpdateCart ->
+            ( model
+            , if model.cartEmptyInShopify then
+                cartAddPost
+                    (List.map
+                        (\item ->
+                            { id = item.variantId
+                            , lineItem = ticketDetailString model
+                            , quantity = item.quantity
+                            }
+                        )
+                        model.cartItems
+                    )
 
-        UpdateCart variantId ->
-            ( { model | cartItems = addOneOfVariant model.cartItems variantId }
-            , cartUpdatePost
-                { id = variantId
-                , lineItem = ticketDetailString model
-                }
+              else
+                cartUpdatePost
+                    (List.map (\item -> { id = item.variantId, quantity = item.quantity })
+                        model.cartItems
+                    )
             )
 
 
 type alias CartAddPost =
-    { id : Int, lineItem : String }
+    List { id : Int, lineItem : String, quantity : Int }
 
 
 type alias CartUpdatePost =
-    { id : Int, lineItem : String }
+    List { id : Int, quantity : Int }
 
 
 cartAddPost : CartAddPost -> Cmd Msg
@@ -326,7 +332,7 @@ cartUpdatePost : CartUpdatePost -> Cmd Msg
 cartUpdatePost post =
     Http.post
         { url = "/cart/update.js"
-        , body = Http.jsonBody (cartAddEncoder post)
+        , body = Http.jsonBody (cartUpdateEncoder post)
 
         -- todo expect valid cart items
         , expect = Http.expectWhatever CartUpdated
@@ -334,11 +340,33 @@ cartUpdatePost post =
 
 
 cartAddEncoder : CartAddPost -> Json.Encode.Value
-cartAddEncoder post =
+cartAddEncoder posts =
     Json.Encode.object
-        [ ( "id", Json.Encode.int post.id )
-        , ( "properties", Json.Encode.object [ ( "Exhibition", Json.Encode.string post.lineItem ) ] )
-        , ( "sections", Json.Encode.list Json.Encode.string [ "cart-icon-bubble" ] )
+        [ ( "items"
+          , Json.Encode.list
+                (\post ->
+                    Json.Encode.object
+                        [ ( "id", Json.Encode.int post.id )
+                        , ( "properties", Json.Encode.object [ ( "Exhibition", Json.Encode.string post.lineItem ) ] )
+                        , ( "quantity", Json.Encode.int post.quantity )
+                        , ( "sections", Json.Encode.list Json.Encode.string [ "cart-icon-bubble" ] )
+                        ]
+                )
+                posts
+          )
+        ]
+
+
+cartUpdateEncoder : CartUpdatePost -> Json.Encode.Value
+cartUpdateEncoder posts =
+    let
+        updates =
+            Dict.fromList (List.map (\post -> ( String.fromInt post.id, post.quantity )) posts)
+    in
+    Json.Encode.object
+        [ ( "updates"
+          , Json.Encode.dict identity Json.Encode.int updates
+          )
         ]
 
 
@@ -475,7 +503,11 @@ viewProductVariantSelector cartItems productVariants =
                 ]
             , viewProductVariants cartItems productVariants
             ]
-        , Html.button [ Html.Attributes.class "button" ] [ Html.text "Update basket" ]
+        , Html.button
+            [ Html.Attributes.class "button"
+            , Html.Events.onClick ClickedUpdateCart
+            ]
+            [ Html.text "Update basket" ]
         ]
 
 
