@@ -519,11 +519,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.az.T === region.aM.T)
+	if (region.aA.U === region.aM.U)
 	{
-		return 'on line ' + region.az.T;
+		return 'on line ' + region.aA.U;
 	}
-	return 'on lines ' + region.az.T + ' through ' + region.aM.T;
+	return 'on lines ' + region.aA.U + ' through ' + region.aM.U;
 }
 
 
@@ -2719,9 +2719,9 @@ var _VirtualDom_mapEventTuple = F2(function(func, tuple)
 var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
-		y: func(record.y),
-		aA: record.aA,
-		ax: record.ax
+		z: func(record.z),
+		aB: record.aB,
+		ay: record.ay
 	}
 });
 
@@ -2989,11 +2989,11 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 		// 3 = Custom
 
 		var value = result.a;
-		var message = !tag ? value : tag < 3 ? value.a : value.y;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.aA;
+		var message = !tag ? value : tag < 3 ? value.a : value.z;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.aB;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.ax) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.ay) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3983,7 +3983,7 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 		impl.bT,
 		impl.bR,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.ay && impl.ay(sendToApp)
+			var divertHrefToApp = impl.az && impl.az(sendToApp)
 			var view = impl.bU;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
@@ -3997,7 +3997,7 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.P) && (_VirtualDom_doc.title = title = doc.P);
+				(title !== doc.Q) && (_VirtualDom_doc.title = title = doc.Q);
 			});
 		}
 	);
@@ -4058,7 +4058,7 @@ function _Browser_application(impl)
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		ay: function(sendToApp)
+		az: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -5548,7 +5548,7 @@ var $author$project$ExhibitionDate$ToDatePickerMsg = function (a) {
 };
 var $author$project$ExhibitionDate$CartItem = F3(
 	function (lineItemKey, variantId, quantity) {
-		return {bH: lineItemKey, ac: quantity, aB: variantId};
+		return {bH: lineItemKey, B: quantity, _: variantId};
 	});
 var $elm$json$Json$Decode$int = _Json_decodeInt;
 var $elm$json$Json$Decode$map3 = _Json_map3;
@@ -5565,7 +5565,7 @@ var $author$project$ExhibitionDate$cartItemsDecoder = A2(
 	'items',
 	$elm$json$Json$Decode$list($author$project$ExhibitionDate$cartItemDecoder));
 var $author$project$ExhibitionDate$ClosedDate = function (closedOn) {
-	return {af: closedOn};
+	return {ag: closedOn};
 };
 var $elm$core$Basics$always = F2(
 	function (a, _v0) {
@@ -6445,7 +6445,7 @@ var $author$project$ExhibitionDate$closedDateListDecoder = $elm$json$Json$Decode
 var $elm$json$Json$Decode$decodeValue = _Json_run;
 var $author$project$ExhibitionDate$Exhibition = F3(
 	function (title, startDate, endDate) {
-		return {_: endDate, ad: startDate, P: title};
+		return {ab: endDate, ae: startDate, Q: title};
 	});
 var $author$project$ExhibitionDate$exhibitionDecoder = A4(
 	$elm$json$Json$Decode$map3,
@@ -6494,7 +6494,7 @@ var $elm$time$Time$toAdjustedMinutesHelp = F3(
 			} else {
 				var era = eras.a;
 				var olderEras = eras.b;
-				if (_Utils_cmp(era.az, posixMinutes) < 0) {
+				if (_Utils_cmp(era.aA, posixMinutes) < 0) {
 					return posixMinutes + era.b;
 				} else {
 					var $temp$defaultOffset = defaultOffset,
@@ -6604,21 +6604,21 @@ var $elm$time$Time$now = _Time_now($elm$time$Time$millisToPosix);
 var $justinmimbs$date$Date$today = A3($elm$core$Task$map2, $justinmimbs$date$Date$fromPosix, $elm$time$Time$here, $elm$time$Time$now);
 var $CurrySoftware$elm_datepicker$DatePicker$init = _Utils_Tuple2(
 	{
-		m: $elm$core$Maybe$Just($CurrySoftware$elm_datepicker$DatePicker$Date$initDate),
-		x: false,
-		p: $elm$core$Maybe$Nothing,
-		u: false,
-		A: $CurrySoftware$elm_datepicker$DatePicker$Date$initDate
+		n: $elm$core$Maybe$Just($CurrySoftware$elm_datepicker$DatePicker$Date$initDate),
+		y: false,
+		q: $elm$core$Maybe$Nothing,
+		v: false,
+		C: $CurrySoftware$elm_datepicker$DatePicker$Date$initDate
 	},
 	A2($elm$core$Task$perform, $CurrySoftware$elm_datepicker$DatePicker$CurrentDate, $justinmimbs$date$Date$today));
 var $elm$core$Platform$Cmd$map = _Platform_map;
 var $author$project$ExhibitionDate$ProductDetails = F2(
 	function (id, variants) {
-		return {o: id, Z: variants};
+		return {p: id, aa: variants};
 	});
 var $author$project$ExhibitionDate$ProductVariant = F3(
 	function (id, title, price) {
-		return {o: id, a3: price, P: title};
+		return {p: id, a3: price, Q: title};
 	});
 var $author$project$ExhibitionDate$productVariantDecoder = A4(
 	$elm$json$Json$Decode$map3,
@@ -6636,16 +6636,16 @@ var $author$project$ExhibitionDate$productDetailsDecoder = A3(
 		$elm$json$Json$Decode$list($author$project$ExhibitionDate$productVariantDecoder)));
 var $author$project$ExhibitionDate$init = function (flags) {
 	var decodedProductDetails = function () {
-		var _v4 = A2($elm$json$Json$Decode$decodeValue, $author$project$ExhibitionDate$productDetailsDecoder, flags.N);
+		var _v4 = A2($elm$json$Json$Decode$decodeValue, $author$project$ExhibitionDate$productDetailsDecoder, flags.O);
 		if (!_v4.$) {
 			var goodProductDetails = _v4.a;
-			return {o: goodProductDetails.o, Z: goodProductDetails.Z};
+			return {p: goodProductDetails.p, aa: goodProductDetails.aa};
 		} else {
-			return {o: 0, Z: _List_Nil};
+			return {p: 0, aa: _List_Nil};
 		}
 	}();
 	var decodedInitialCartItems = function () {
-		var _v3 = A2($elm$json$Json$Decode$decodeValue, $author$project$ExhibitionDate$cartItemsDecoder, flags.al);
+		var _v3 = A2($elm$json$Json$Decode$decodeValue, $author$project$ExhibitionDate$cartItemsDecoder, flags.am);
 		if (!_v3.$) {
 			var goodCartItems = _v3.a;
 			return goodCartItems;
@@ -6654,7 +6654,7 @@ var $author$project$ExhibitionDate$init = function (flags) {
 		}
 	}();
 	var decodedExhibitionList = function () {
-		var _v2 = A2($elm$json$Json$Decode$decodeValue, $author$project$ExhibitionDate$exhibitionListDecoder, flags.D);
+		var _v2 = A2($elm$json$Json$Decode$decodeValue, $author$project$ExhibitionDate$exhibitionListDecoder, flags.E);
 		if (!_v2.$) {
 			var goodExhibitionData = _v2.a;
 			return goodExhibitionData;
@@ -6662,22 +6662,22 @@ var $author$project$ExhibitionDate$init = function (flags) {
 			return _List_fromArray(
 				[
 					{
-					_: $justinmimbs$date$Date$fromRataDie(1),
-					ad: $justinmimbs$date$Date$fromRataDie(1),
-					P: ''
+					ab: $justinmimbs$date$Date$fromRataDie(1),
+					ae: $justinmimbs$date$Date$fromRataDie(1),
+					Q: ''
 				}
 				]);
 		}
 	}();
 	var decodedClosedDateList = function () {
-		var _v1 = A2($elm$json$Json$Decode$decodeValue, $author$project$ExhibitionDate$closedDateListDecoder, flags.K);
+		var _v1 = A2($elm$json$Json$Decode$decodeValue, $author$project$ExhibitionDate$closedDateListDecoder, flags.L);
 		if (!_v1.$) {
 			var goodClosedDateData = _v1.a;
 			return goodClosedDateData;
 		} else {
 			return _List_fromArray(
 				[
-					{af: _List_Nil}
+					{ag: _List_Nil}
 				]);
 		}
 	}();
@@ -6687,12 +6687,12 @@ var $author$project$ExhibitionDate$init = function (flags) {
 	return _Utils_Tuple2(
 		{
 			aH: !$elm$core$List$length(decodedInitialCartItems),
-			C: decodedInitialCartItems,
-			K: decodedClosedDateList,
-			s: $elm$core$Maybe$Nothing,
-			L: datePicker,
-			D: decodedExhibitionList,
-			N: decodedProductDetails
+			j: decodedInitialCartItems,
+			L: decodedClosedDateList,
+			t: $elm$core$Maybe$Nothing,
+			M: datePicker,
+			E: decodedExhibitionList,
+			O: decodedProductDetails
 		},
 		A2($elm$core$Platform$Cmd$map, $author$project$ExhibitionDate$ToDatePickerMsg, datePickerCmd));
 };
@@ -6706,14 +6706,14 @@ var $author$project$ExhibitionDate$addOneOfVariant = F2(
 		return A2(
 			$elm$core$List$map,
 			function (item) {
-				return _Utils_eq(item.aB, variantId) ? _Utils_update(
+				return _Utils_eq(item._, variantId) ? _Utils_update(
 					item,
-					{ac: item.ac + 1}) : item;
+					{B: item.B + 1}) : item;
 			},
 			initialCartItems);
 	});
 var $author$project$ExhibitionDate$CartUpdated = function (a) {
-	return {$: 2, a: a};
+	return {$: 5, a: a};
 };
 var $elm$json$Json$Encode$int = _Json_wrap;
 var $elm$json$Json$Encode$list = F2(
@@ -6745,7 +6745,7 @@ var $author$project$ExhibitionDate$cartAddEncoder = function (post) {
 			[
 				_Utils_Tuple2(
 				'id',
-				$elm$json$Json$Encode$int(post.o)),
+				$elm$json$Json$Encode$int(post.p)),
 				_Utils_Tuple2(
 				'properties',
 				$elm$json$Json$Encode$object(
@@ -6753,7 +6753,7 @@ var $author$project$ExhibitionDate$cartAddEncoder = function (post) {
 						[
 							_Utils_Tuple2(
 							'Exhibition',
-							$elm$json$Json$Encode$string(post.U))
+							$elm$json$Json$Encode$string(post.V))
 						]))),
 				_Utils_Tuple2(
 				'sections',
@@ -7645,14 +7645,14 @@ var $justinmimbs$date$Date$toOrdinalDate = function (_v0) {
 	var rd = _v0;
 	var y = $justinmimbs$date$Date$year(rd);
 	return {
-		au: rd - $justinmimbs$date$Date$daysBeforeYear(y),
+		av: rd - $justinmimbs$date$Date$daysBeforeYear(y),
 		bu: y
 	};
 };
 var $justinmimbs$date$Date$toCalendarDate = function (_v0) {
 	var rd = _v0;
 	var date = $justinmimbs$date$Date$toOrdinalDate(rd);
-	return A3($justinmimbs$date$Date$toCalendarDateHelp, date.bu, 0, date.au);
+	return A3($justinmimbs$date$Date$toCalendarDateHelp, date.bu, 0, date.av);
 };
 var $justinmimbs$date$Date$day = A2(
 	$elm$core$Basics$composeR,
@@ -7671,7 +7671,7 @@ var $justinmimbs$date$Date$ordinalDay = A2(
 	$elm$core$Basics$composeR,
 	$justinmimbs$date$Date$toOrdinalDate,
 	function ($) {
-		return $.au;
+		return $.av;
 	});
 var $elm$core$String$cons = _String_cons;
 var $elm$core$String$fromChar = function (_char) {
@@ -7871,16 +7871,16 @@ var $justinmimbs$date$Date$formatField = F4(
 							$elm$core$String$fromInt(
 								$justinmimbs$date$Date$monthNumber(date)));
 					case 3:
-						return language.ab(
+						return language.ad(
 							$justinmimbs$date$Date$month(date));
 					case 4:
-						return language.as(
+						return language.at(
 							$justinmimbs$date$Date$month(date));
 					case 5:
 						return A2(
 							$elm$core$String$left,
 							1,
-							language.ab(
+							language.ad(
 								$justinmimbs$date$Date$month(date)));
 					default:
 						return '';
@@ -7913,7 +7913,7 @@ var $justinmimbs$date$Date$formatField = F4(
 							$elm$core$String$fromInt(
 								$justinmimbs$date$Date$day(date)));
 					case 3:
-						return language.ak(
+						return language.al(
 							$justinmimbs$date$Date$day(date));
 					default:
 						return '';
@@ -7943,13 +7943,13 @@ var $justinmimbs$date$Date$formatField = F4(
 			case 'E':
 				switch (length) {
 					case 1:
-						return language.I(
+						return language.J(
 							$justinmimbs$date$Date$weekday(date));
 					case 2:
-						return language.I(
+						return language.J(
 							$justinmimbs$date$Date$weekday(date));
 					case 3:
-						return language.I(
+						return language.J(
 							$justinmimbs$date$Date$weekday(date));
 					case 4:
 						return language.aC(
@@ -7958,13 +7958,13 @@ var $justinmimbs$date$Date$formatField = F4(
 						return A2(
 							$elm$core$String$left,
 							1,
-							language.I(
+							language.J(
 								$justinmimbs$date$Date$weekday(date)));
 					case 6:
 						return A2(
 							$elm$core$String$left,
 							2,
-							language.I(
+							language.J(
 								$justinmimbs$date$Date$weekday(date)));
 					default:
 						return '';
@@ -8284,14 +8284,14 @@ var $justinmimbs$date$Date$weekdayToName = function (wd) {
 	}
 };
 var $justinmimbs$date$Date$language_en = {
-	ak: $justinmimbs$date$Date$withOrdinalSuffix,
-	as: $justinmimbs$date$Date$monthToName,
-	ab: A2(
+	al: $justinmimbs$date$Date$withOrdinalSuffix,
+	at: $justinmimbs$date$Date$monthToName,
+	ad: A2(
 		$elm$core$Basics$composeR,
 		$justinmimbs$date$Date$monthToName,
 		$elm$core$String$left(3)),
 	aC: $justinmimbs$date$Date$weekdayToName,
-	I: A2(
+	J: A2(
 		$elm$core$Basics$composeR,
 		$justinmimbs$date$Date$weekdayToName,
 		$elm$core$String$left(3))
@@ -8362,29 +8362,29 @@ var $elm$html$Html$Attributes$boolProperty = F2(
 	});
 var $elm$html$Html$Attributes$required = $elm$html$Html$Attributes$boolProperty('required');
 var $CurrySoftware$elm_datepicker$DatePicker$defaultSettings = {
-	ae: $CurrySoftware$elm_datepicker$DatePicker$formatCell,
-	S: $CurrySoftware$elm_datepicker$DatePicker$off,
-	J: 'elm-datepicker--',
-	ag: _List_Nil,
-	ai: $justinmimbs$date$Date$format('yyyy-MM-dd'),
-	aj: $CurrySoftware$elm_datepicker$DatePicker$Date$formatDay,
-	aa: 6,
-	am: _List_fromArray(
+	af: $CurrySoftware$elm_datepicker$DatePicker$formatCell,
+	T: $CurrySoftware$elm_datepicker$DatePicker$off,
+	K: 'elm-datepicker--',
+	ah: _List_Nil,
+	aj: $justinmimbs$date$Date$format('yyyy-MM-dd'),
+	ak: $CurrySoftware$elm_datepicker$DatePicker$Date$formatDay,
+	ac: 6,
+	an: _List_fromArray(
 		[
 			$elm$html$Html$Attributes$required(false)
 		]),
-	an: _List_Nil,
-	ao: $elm$core$Maybe$Nothing,
+	ao: _List_Nil,
 	ap: $elm$core$Maybe$Nothing,
+	aq: $elm$core$Maybe$Nothing,
 	bG: $elm$core$Basics$always(false),
-	ar: $CurrySoftware$elm_datepicker$DatePicker$Date$formatMonth,
-	av: $justinmimbs$date$Date$fromIsoString,
-	aw: 'Please pick a date...',
+	as: $CurrySoftware$elm_datepicker$DatePicker$Date$formatMonth,
+	aw: $justinmimbs$date$Date$fromIsoString,
+	ax: 'Please pick a date...',
 	aD: $elm$core$String$fromInt
 };
 var $CurrySoftware$elm_datepicker$DatePicker$getInitialDate = function (_v0) {
 	var model = _v0;
-	return model.A;
+	return model.C;
 };
 var $elm$core$List$any = F2(
 	function (isOkay, list) {
@@ -8426,20 +8426,33 @@ var $author$project$ExhibitionDate$datePickerSettings = function (model) {
 					A2(
 						$elm$core$List$map,
 						function (_v0) {
-							var closedOn = _v0.af;
+							var closedOn = _v0.ag;
 							return closedOn;
 						},
-						model.K)));
+						model.L)));
 		});
 	return _Utils_update(
 		$CurrySoftware$elm_datepicker$DatePicker$defaultSettings,
 		{
 			bG: isDisabled(
-				$CurrySoftware$elm_datepicker$DatePicker$getInitialDate(model.L))
+				$CurrySoftware$elm_datepicker$DatePicker$getInitialDate(model.M))
 		});
 };
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
+var $author$project$ExhibitionDate$removeOneOfVariant = F2(
+	function (initialCartItems, variantId) {
+		return A2(
+			$elm$core$List$map,
+			function (item) {
+				return _Utils_eq(item._, variantId) ? _Utils_update(
+					item,
+					{
+						B: (item.B > 1) ? (item.B - 1) : 0
+					}) : item;
+			},
+			initialCartItems);
+	});
 var $author$project$ExhibitionDate$fmDateFormat = 'd MMM yyyy';
 var $elm$core$List$filter = F2(
 	function (isGood, list) {
@@ -8460,8 +8473,8 @@ var $justinmimbs$date$Date$isBetween = F3(
 		return A3($justinmimbs$date$Date$isBetweenInt, a, b, x);
 	});
 var $author$project$ExhibitionDate$maybeExhibitionTitle = function (_v0) {
-	var date = _v0.s;
-	var exhibitionList = _v0.D;
+	var date = _v0.t;
+	var exhibitionList = _v0.E;
 	return A2(
 		$elm$core$Maybe$withDefault,
 		'',
@@ -8482,12 +8495,12 @@ var $author$project$ExhibitionDate$maybeExhibitionTitle = function (_v0) {
 								return $justinmimbs$date$Date$fromRataDie(2);
 							}
 						}();
-						return A3($justinmimbs$date$Date$isBetween, exhibition.ad, exhibition._, selectedDate) ? exhibition.P : '';
+						return A3($justinmimbs$date$Date$isBetween, exhibition.ae, exhibition.ab, selectedDate) ? exhibition.Q : '';
 					},
 					exhibitionList))));
 };
 var $author$project$ExhibitionDate$ticketDetailString = function (model) {
-	var _v0 = model.s;
+	var _v0 = model.t;
 	if (_v0.$ === 1) {
 		return '';
 	} else {
@@ -8519,8 +8532,8 @@ var $CurrySoftware$elm_datepicker$DatePicker$Picked = function (a) {
 var $CurrySoftware$elm_datepicker$DatePicker$update = F3(
 	function (settings, msg, _v0) {
 		var model = _v0;
-		var forceOpen = model.x;
-		var focused = model.m;
+		var forceOpen = model.y;
+		var focused = model.n;
 		switch (msg.$) {
 			case 0:
 				var date = msg.a;
@@ -8528,8 +8541,8 @@ var $CurrySoftware$elm_datepicker$DatePicker$update = F3(
 					_Utils_update(
 						model,
 						{
-							m: $elm$core$Maybe$Just(date),
-							A: date
+							n: $elm$core$Maybe$Just(date),
+							C: date
 						}),
 					$CurrySoftware$elm_datepicker$DatePicker$None);
 			case 1:
@@ -8538,7 +8551,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$update = F3(
 					_Utils_update(
 						model,
 						{
-							m: $elm$core$Maybe$Just(date)
+							n: $elm$core$Maybe$Just(date)
 						}),
 					$CurrySoftware$elm_datepicker$DatePicker$None);
 			case 2:
@@ -8546,7 +8559,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$update = F3(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{m: $elm$core$Maybe$Nothing, p: $elm$core$Maybe$Nothing, u: false}),
+						{n: $elm$core$Maybe$Nothing, q: $elm$core$Maybe$Nothing, v: false}),
 					$CurrySoftware$elm_datepicker$DatePicker$Picked(date));
 			case 3:
 				var text = msg.a;
@@ -8554,7 +8567,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$update = F3(
 					_Utils_update(
 						model,
 						{
-							p: $elm$core$Maybe$Just(text)
+							q: $elm$core$Maybe$Just(text)
 						}),
 					$CurrySoftware$elm_datepicker$DatePicker$None);
 			case 4:
@@ -8562,7 +8575,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$update = F3(
 					return _Utils_Tuple2(model, $CurrySoftware$elm_datepicker$DatePicker$None);
 				} else {
 					var dateEvent = function () {
-						var _v5 = model.p;
+						var _v5 = model.q;
 						if (_v5.$ === 1) {
 							return $CurrySoftware$elm_datepicker$DatePicker$FailedInput($CurrySoftware$elm_datepicker$DatePicker$EmptyString);
 						} else {
@@ -8570,7 +8583,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$update = F3(
 								return $CurrySoftware$elm_datepicker$DatePicker$FailedInput($CurrySoftware$elm_datepicker$DatePicker$EmptyString);
 							} else {
 								var rawInput = _v5.a;
-								var _v6 = settings.av(rawInput);
+								var _v6 = settings.aw(rawInput);
 								if (!_v6.$) {
 									var date = _v6.a;
 									return settings.bG(date) ? $CurrySoftware$elm_datepicker$DatePicker$FailedInput(
@@ -8587,19 +8600,19 @@ var $CurrySoftware$elm_datepicker$DatePicker$update = F3(
 						_Utils_update(
 							model,
 							{
-								m: function () {
+								n: function () {
 									if (dateEvent.$ === 2) {
 										var date = dateEvent.a;
 										return $elm$core$Maybe$Just(date);
 									} else {
-										return model.m;
+										return model.n;
 									}
 								}(),
-								p: function () {
+								q: function () {
 									if (dateEvent.$ === 2) {
 										return $elm$core$Maybe$Nothing;
 									} else {
-										return model.p;
+										return model.q;
 									}
 								}()
 							}),
@@ -8609,27 +8622,43 @@ var $CurrySoftware$elm_datepicker$DatePicker$update = F3(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{x: false, u: true}),
+						{y: false, v: true}),
 					$CurrySoftware$elm_datepicker$DatePicker$None);
 			case 6:
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{u: forceOpen}),
+						{v: forceOpen}),
 					$CurrySoftware$elm_datepicker$DatePicker$None);
 			case 7:
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{x: true}),
+						{y: true}),
 					$CurrySoftware$elm_datepicker$DatePicker$None);
 			default:
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{x: false}),
+						{y: false}),
 					$CurrySoftware$elm_datepicker$DatePicker$None);
 		}
+	});
+var $author$project$ExhibitionDate$updateVariantQuantity = F3(
+	function (initialCartItems, variantId, input) {
+		return A2(
+			$elm$core$List$map,
+			function (item) {
+				return _Utils_eq(item._, variantId) ? _Utils_update(
+					item,
+					{
+						B: A2(
+							$elm$core$Maybe$withDefault,
+							0,
+							$elm$core$String$toInt(input))
+					}) : item;
+			},
+			initialCartItems);
 	});
 var $author$project$ExhibitionDate$update = F2(
 	function (msg, model) {
@@ -8640,7 +8669,7 @@ var $author$project$ExhibitionDate$update = F2(
 					$CurrySoftware$elm_datepicker$DatePicker$update,
 					$author$project$ExhibitionDate$datePickerSettings(model),
 					subMsg,
-					model.L);
+					model.M);
 				var newDatePicker = _v1.a;
 				var dateEvent = _v1.b;
 				var newDate = function () {
@@ -8648,34 +8677,62 @@ var $author$project$ExhibitionDate$update = F2(
 						var changedDate = dateEvent.a;
 						return $elm$core$Maybe$Just(changedDate);
 					} else {
-						return model.s;
+						return model.t;
 					}
 				}();
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{s: newDate, L: newDatePicker}),
+						{t: newDate, M: newDatePicker}),
 					$elm$core$Platform$Cmd$none);
 			case 1:
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{s: $elm$core$Maybe$Nothing}),
+						{t: $elm$core$Maybe$Nothing}),
 					$elm$core$Platform$Cmd$none);
 			case 2:
-				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+				var variantId = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							j: A2($author$project$ExhibitionDate$addOneOfVariant, model.j, variantId)
+						}),
+					$elm$core$Platform$Cmd$none);
 			case 3:
 				var variantId = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{
-							C: A2($author$project$ExhibitionDate$addOneOfVariant, model.C, variantId)
+							j: A2($author$project$ExhibitionDate$removeOneOfVariant, model.j, variantId)
+						}),
+					$elm$core$Platform$Cmd$none);
+			case 4:
+				var variantId = msg.a;
+				var input = msg.b;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							j: A3($author$project$ExhibitionDate$updateVariantQuantity, model.j, variantId, input)
+						}),
+					$elm$core$Platform$Cmd$none);
+			case 5:
+				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+			case 6:
+				var variantId = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							j: A2($author$project$ExhibitionDate$addOneOfVariant, model.j, variantId)
 						}),
 					$author$project$ExhibitionDate$cartAddPost(
 						{
-							o: variantId,
-							U: $author$project$ExhibitionDate$ticketDetailString(model)
+							p: variantId,
+							V: $author$project$ExhibitionDate$ticketDetailString(model)
 						}));
 			default:
 				var variantId = msg.a;
@@ -8683,12 +8740,12 @@ var $author$project$ExhibitionDate$update = F2(
 					_Utils_update(
 						model,
 						{
-							C: A2($author$project$ExhibitionDate$addOneOfVariant, model.C, variantId)
+							j: A2($author$project$ExhibitionDate$addOneOfVariant, model.j, variantId)
 						}),
 					$author$project$ExhibitionDate$cartUpdatePost(
 						{
-							o: variantId,
-							U: $author$project$ExhibitionDate$ticketDetailString(model)
+							p: variantId,
+							V: $author$project$ExhibitionDate$ticketDetailString(model)
 						}));
 		}
 	});
@@ -8861,7 +8918,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$maybeOr = F2(
 	});
 var $CurrySoftware$elm_datepicker$DatePicker$mkClass = F2(
 	function (_v0, c) {
-		var classNamespace = _v0.J;
+		var classNamespace = _v0.K;
 		return $elm$html$Html$Attributes$class(
 			_Utils_ap(classNamespace, c));
 	});
@@ -9059,7 +9116,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$prepareDates = F2(
 			A3($justinmimbs$date$Date$add, 1, 1, firstOfMonth));
 		return {
 			aK: A4($justinmimbs$date$Date$range, 11, 1, start, end),
-			ah: date
+			ai: date
 		};
 	});
 var $elm$core$List$repeatHelp = F3(
@@ -9252,7 +9309,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$Pick = function (a) {
 };
 var $CurrySoftware$elm_datepicker$DatePicker$mkClassList = F2(
 	function (_v0, cs) {
-		var classNamespace = _v0.J;
+		var classNamespace = _v0.K;
 		return $elm$html$Html$Attributes$classList(
 			A2(
 				$elm$core$List$map,
@@ -9298,15 +9355,15 @@ var $CurrySoftware$elm_datepicker$DatePicker$viewDay = F5(
 				props),
 			_List_fromArray(
 				[
-					settings.ae(
+					settings.af(
 					$elm$core$String$fromInt(
 						$justinmimbs$date$Date$day(d)))
 				]));
 	});
 var $CurrySoftware$elm_datepicker$DatePicker$Date$yearRange = F2(
 	function (_v0, range) {
-		var currentMonth = _v0.ah;
-		var today = _v0.A;
+		var currentMonth = _v0.ai;
+		var today = _v0.C;
 		switch (range.$) {
 			case 1:
 				var num = range.a;
@@ -9339,8 +9396,8 @@ var $CurrySoftware$elm_datepicker$DatePicker$yearRangeActive = function (yearRan
 };
 var $CurrySoftware$elm_datepicker$DatePicker$datePicker = F3(
 	function (pickedDate, settings, model) {
-		var focused = model.m;
-		var today = model.A;
+		var focused = model.n;
+		var today = model.C;
 		var picked = function (d) {
 			return A2(
 				$elm$core$Maybe$withDefault,
@@ -9365,7 +9422,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$datePicker = F3(
 				$justinmimbs$date$Date$toRataDie(d),
 				$justinmimbs$date$Date$toRataDie(today));
 		};
-		var firstDayOffset = $justinmimbs$date$Date$weekdayToNumber(settings.aa) - 1;
+		var firstDayOffset = $justinmimbs$date$Date$weekdayToNumber(settings.ac) - 1;
 		var dpClass = $CurrySoftware$elm_datepicker$DatePicker$mkClass(settings);
 		var currentDate = A2(
 			$elm$core$Maybe$withDefault,
@@ -9389,8 +9446,8 @@ var $CurrySoftware$elm_datepicker$DatePicker$datePicker = F3(
 						]),
 					_List_Nil);
 			});
-		var _v0 = A2($CurrySoftware$elm_datepicker$DatePicker$prepareDates, currentDate, settings.aa);
-		var currentMonth = _v0.ah;
+		var _v0 = A2($CurrySoftware$elm_datepicker$DatePicker$prepareDates, currentDate, settings.ac);
+		var currentMonth = _v0.ai;
 		var currentDates = _v0.aK;
 		var dayList = A2(
 			$elm$core$List$map,
@@ -9444,7 +9501,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$datePicker = F3(
 					from_,
 					$justinmimbs$date$Date$year(currentMonth));
 			};
-			var _v2 = settings.S;
+			var _v2 = settings.T;
 			switch (_v2.$) {
 				case 3:
 					var from_ = _v2.a;
@@ -9494,8 +9551,8 @@ var $CurrySoftware$elm_datepicker$DatePicker$datePicker = F3(
 							addedYearsFront,
 							A2(
 							$CurrySoftware$elm_datepicker$DatePicker$Date$yearRange,
-							{ah: currentMonth, A: today},
-							settings.S),
+							{ai: currentMonth, C: today},
+							settings.T),
 							addedYearsBack
 						]))));
 		return A2(
@@ -9555,7 +9612,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$datePicker = F3(
 									_List_fromArray(
 										[
 											$elm$html$Html$text(
-											settings.ar(
+											settings.as(
 												$justinmimbs$date$Date$month(currentMonth)))
 										])),
 									A2(
@@ -9566,7 +9623,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$datePicker = F3(
 										]),
 									_List_fromArray(
 										[
-											(!$CurrySoftware$elm_datepicker$DatePicker$yearRangeActive(settings.S)) ? $elm$html$Html$text(
+											(!$CurrySoftware$elm_datepicker$DatePicker$yearRangeActive(settings.T)) ? $elm$html$Html$text(
 											settings.aD(
 												$justinmimbs$date$Date$year(currentMonth))) : A3(
 											$elm$html$Html$Keyed$node,
@@ -9627,7 +9684,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$datePicker = F3(
 												_List_fromArray(
 													[
 														$elm$html$Html$text(
-														settings.aj(d))
+														settings.ak(d))
 													]));
 										},
 										A2(
@@ -9693,13 +9750,13 @@ var $CurrySoftware$elm_datepicker$DatePicker$view = F3(
 			$elm$core$Basics$composeR,
 			$elm$core$List$singleton,
 			$elm$core$List$filterMap($elm$core$Basics$identity),
-			A2($elm$core$Maybe$map, $elm$html$Html$Attributes$id, settings.ao));
+			A2($elm$core$Maybe$map, $elm$html$Html$Attributes$id, settings.ap));
 		var inputClasses = _Utils_ap(
 			_List_fromArray(
 				[
-					_Utils_Tuple2(settings.J + 'input', true)
+					_Utils_Tuple2(settings.K + 'input', true)
 				]),
-			settings.an);
+			settings.ao);
 		var inputCommon = function (xs) {
 			return A2(
 				$elm$html$Html$input,
@@ -9708,7 +9765,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$view = F3(
 						[
 							$elm$html$Html$Attributes$classList(inputClasses),
 							$elm$html$Html$Attributes$name(
-							A2($elm$core$Maybe$withDefault, '', settings.ap)),
+							A2($elm$core$Maybe$withDefault, '', settings.aq)),
 							$elm$html$Html$Attributes$type_('text'),
 							A2(
 							$elm$html$Html$Events$on,
@@ -9720,27 +9777,27 @@ var $CurrySoftware$elm_datepicker$DatePicker$view = F3(
 							$elm$html$Html$Events$onFocus($CurrySoftware$elm_datepicker$DatePicker$Focus)
 						]),
 					_Utils_ap(
-						settings.am,
+						settings.an,
 						_Utils_ap(potentialInputId, xs))),
 				_List_Nil);
 		};
 		var dateInput = inputCommon(
 			_List_fromArray(
 				[
-					$elm$html$Html$Attributes$placeholder(settings.aw),
+					$elm$html$Html$Attributes$placeholder(settings.ax),
 					$elm$html$Html$Attributes$value(
 					A2(
 						$elm$core$Maybe$withDefault,
 						A2(
 							$elm$core$Maybe$withDefault,
 							'',
-							A2($elm$core$Maybe$map, settings.ai, pickedDate)),
-						model.p))
+							A2($elm$core$Maybe$map, settings.aj, pickedDate)),
+						model.q))
 				]));
 		var containerClassList = A2(
 			$elm$core$List$cons,
-			_Utils_Tuple2(settings.J + 'container', true),
-			settings.ag);
+			_Utils_Tuple2(settings.K + 'container', true),
+			settings.ah);
 		return A2(
 			$elm$html$Html$div,
 			_List_fromArray(
@@ -9750,7 +9807,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$view = F3(
 			_List_fromArray(
 				[
 					dateInput,
-					model.u ? A3($CurrySoftware$elm_datepicker$DatePicker$datePicker, pickedDate, settings, model) : $elm$html$Html$text('')
+					model.v ? A3($CurrySoftware$elm_datepicker$DatePicker$datePicker, pickedDate, settings, model) : $elm$html$Html$text('')
 				]));
 	});
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
@@ -9774,9 +9831,17 @@ var $author$project$ExhibitionDate$viewPrice = function (priceInt) {
 		'0',
 		'£' + $elm$core$String$fromFloat(priceInt / 100));
 };
-var $author$project$ExhibitionDate$AddToCart = function (a) {
+var $author$project$ExhibitionDate$ClickedAddVariant = function (a) {
+	return {$: 2, a: a};
+};
+var $author$project$ExhibitionDate$ClickedRemoveVariant = function (a) {
 	return {$: 3, a: a};
 };
+var $author$project$ExhibitionDate$InputVariantQuantity = F2(
+	function (a, b) {
+		return {$: 4, a: a, b: b};
+	});
+var $elm$html$Html$Attributes$disabled = $elm$html$Html$Attributes$boolProperty('disabled');
 var $elm$core$List$sum = function (numbers) {
 	return A3($elm$core$List$foldl, $elm$core$Basics$add, 0, numbers);
 };
@@ -9786,17 +9851,18 @@ var $author$project$ExhibitionDate$quantityFromVariantId = F2(
 			A2(
 				$elm$core$List$map,
 				function (itemWithVariantId) {
-					return itemWithVariantId.ac;
+					return itemWithVariantId.B;
 				},
 				A2(
 					$elm$core$List$filter,
 					function (item) {
-						return _Utils_eq(item.aB, variantId);
+						return _Utils_eq(item._, variantId);
 					},
 					cartItems)));
 	});
 var $author$project$ExhibitionDate$viewQuantity = F2(
 	function (cartItems, variantId) {
+		var quantity = A2($author$project$ExhibitionDate$quantityFromVariantId, cartItems, variantId);
 		return A2(
 			$elm$html$Html$div,
 			_List_fromArray(
@@ -9810,8 +9876,9 @@ var $author$project$ExhibitionDate$viewQuantity = F2(
 					_List_fromArray(
 						[
 							$elm$html$Html$Attributes$class('quantity__button'),
+							$elm$html$Html$Attributes$disabled(quantity < 1),
 							$elm$html$Html$Events$onClick(
-							$author$project$ExhibitionDate$AddToCart(variantId))
+							$author$project$ExhibitionDate$ClickedRemoveVariant(variantId))
 						]),
 					_List_fromArray(
 						[
@@ -9823,8 +9890,10 @@ var $author$project$ExhibitionDate$viewQuantity = F2(
 						[
 							$elm$html$Html$Attributes$class('quantity__input'),
 							$elm$html$Html$Attributes$value(
-							$elm$core$String$fromInt(
-								A2($author$project$ExhibitionDate$quantityFromVariantId, cartItems, variantId)))
+							$elm$core$String$fromInt(quantity)),
+							$elm$html$Html$Attributes$type_('number'),
+							$elm$html$Html$Events$onInput(
+							$author$project$ExhibitionDate$InputVariantQuantity(variantId))
 						]),
 					_List_Nil),
 					A2(
@@ -9833,7 +9902,7 @@ var $author$project$ExhibitionDate$viewQuantity = F2(
 						[
 							$elm$html$Html$Attributes$class('quantity__button'),
 							$elm$html$Html$Events$onClick(
-							$author$project$ExhibitionDate$AddToCart(variantId))
+							$author$project$ExhibitionDate$ClickedAddVariant(variantId))
 						]),
 					_List_fromArray(
 						[
@@ -9859,7 +9928,7 @@ var $author$project$ExhibitionDate$viewProductVariants = F2(
 								_List_Nil,
 								_List_fromArray(
 									[
-										$elm$html$Html$text(variant.P)
+										$elm$html$Html$text(variant.Q)
 									])),
 								A2(
 								$elm$html$Html$td,
@@ -9874,7 +9943,7 @@ var $author$project$ExhibitionDate$viewProductVariants = F2(
 								_List_Nil,
 								_List_fromArray(
 									[
-										A2($author$project$ExhibitionDate$viewQuantity, cartItems, variant.o)
+										A2($author$project$ExhibitionDate$viewQuantity, cartItems, variant.p)
 									]))
 							]));
 				},
@@ -9958,9 +10027,9 @@ var $author$project$ExhibitionDate$view = function (model) {
 				A2(
 					$elm$core$List$map,
 					function (_v0) {
-						var title = _v0.P;
-						var startDate = _v0.ad;
-						var endDate = _v0._;
+						var title = _v0.Q;
+						var startDate = _v0.ae;
+						var endDate = _v0.ab;
 						return A2(
 							$elm$html$Html$li,
 							_List_Nil,
@@ -9986,8 +10055,8 @@ var $author$project$ExhibitionDate$view = function (model) {
 											])))
 								]));
 					},
-					model.D)),
-				_Utils_eq(model.s, $elm$core$Maybe$Nothing) ? A2(
+					model.E)),
+				_Utils_eq(model.t, $elm$core$Maybe$Nothing) ? A2(
 				$elm$html$Html$div,
 				_List_Nil,
 				_List_fromArray(
@@ -10004,9 +10073,9 @@ var $author$project$ExhibitionDate$view = function (model) {
 						$author$project$ExhibitionDate$ToDatePickerMsg,
 						A3(
 							$CurrySoftware$elm_datepicker$DatePicker$view,
-							model.s,
+							model.t,
 							$author$project$ExhibitionDate$datePickerSettings(model),
-							model.L))
+							model.M))
 					])) : A2(
 				$elm$html$Html$div,
 				_List_Nil,
@@ -10031,7 +10100,7 @@ var $author$project$ExhibitionDate$view = function (model) {
 							[
 								$elm$html$Html$text('Choose another date')
 							])),
-						A2($author$project$ExhibitionDate$viewProductVariantSelector, model.C, model.N.Z)
+						A2($author$project$ExhibitionDate$viewProductVariantSelector, model.j, model.O.aa)
 					]))
 			]));
 };
@@ -10051,7 +10120,7 @@ _Platform_export({'ExhibitionDate':{'init':$author$project$ExhibitionDate$main(
 								$elm$json$Json$Decode$andThen,
 								function (closedDateList) {
 									return $elm$json$Json$Decode$succeed(
-										{K: closedDateList, D: exhibitionList, al: initialCart, N: productDetails});
+										{L: closedDateList, E: exhibitionList, am: initialCart, O: productDetails});
 								},
 								A2($elm$json$Json$Decode$field, 'closedDateList', $elm$json$Json$Decode$value));
 						},

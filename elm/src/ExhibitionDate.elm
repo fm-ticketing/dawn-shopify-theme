@@ -233,6 +233,9 @@ dateFromStringList maybeDateStrings =
 type Msg
     = ToDatePickerMsg DatePicker.Msg
     | ClickedResetDatePicker
+    | ClickedAddVariant Int
+    | ClickedRemoveVariant Int
+    | InputVariantQuantity Int String
     | CartUpdated (Result Http.Error ())
     | AddToCart Int
     | UpdateCart Int
@@ -263,6 +266,21 @@ update msg model =
 
         ClickedResetDatePicker ->
             ( { model | date = Nothing }, Cmd.none )
+
+        ClickedAddVariant variantId ->
+            ( { model | cartItems = addOneOfVariant model.cartItems variantId }
+            , Cmd.none
+            )
+
+        ClickedRemoveVariant variantId ->
+            ( { model | cartItems = removeOneOfVariant model.cartItems variantId }
+            , Cmd.none
+            )
+
+        InputVariantQuantity variantId input ->
+            ( { model | cartItems = updateVariantQuantity model.cartItems variantId input }
+            , Cmd.none
+            )
 
         CartUpdated _ ->
             -- todo parse returned cart for new cart items
@@ -331,6 +349,39 @@ addOneOfVariant initialCartItems variantId =
             (\item ->
                 if item.variantId == variantId then
                     { item | quantity = item.quantity + 1 }
+
+                else
+                    item
+            )
+
+
+removeOneOfVariant : List CartItem -> Int -> List CartItem
+removeOneOfVariant initialCartItems variantId =
+    initialCartItems
+        |> List.map
+            (\item ->
+                if item.variantId == variantId then
+                    { item
+                        | quantity =
+                            if item.quantity > 1 then
+                                item.quantity - 1
+
+                            else
+                                0
+                    }
+
+                else
+                    item
+            )
+
+
+updateVariantQuantity : List CartItem -> Int -> String -> List CartItem
+updateVariantQuantity initialCartItems variantId input =
+    initialCartItems
+        |> List.map
+            (\item ->
+                if item.variantId == variantId then
+                    { item | quantity = Maybe.withDefault 0 (String.toInt input) }
 
                 else
                     item
@@ -430,16 +481,27 @@ viewPrice priceInt =
 
 viewQuantity : List CartItem -> Int -> Html Msg
 viewQuantity cartItems variantId =
+    let
+        quantity =
+            quantityFromVariantId cartItems variantId
+    in
     Html.div [ Html.Attributes.class "quantity" ]
         [ Html.button
             [ Html.Attributes.class "quantity__button"
-            , Html.Events.onClick (AddToCart variantId)
+            , Html.Attributes.disabled (quantity < 1)
+            , Html.Events.onClick (ClickedRemoveVariant variantId)
             ]
             [ Html.text "-" ]
-        , Html.input [ Html.Attributes.class "quantity__input", Html.Attributes.value (String.fromInt (quantityFromVariantId cartItems variantId)) ] []
+        , Html.input
+            [ Html.Attributes.class "quantity__input"
+            , Html.Attributes.value (String.fromInt quantity)
+            , Html.Attributes.type_ "number"
+            , Html.Events.onInput (InputVariantQuantity variantId)
+            ]
+            []
         , Html.button
             [ Html.Attributes.class "quantity__button"
-            , Html.Events.onClick (AddToCart variantId)
+            , Html.Events.onClick (ClickedAddVariant variantId)
             ]
             [ Html.text "+" ]
         ]
