@@ -70,7 +70,11 @@ type alias ProductVariant =
 
 
 type alias CartItem =
-    { lineItemKey : String, variantId : Int, quantity : Int }
+    { lineItemKey : String
+    , variantId : Int
+    , quantity : Int
+    , exhibitionDateTitle : String
+    }
 
 
 fmDateFormat : String
@@ -149,15 +153,23 @@ init flags =
 
 cartItemDecoder : Json.Decode.Decoder CartItem
 cartItemDecoder =
-    Json.Decode.map3 CartItem
+    Json.Decode.map4 CartItem
         (Json.Decode.field "key" Json.Decode.string)
         (Json.Decode.field "variant_id" Json.Decode.int)
         (Json.Decode.field "quantity" Json.Decode.int)
+        (Json.Decode.field "properties" exhibitionDateTitleDecoder
+            |> Json.Decode.map (Maybe.withDefault "")
+        )
 
 
 cartItemsDecoder : Json.Decode.Decoder (List CartItem)
 cartItemsDecoder =
     Json.Decode.field "items" (Json.Decode.list cartItemDecoder)
+
+
+exhibitionDateTitleDecoder : Json.Decode.Decoder (Maybe String)
+exhibitionDateTitleDecoder =
+    Json.Decode.maybe (Json.Decode.at [ "Exhibition" ] Json.Decode.string)
 
 
 productDetailsDecoder : Json.Decode.Decoder ProductDetails
@@ -382,6 +394,7 @@ addOneOfVariant initialCartItems variantId =
             ++ [ { lineItemKey = ""
                  , variantId = variantId
                  , quantity = 1
+                 , exhibitionDateTitle = "TODO get title from Model"
                  }
                ]
 
@@ -424,6 +437,7 @@ updateVariantQuantity initialCartItems variantId input =
             ++ [ { lineItemKey = ""
                  , variantId = variantId
                  , quantity = 1
+                 , exhibitionDateTitle = "TODO get title from Model"
                  }
                ]
 
