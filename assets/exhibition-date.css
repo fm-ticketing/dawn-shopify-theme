@@ -1,4 +1,5 @@
 .elm-datepicker--container {
+  height: 200px;
   position: relative; }
 
 .elm-datepicker--input:focus {
