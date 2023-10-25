@@ -21,19 +21,12 @@
             "text": "{{ product.metafields.descriptors.subtitle.value }}",
             "text_style": "subtitle"
           }
-        },
-        "share": {
-          "type": "share",
-          "settings": {
-            "share_label": "Share"
-          }
         }
       },
       "block_order": [
         "vendor",
         "title",
-        "caption",
-        "share"
+        "caption"
       ],
       "settings": {
         "enable_sticky_info": true,
