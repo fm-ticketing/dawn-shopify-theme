@@ -105,6 +105,9 @@
     "collection_title": "Your collection's name"
   },
   "products": {
+    "general_admission": {
+      "edit_tickets": "Edit ticket selection"
+    },
     "product": {
       "add_to_cart": "Add to basket",
       "choose_options": "Choose options",
