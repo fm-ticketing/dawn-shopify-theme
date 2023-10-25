@@ -147,7 +147,22 @@ init flags =
       , cartItems = decodedInitialCartItems
       , cartEmptyInShopify = List.length decodedInitialCartItems == 0
       }
-    , Cmd.map ToDatePickerMsg datePickerCmd
+    , Cmd.batch
+        [ Cmd.map ToDatePickerMsg datePickerCmd
+        , if List.length decodedInitialCartItems > 0 then
+            cartInitialisePost
+                (List.map
+                    (\variantId ->
+                        { id = variantId
+                        , quantity = 0
+                        }
+                    )
+                    (variantsInCart decodedInitialCartItems)
+                )
+
+          else
+            Cmd.none
+        ]
     )
 
 
@@ -251,7 +266,7 @@ type Msg
     | ClickedRemoveVariant Int
     | InputVariantQuantity Int String
     | CartUpdated (Result Http.Error ())
-    | CartChanged (Result Http.Error ())
+    | CartInitialised (Result Http.Error ())
     | ClickedUpdateCart
 
 
@@ -300,15 +315,8 @@ update msg model =
             -- todo parse returned cart for new cart items
             ( model, Browser.Navigation.load "/cart" )
 
-        CartChanged _ ->
-            -- todo parse returned cart for new cart items
-            ( model
-            , Cmd.batch
-                (lineItemChangeList model.cartItems (ticketDetailString model)
-                    ++ [ Browser.Navigation.load "/cart"
-                       ]
-                )
-            )
+        CartInitialised _ ->
+            ( { model | cartItems = [] }, Browser.Navigation.reload )
 
         ClickedUpdateCart ->
             ( model
@@ -345,26 +353,11 @@ type alias CartUpdatePost =
     List { id : Int, quantity : Int }
 
 
-type alias CartChangePost =
-    { line : Int, lineItem : String }
-
-
 cartAddPost : CartAddPost -> Cmd Msg
 cartAddPost post =
     Http.post
         { url = "/cart/add.js"
         , body = Http.jsonBody (cartAddEncoder post)
-
-        -- todo expect valid cart items
-        , expect = Http.expectWhatever CartUpdated
-        }
-
-
-cartChangePost : CartChangePost -> Cmd Msg
-cartChangePost post =
-    Http.post
-        { url = "/cart/change.js"
-        , body = Http.jsonBody (cartChangeEncoder post)
 
         -- todo expect valid cart items
         , expect = Http.expectWhatever CartUpdated
@@ -378,7 +371,18 @@ cartUpdatePost post =
         , body = Http.jsonBody (cartUpdateEncoder post)
 
         -- todo expect valid cart items
-        , expect = Http.expectWhatever CartChanged
+        , expect = Http.expectWhatever CartUpdated
+        }
+
+
+cartInitialisePost : CartUpdatePost -> Cmd Msg
+cartInitialisePost post =
+    Http.post
+        { url = "/cart/update.js"
+        , body = Http.jsonBody (cartUpdateEncoder post)
+
+        -- todo expect valid cart items
+        , expect = Http.expectWhatever CartInitialised
         }
 
 
@@ -404,18 +408,6 @@ cartAddEncoder posts =
         ]
 
 
-cartChangeEncoder : CartChangePost -> Json.Encode.Value
-cartChangeEncoder post =
-    Json.Encode.object
-        [ ( "line", Json.Encode.int post.line )
-        , ( "properties"
-          , Json.Encode.object
-                [ ( "Exhibition", Json.Encode.string post.lineItem )
-                ]
-          )
-        ]
-
-
 cartUpdateEncoder : CartUpdatePost -> Json.Encode.Value
 cartUpdateEncoder posts =
     let
@@ -427,24 +419,6 @@ cartUpdateEncoder posts =
           , Json.Encode.dict identity Json.Encode.int updates
           )
         ]
-
-
-addTicketDetailsToCartLine : Int -> String -> Cmd Msg
-addTicketDetailsToCartLine lineNumber details =
-    cartChangePost { line = lineNumber, lineItem = details }
-
-
-lineItemChangeList : List CartItem -> String -> List (Cmd Msg)
-lineItemChangeList cartItems title =
-    List.indexedMap
-        (\key item ->
-            if item.exhibitionDateTitle == "" then
-                addTicketDetailsToCartLine (key + 1) title
-
-            else
-                Cmd.none
-        )
-        cartItems
 
 
 variantsInCart : List CartItem -> List Int
