@@ -29,14 +29,23 @@
 <cart-items class="page-width{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
   <div class="title-wrapper-with-link">
     <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
-    <a href="{{ routes.all_products_collection_url }}" class="underlined-link">{{ 'general.continue_shopping' | t }}</a>
+
+    <div style="display: none">
+      <a href="{{ routes.all_products_collection_url }}" class="underlined-link">{{ 'general.continue_shopping' | t }}</a>
+    </div>
+
+    <a href="{{ routes.root_url }}products/general-admission" class="underlined-link">{{ 'products.general_admission.edit_tickets' | t }}</a>
   </div>
 
   <div class="cart__warnings">
     <h1 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h1>
-    <a href="{{ routes.all_products_collection_url }}" class="button">
-      {{ 'general.continue_shopping' | t }}
-    </a>
+    <div style="display: none">
+      <a href="{{ routes.all_products_collection_url }}" class="button">
+        {{ 'general.continue_shopping' | t }}
+      </a>
+    </div>
+
+    <a href="{{ routes.root_url }}products/general-admission" class="underlined-link">{{ 'products.general_admission.edit_tickets' | t }}</a>
 
     {%- if shop.customer_accounts_enabled and customer == null -%}
       <h2 class="cart__login-title">{{ 'sections.cart.login.title' | t }}</h2>
