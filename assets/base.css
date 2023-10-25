@@ -3505,3 +3505,7 @@ details-disclosure > details {
 details-modal.header__search {
   display: none !important;
 }
+
+.header>.header__heading-link {
+    pointer-events: none !important;
+}
