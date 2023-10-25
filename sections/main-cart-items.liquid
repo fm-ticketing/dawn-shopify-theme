@@ -34,7 +34,7 @@
       <a href="{{ routes.all_products_collection_url }}" class="underlined-link">{{ 'general.continue_shopping' | t }}</a>
     </div>
 
-    <a href="{{ routes.root_url }}products/general-admission" class="underlined-link">{{ 'products.general_admission.edit_tickets' | t }}</a>
+    <a href="https://{{ request.host }}/products/general-admission" class="underlined-link">{{ 'products.general_admission.edit_tickets' | t }}</a>
   </div>
 
   <div class="cart__warnings">
@@ -45,7 +45,7 @@
       </a>
     </div>
 
-    <a href="{{ routes.root_url }}products/general-admission" class="underlined-link">{{ 'products.general_admission.edit_tickets' | t }}</a>
+    <a href="https://{{ request.host }}/products/general-admission" class="underlined-link">{{ 'products.general_admission.edit_tickets' | t }}</a>
 
     {%- if shop.customer_accounts_enabled and customer == null -%}
       <h2 class="cart__login-title">{{ 'sections.cart.login.title' | t }}</h2>
@@ -109,7 +109,7 @@
                       <p class="caption-with-letter-spacing">{{ item.product.vendor }}</p>
                     {%- endif -%}
 
-                    <a href="{{ item.url }}" class="cart-item__name h4 break">{{ item.product.title | escape }}</a>
+                    <h4>{{ item.product.title | escape }}</h4>
                     {% for property in item.properties %}
                       {% if property.first == "Exhibition" %}
                         <p>{{ property.last }}</p>

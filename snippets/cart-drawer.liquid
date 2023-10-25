@@ -134,9 +134,9 @@
                             <p class="caption-with-letter-spacing light">{{ item.product.vendor }}</p>
                           {%- endif -%}
 
-                          <a href="{{ item.url }}" class="cart-item__name h4 break">
+                          <h4>
                             {{- item.product.title | escape -}}
-                          </a>
+                          </h4>
 
                           {%- if item.original_price != item.final_price -%}
                             <div class="cart-item__discounted-prices">
