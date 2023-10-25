@@ -35,6 +35,7 @@
         "footer-1",
         "footer-2"
       ],
+      "disabled": true,
       "custom_css": [
 
       ],
