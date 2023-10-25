@@ -316,7 +316,11 @@ update msg model =
             ( model, Browser.Navigation.load "/cart" )
 
         CartInitialised _ ->
-            ( { model | cartItems = [] }, Browser.Navigation.reload )
+            ( { model | cartItems = [] }
+            , -- Causes flash - need to figure how to update cart widget
+              -- Browser.Navigation.reload
+              Cmd.none
+            )
 
         ClickedUpdateCart ->
             ( model

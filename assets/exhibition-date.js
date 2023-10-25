@@ -8589,7 +8589,6 @@ var $author$project$ExhibitionDate$datePickerSettings = function (model) {
 		});
 };
 var $elm$browser$Browser$Navigation$load = _Browser_load;
-var $elm$browser$Browser$Navigation$reload = _Browser_reload(false);
 var $author$project$ExhibitionDate$removeOneOfVariant = F2(
 	function (initialCartItems, variantId) {
 		return A2(
@@ -8886,7 +8885,7 @@ var $author$project$ExhibitionDate$update = F2(
 					_Utils_update(
 						model,
 						{l: _List_Nil}),
-					$elm$browser$Browser$Navigation$reload);
+					$elm$core$Platform$Cmd$none);
 			default:
 				return _Utils_Tuple2(
 					model,
