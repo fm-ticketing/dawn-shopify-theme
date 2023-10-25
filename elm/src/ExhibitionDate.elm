@@ -70,7 +70,11 @@ type alias ProductVariant =
 
 
 type alias CartItem =
-    { lineItemKey : String, variantId : Int, quantity : Int }
+    { lineItemKey : String
+    , variantId : Int
+    , quantity : Int
+    , exhibitionDateTitle : String
+    }
 
 
 fmDateFormat : String
@@ -149,15 +153,23 @@ init flags =
 
 cartItemDecoder : Json.Decode.Decoder CartItem
 cartItemDecoder =
-    Json.Decode.map3 CartItem
+    Json.Decode.map4 CartItem
         (Json.Decode.field "key" Json.Decode.string)
         (Json.Decode.field "variant_id" Json.Decode.int)
         (Json.Decode.field "quantity" Json.Decode.int)
+        (Json.Decode.field "properties" exhibitionDateTitleDecoder
+            |> Json.Decode.map (Maybe.withDefault "")
+        )
 
 
 cartItemsDecoder : Json.Decode.Decoder (List CartItem)
 cartItemsDecoder =
     Json.Decode.field "items" (Json.Decode.list cartItemDecoder)
+
+
+exhibitionDateTitleDecoder : Json.Decode.Decoder (Maybe String)
+exhibitionDateTitleDecoder =
+    Json.Decode.maybe (Json.Decode.at [ "Exhibition" ] Json.Decode.string)
 
 
 productDetailsDecoder : Json.Decode.Decoder ProductDetails
@@ -239,6 +251,7 @@ type Msg
     | ClickedRemoveVariant Int
     | InputVariantQuantity Int String
     | CartUpdated (Result Http.Error ())
+    | CartChanged (Result Http.Error ())
     | ClickedUpdateCart
 
 
@@ -287,6 +300,16 @@ update msg model =
             -- todo parse returned cart for new cart items
             ( model, Browser.Navigation.load "/cart" )
 
+        CartChanged _ ->
+            -- todo parse returned cart for new cart items
+            ( model
+            , Cmd.batch
+                (lineItemChangeList model.cartItems (ticketDetailString model)
+                    ++ [ Browser.Navigation.load "/cart"
+                       ]
+                )
+            )
+
         ClickedUpdateCart ->
             ( model
             , if model.cartEmptyInShopify then
@@ -303,7 +326,12 @@ update msg model =
 
               else
                 cartUpdatePost
-                    (List.map (\item -> { id = item.variantId, quantity = item.quantity })
+                    (List.map
+                        (\item ->
+                            { id = item.variantId
+                            , quantity = item.quantity
+                            }
+                        )
                         model.cartItems
                     )
             )
@@ -317,11 +345,26 @@ type alias CartUpdatePost =
     List { id : Int, quantity : Int }
 
 
+type alias CartChangePost =
+    { line : Int, lineItem : String }
+
+
 cartAddPost : CartAddPost -> Cmd Msg
 cartAddPost post =
     Http.post
         { url = "/cart/add.js"
         , body = Http.jsonBody (cartAddEncoder post)
+
+        -- todo expect valid cart items
+        , expect = Http.expectWhatever CartUpdated
+        }
+
+
+cartChangePost : CartChangePost -> Cmd Msg
+cartChangePost post =
+    Http.post
+        { url = "/cart/change.js"
+        , body = Http.jsonBody (cartChangeEncoder post)
 
         -- todo expect valid cart items
         , expect = Http.expectWhatever CartUpdated
@@ -335,7 +378,7 @@ cartUpdatePost post =
         , body = Http.jsonBody (cartUpdateEncoder post)
 
         -- todo expect valid cart items
-        , expect = Http.expectWhatever CartUpdated
+        , expect = Http.expectWhatever CartChanged
         }
 
 
@@ -347,12 +390,28 @@ cartAddEncoder posts =
                 (\post ->
                     Json.Encode.object
                         [ ( "id", Json.Encode.int post.id )
-                        , ( "properties", Json.Encode.object [ ( "Exhibition", Json.Encode.string post.lineItem ) ] )
+                        , ( "properties"
+                          , Json.Encode.object
+                                [ ( "Exhibition", Json.Encode.string post.lineItem )
+                                ]
+                          )
                         , ( "quantity", Json.Encode.int post.quantity )
                         , ( "sections", Json.Encode.list Json.Encode.string [ "cart-icon-bubble" ] )
                         ]
                 )
                 posts
+          )
+        ]
+
+
+cartChangeEncoder : CartChangePost -> Json.Encode.Value
+cartChangeEncoder post =
+    Json.Encode.object
+        [ ( "line", Json.Encode.int post.line )
+        , ( "properties"
+          , Json.Encode.object
+                [ ( "Exhibition", Json.Encode.string post.lineItem )
+                ]
           )
         ]
 
@@ -370,6 +429,24 @@ cartUpdateEncoder posts =
         ]
 
 
+addTicketDetailsToCartLine : Int -> String -> Cmd Msg
+addTicketDetailsToCartLine lineNumber details =
+    cartChangePost { line = lineNumber, lineItem = details }
+
+
+lineItemChangeList : List CartItem -> String -> List (Cmd Msg)
+lineItemChangeList cartItems title =
+    List.indexedMap
+        (\key item ->
+            if item.exhibitionDateTitle == "" then
+                addTicketDetailsToCartLine (key + 1) title
+
+            else
+                Cmd.none
+        )
+        cartItems
+
+
 variantsInCart : List CartItem -> List Int
 variantsInCart cartItems =
     List.map (\item -> item.variantId) cartItems
@@ -382,6 +459,7 @@ addOneOfVariant initialCartItems variantId =
             ++ [ { lineItemKey = ""
                  , variantId = variantId
                  , quantity = 1
+                 , exhibitionDateTitle = ""
                  }
                ]
 
@@ -424,6 +502,7 @@ updateVariantQuantity initialCartItems variantId input =
             ++ [ { lineItemKey = ""
                  , variantId = variantId
                  , quantity = 1
+                 , exhibitionDateTitle = ""
                  }
                ]
 
@@ -529,7 +608,7 @@ viewProductVariants cartItems productVariants =
 viewPrice : Int -> String
 viewPrice priceInt =
     if priceInt == 0 then
-        "Free"
+        "£0.00"
 
     else
         "£"
