@@ -523,7 +523,8 @@
         "custom_label": "Enter an amount",
         "add_tip": "Add donation",
         "update_tip": "Update dontation",
-        "message": "Thank you for donating "
+        "message": "Thank you for donating ",
+        "preset_label": " "
       }
     }
   }
