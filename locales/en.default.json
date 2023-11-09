@@ -510,5 +510,21 @@
       "send_on": "YYYY-MM-DD",
       "send_on_label": "Send on (optional)"
     }
+  },
+  "shopify": {
+    "checkout": {
+      "order_summary": {
+        "tip_label": "Donation"
+      },
+      "tips": {
+        "title": "Add a donation to the Foundling Museum",
+        "description": " Please make a donation to support our work with vulnerable and marginalised young people, and help us tell the story of the Foundling Hospital through our programme of exhibitions and events. Every donation, no matter what the size, makes a difference, and is gratefully received.",
+        "presets_description": "Select a donation amount",
+        "custom_label": "Enter an amount",
+        "add_tip": "Add donation",
+        "update_tip": "Update dontation",
+        "message": "Thank you for donating "
+      }
+    }
   }
 }
