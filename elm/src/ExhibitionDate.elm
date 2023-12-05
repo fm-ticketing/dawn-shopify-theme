@@ -82,6 +82,11 @@ fmDateFormat =
     "d MMM yyyy"
 
 
+fmDateFormatWithWeekday : String
+fmDateFormatWithWeekday =
+    "E d MMM yyyy"
+
+
 lastExhibitionEndDate : Model -> Date.Date
 lastExhibitionEndDate model =
     List.map (\exhibition -> exhibition.endDate) model.exhibitionList
@@ -652,7 +657,7 @@ ticketDetailString model =
         Just aDate ->
             String.join " "
                 [ maybeExhibitionTitle model
-                , Date.format fmDateFormat aDate
+                , Date.format fmDateFormatWithWeekday aDate
                 ]
 
 
