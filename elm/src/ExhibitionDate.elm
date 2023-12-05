@@ -82,6 +82,16 @@ fmDateFormat =
     "d MMM yyyy"
 
 
+lastExhibitionEndDate : Model -> Date.Date
+lastExhibitionEndDate model =
+    List.map (\exhibition -> exhibition.endDate) model.exhibitionList
+        |> List.sortWith Date.compare
+        |> List.reverse
+        |> List.head
+        |> Maybe.withDefault (Date.add Date.Months 9 (getInitialDate model.datePicker))
+        |> Date.add Date.Days 1
+
+
 datePickerSettings : Model -> DatePicker.Settings
 datePickerSettings model =
     let
@@ -91,6 +101,8 @@ datePickerSettings model =
                 /= LT
                 || List.member date
                     (List.concat (List.map (\{ closedOn } -> closedOn) model.closedDateList))
+                || Date.compare (lastExhibitionEndDate model) date
+                /= GT
     in
     { defaultSettings | isDisabled = isDisabled (getInitialDate model.datePicker) }
 
