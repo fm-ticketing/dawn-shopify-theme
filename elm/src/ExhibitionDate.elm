@@ -360,7 +360,7 @@ update msg model =
                         (\item ->
                             { id = item.variantId
                             , lineItem = ticketDetailString model
-                            , giftAidDeclaration = False
+                            , giftAidDeclaration = model.giftAidDeclaration
                             , quantity = item.quantity
                             }
                         )
@@ -597,17 +597,7 @@ viewProductVariantSelector model =
                 ]
             , viewProductVariants model.cartItems model.productDetails.variants model.productDetails.variantDescriptions
             ]
-        , Html.div [ Html.Attributes.class "gift-aid-container" ]
-            [ Html.label []
-                [ Html.input
-                    [ Html.Attributes.type_ "checkbox"
-                    , Html.Events.onClick ToggleGiftAidDeclaration
-                    , Html.Attributes.checked model.giftAidDeclaration
-                    ]
-                    []
-                , Html.text "Gift aid stuff"
-                ]
-            ]
+        , viewGiftAidDeclaration model.giftAidDeclaration
         , Html.button
             [ Html.Attributes.class "button"
             , Html.Events.onClick ClickedUpdateCart
@@ -723,6 +713,25 @@ quantityFromVariantId cartItems variantId =
     List.filter (\item -> item.variantId == variantId) cartItems
         |> List.map (\itemWithVariantId -> itemWithVariantId.quantity)
         |> List.sum
+
+
+viewGiftAidDeclaration : Bool -> Html Msg
+viewGiftAidDeclaration giftAidDeclaration =
+    if True then
+        Html.div [ Html.Attributes.class "gift-aid-container" ]
+            [ Html.label []
+                [ Html.input
+                    [ Html.Attributes.type_ "checkbox"
+                    , Html.Events.onClick ToggleGiftAidDeclaration
+                    , Html.Attributes.checked giftAidDeclaration
+                    ]
+                    []
+                , Html.text "Gift aid stuff"
+                ]
+            ]
+
+    else
+        Html.text ""
 
 
 ticketDetailString : Model -> String
