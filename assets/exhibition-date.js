@@ -2719,7 +2719,7 @@ var _VirtualDom_mapEventTuple = F2(function(func, tuple)
 var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
-		C: func(record.C),
+		D: func(record.D),
 		aI: record.aI,
 		aF: record.aF
 	}
@@ -2989,7 +2989,7 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 		// 3 = Custom
 
 		var value = result.a;
-		var message = !tag ? value : tag < 3 ? value.a : value.C;
+		var message = !tag ? value : tag < 3 ? value.a : value.D;
 		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.aI;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
@@ -7501,7 +7501,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$init = _Utils_Tuple2(
 		B: false,
 		r: $elm$core$Maybe$Nothing,
 		x: false,
-		E: $CurrySoftware$elm_datepicker$DatePicker$Date$initDate
+		F: $CurrySoftware$elm_datepicker$DatePicker$Date$initDate
 	},
 	A2($elm$core$Task$perform, $CurrySoftware$elm_datepicker$DatePicker$CurrentDate, $justinmimbs$date$Date$today));
 var $elm$core$Platform$Cmd$map = _Platform_map;
@@ -7597,9 +7597,9 @@ var $author$project$ExhibitionDate$init = function (flags) {
 			m: decodedInitialCartItems,
 			P: decodedClosedDateList,
 			v: $elm$core$Maybe$Nothing,
-			G: datePicker,
+			H: datePicker,
 			A: decodedExhibitionList,
-			I: false,
+			C: false,
 			K: decodedProductDetails
 		},
 		$elm$core$Platform$Cmd$batch(
@@ -7708,7 +7708,7 @@ var $author$project$ExhibitionDate$cartAddEncoder = function (posts) {
 												$elm$json$Json$Encode$string(post.a3)),
 												_Utils_Tuple2(
 												'GiftAidDeclaration',
-												$elm$json$Json$Encode$bool(post.I))
+												$elm$json$Json$Encode$bool(post.C))
 											]))),
 									_Utils_Tuple2(
 									'quantity',
@@ -8573,7 +8573,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$defaultSettings = {
 };
 var $CurrySoftware$elm_datepicker$DatePicker$getInitialDate = function (_v0) {
 	var model = _v0;
-	return model.E;
+	return model.F;
 };
 var $justinmimbs$date$Date$Days = 3;
 var $justinmimbs$date$Date$Months = 1;
@@ -8611,7 +8611,7 @@ var $author$project$ExhibitionDate$lastExhibitionEndDate = function (model) {
 				$justinmimbs$date$Date$add,
 				1,
 				9,
-				$CurrySoftware$elm_datepicker$DatePicker$getInitialDate(model.G)),
+				$CurrySoftware$elm_datepicker$DatePicker$getInitialDate(model.H)),
 			$elm$core$List$head(
 				$elm$core$List$reverse(
 					A2(
@@ -8646,7 +8646,7 @@ var $author$project$ExhibitionDate$datePickerSettings = function (model) {
 		$CurrySoftware$elm_datepicker$DatePicker$defaultSettings,
 		{
 			bL: isDisabled(
-				$CurrySoftware$elm_datepicker$DatePicker$getInitialDate(model.G))
+				$CurrySoftware$elm_datepicker$DatePicker$getInitialDate(model.H))
 		});
 };
 var $elm$browser$Browser$Navigation$load = _Browser_load;
@@ -8752,7 +8752,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$update = F3(
 						model,
 						{
 							p: $elm$core$Maybe$Just(date),
-							E: date
+							F: date
 						}),
 					$CurrySoftware$elm_datepicker$DatePicker$None);
 			case 1:
@@ -8887,7 +8887,7 @@ var $author$project$ExhibitionDate$update = F2(
 					$CurrySoftware$elm_datepicker$DatePicker$update,
 					$author$project$ExhibitionDate$datePickerSettings(model),
 					subMsg,
-					model.G);
+					model.H);
 				var newDatePicker = _v1.a;
 				var dateEvent = _v1.b;
 				var newDate = function () {
@@ -8901,7 +8901,7 @@ var $author$project$ExhibitionDate$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{v: newDate, G: newDatePicker}),
+						{v: newDate, H: newDatePicker}),
 					$elm$core$Platform$Cmd$none);
 			case 1:
 				return _Utils_Tuple2(
@@ -8941,7 +8941,7 @@ var $author$project$ExhibitionDate$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{I: !model.I}),
+						{C: !model.C}),
 					$elm$core$Platform$Cmd$none);
 			case 6:
 				return _Utils_Tuple2(
@@ -8961,7 +8961,7 @@ var $author$project$ExhibitionDate$update = F2(
 							$elm$core$List$map,
 							function (item) {
 								return {
-									I: false,
+									C: model.C,
 									j: item.u,
 									a3: $author$project$ExhibitionDate$ticketDetailString(model),
 									i: item.i
@@ -9563,7 +9563,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$viewDay = F5(
 var $CurrySoftware$elm_datepicker$DatePicker$Date$yearRange = F2(
 	function (_v0, range) {
 		var currentMonth = _v0.am;
-		var today = _v0.E;
+		var today = _v0.F;
 		switch (range.$) {
 			case 1:
 				var num = range.a;
@@ -9597,7 +9597,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$yearRangeActive = function (yearRan
 var $CurrySoftware$elm_datepicker$DatePicker$datePicker = F3(
 	function (pickedDate, settings, model) {
 		var focused = model.p;
-		var today = model.E;
+		var today = model.F;
 		var picked = function (d) {
 			return A2(
 				$elm$core$Maybe$withDefault,
@@ -9751,7 +9751,7 @@ var $CurrySoftware$elm_datepicker$DatePicker$datePicker = F3(
 							addedYearsFront,
 							A2(
 							$CurrySoftware$elm_datepicker$DatePicker$Date$yearRange,
-							{am: currentMonth, E: today},
+							{am: currentMonth, F: today},
 							settings.V),
 							addedYearsBack
 						]))));
@@ -10011,12 +10011,39 @@ var $CurrySoftware$elm_datepicker$DatePicker$view = F3(
 				]));
 	});
 var $author$project$ExhibitionDate$ClickedUpdateCart = {$: 8};
-var $author$project$ExhibitionDate$ToggleGiftAidDeclaration = {$: 5};
-var $elm$html$Html$Attributes$checked = $elm$html$Html$Attributes$boolProperty('checked');
-var $elm$html$Html$label = _VirtualDom_node('label');
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$html$Html$th = _VirtualDom_node('th');
+var $author$project$ExhibitionDate$ToggleGiftAidDeclaration = {$: 5};
+var $elm$html$Html$Attributes$checked = $elm$html$Html$Attributes$boolProperty('checked');
+var $elm$html$Html$label = _VirtualDom_node('label');
+var $author$project$ExhibitionDate$viewGiftAidDeclaration = function (giftAidDeclaration) {
+	return true ? A2(
+		$elm$html$Html$div,
+		_List_fromArray(
+			[
+				$elm$html$Html$Attributes$class('gift-aid-container')
+			]),
+		_List_fromArray(
+			[
+				A2(
+				$elm$html$Html$label,
+				_List_Nil,
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$input,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$type_('checkbox'),
+								$elm$html$Html$Events$onClick($author$project$ExhibitionDate$ToggleGiftAidDeclaration),
+								$elm$html$Html$Attributes$checked(giftAidDeclaration)
+							]),
+						_List_Nil),
+						$elm$html$Html$text('Gift aid stuff')
+					]))
+			])) : $elm$html$Html$text('');
+};
 var $elm$html$Html$br = _VirtualDom_node('br');
 var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$core$String$padRight = F3(
@@ -10265,31 +10292,7 @@ var $author$project$ExhibitionDate$viewProductVariantSelector = function (model)
 							])),
 						A3($author$project$ExhibitionDate$viewProductVariants, model.m, model.K.ac, model.K.ab)
 					])),
-				A2(
-				$elm$html$Html$div,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('gift-aid-container')
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$elm$html$Html$label,
-						_List_Nil,
-						_List_fromArray(
-							[
-								A2(
-								$elm$html$Html$input,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$type_('checkbox'),
-										$elm$html$Html$Events$onClick($author$project$ExhibitionDate$ToggleGiftAidDeclaration),
-										$elm$html$Html$Attributes$checked(model.I)
-									]),
-								_List_Nil),
-								$elm$html$Html$text('Gift aid stuff')
-							]))
-					])),
+				$author$project$ExhibitionDate$viewGiftAidDeclaration(model.C),
 				A2(
 				$elm$html$Html$button,
 				_List_fromArray(
@@ -10373,7 +10376,7 @@ var $author$project$ExhibitionDate$view = function (model) {
 							$CurrySoftware$elm_datepicker$DatePicker$view,
 							model.v,
 							$author$project$ExhibitionDate$datePickerSettings(model),
-							model.G))
+							model.H))
 					])) : A2(
 				$elm$html$Html$div,
 				_List_Nil,
