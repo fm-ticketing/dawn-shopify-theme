@@ -607,6 +607,14 @@
     <script src="{{ 'product-model.js' | asset_url }}" defer></script>
   {%- endif -%}
 
+  {% capture ticket_description %}
+    {% for variant in product.variants %}
+        {{ variant.id | plus: 0 }}: {{ variant.metafields.custom.ticket_description }},
+    {% endfor %}
+  {% endcapture %}
+
+  {% assign ticket_descriptions = ticket_description | strip_newlines | remove: '  ' | split: ',' %}
+
   <script>
     Elm.ExhibitionDate.init({
       node: document.getElementById('exhibition-date'),
@@ -616,9 +624,11 @@
         closedDateList:
           {{ shop.metaobjects.closed_dates.values | json }},
         productDetails:
-          { id: {{ product.id }}, variants: {{ product.variants | json }} },
+          { id: {{ product.id }},
+            variants: {{ product.variants | json }},
+            variantDescriptions: {{ ticket_descriptions | json }} },
         initialCart: {{ cart | json }}
-      }
+          }
     });
   </script>
 

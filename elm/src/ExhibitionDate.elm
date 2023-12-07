@@ -62,7 +62,10 @@ type alias ClosedDate =
 
 
 type alias ProductDetails =
-    { id : Int, variants : List ProductVariant }
+    { id : Int
+    , variants : List ProductVariant
+    , variantDescriptions : List String
+    }
 
 
 type alias ProductVariant =
@@ -140,10 +143,13 @@ init flags =
         decodedProductDetails =
             case Json.Decode.decodeValue productDetailsDecoder flags.productDetails of
                 Ok goodProductDetails ->
-                    { id = goodProductDetails.id, variants = goodProductDetails.variants }
+                    { id = goodProductDetails.id
+                    , variants = goodProductDetails.variants
+                    , variantDescriptions = goodProductDetails.variantDescriptions
+                    }
 
-                Err _ ->
-                    { id = 0, variants = [] }
+                Err error ->
+                    { id = 0, variants = [], variantDescriptions = [] }
 
         decodedInitialCartItems =
             case Json.Decode.decodeValue cartItemsDecoder flags.initialCart of
@@ -206,10 +212,11 @@ exhibitionDateTitleDecoder =
 
 productDetailsDecoder : Json.Decode.Decoder ProductDetails
 productDetailsDecoder =
-    Json.Decode.map2
+    Json.Decode.map3
         ProductDetails
         (Json.Decode.field "id" Json.Decode.int)
         (Json.Decode.field "variants" (Json.Decode.list productVariantDecoder))
+        (Json.Decode.field "variantDescriptions" (Json.Decode.list Json.Decode.string))
 
 
 productVariantDecoder : Json.Decode.Decoder ProductVariant
@@ -561,13 +568,13 @@ view model =
                     [ Html.text (ticketDetailString model)
                     ]
                 , Html.button [ Html.Attributes.class "button button--secondary", Html.Events.onClick ClickedResetDatePicker ] [ Html.text "Choose another date" ]
-                , viewProductVariantSelector model.cartItems model.productDetails.variants
+                , viewProductVariantSelector model.cartItems model.productDetails.variants model.productDetails.variantDescriptions
                 ]
         ]
 
 
-viewProductVariantSelector : List CartItem -> List ProductVariant -> Html Msg
-viewProductVariantSelector cartItems productVariants =
+viewProductVariantSelector : List CartItem -> List ProductVariant -> List String -> Html Msg
+viewProductVariantSelector cartItems productVariants productVariantDescriptionList =
     Html.div []
         [ Html.table [ Html.Attributes.style "margin" "2rem 0" ]
             [ Html.thead []
@@ -575,7 +582,7 @@ viewProductVariantSelector cartItems productVariants =
                 , Html.th [] [ Html.text "Price per ticket" ]
                 , Html.th [] [ Html.text "Quantity" ]
                 ]
-            , viewProductVariants cartItems productVariants
+            , viewProductVariants cartItems productVariants productVariantDescriptionList
             ]
         , Html.button
             [ Html.Attributes.class "button"
@@ -585,19 +592,65 @@ viewProductVariantSelector cartItems productVariants =
         ]
 
 
-viewProductVariants : List CartItem -> List ProductVariant -> Html Msg
-viewProductVariants cartItems productVariants =
+viewProductVariants : List CartItem -> List ProductVariant -> List String -> Html Msg
+viewProductVariants cartItems productVariants productVariantDescriptions =
     Html.tbody []
         (List.map
             (\variant ->
                 Html.tr []
-                    [ Html.td [] [ Html.text variant.title ]
+                    [ Html.td []
+                        [ Html.text variant.title
+                        , Html.br [] []
+                        , viewProductVariantDescription variant.id productVariantDescriptions
+                        ]
                     , Html.td [] [ Html.text (viewPrice variant.price) ]
                     , Html.td [] [ viewQuantity cartItems variant.id ]
                     ]
             )
             productVariants
         )
+
+
+viewProductVariantDescription : Int -> List String -> Html Msg
+viewProductVariantDescription variantId productVariantDescriptions =
+    let
+        variantIds =
+            List.map
+                (\pair ->
+                    String.split ":" pair
+                )
+                productVariantDescriptions
+                |> List.map
+                    (\aPair ->
+                        List.take 2 aPair |> List.head |> Maybe.withDefault "0" |> String.toInt |> Maybe.withDefault 0
+                    )
+
+        variantDescriptions =
+            List.map
+                (\pair ->
+                    String.split ":" pair
+                )
+                productVariantDescriptions
+                |> List.map
+                    (\aPair ->
+                        List.take 2 aPair |> List.reverse |> List.head |> Maybe.withDefault ""
+                    )
+
+        filteredVariantDescriptions =
+            List.map2 (\id description -> { id = id, description = description }) variantIds variantDescriptions
+                |> List.filter
+                    (\{ id, description } ->
+                        (String.length (String.replace " " "" description) > 0) && id == variantId
+                    )
+
+        filteredVariantDescription =
+            Maybe.withDefault { id = 0, description = "" } (List.head filteredVariantDescriptions)
+    in
+    if filteredVariantDescription.id == variantId then
+        Html.text filteredVariantDescription.description
+
+    else
+        Html.text ""
 
 
 viewPrice : Int -> String
