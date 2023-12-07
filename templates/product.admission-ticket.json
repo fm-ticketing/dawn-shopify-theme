@@ -23,7 +23,7 @@
       "settings": {
         "enable_sticky_info": true,
         "media_size": "large",
-        "constrain_to_viewport": true,
+        "constrain_to_viewport": false,
         "media_fit": "contain",
         "gallery_layout": "stacked",
         "media_position": "left",
@@ -31,7 +31,7 @@
         "mobile_thumbnails": "hide",
         "hide_variants": true,
         "enable_video_looping": false,
-        "padding_top": 36,
+        "padding_top": 24,
         "padding_bottom": 12
       }
     }
