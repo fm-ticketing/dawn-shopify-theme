@@ -625,9 +625,9 @@
           {{ shop.metaobjects.closed_dates.values | json }},
         productDetails:
           { id: {{ product.id }},
-            variants: {{ product.variants | json }} },
-            variantDescriptions: {{ ticket_descriptions | json }},
-            initialCart: {{ cart | json }}
+            variants: {{ product.variants | json }},
+            variantDescriptions: {{ ticket_descriptions | json }} },
+        initialCart: {{ cart | json }}
           }
     });
   </script>
