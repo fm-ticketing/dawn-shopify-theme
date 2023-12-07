@@ -44,6 +44,7 @@ type alias Model =
     , productDetails : ProductDetails
     , date : Maybe Date.Date
     , datePicker : DatePicker.DatePicker
+    , giftAidDeclaration : Bool
     , cartItems : List CartItem
     , cartEmptyInShopify : Bool
     }
@@ -167,6 +168,7 @@ init flags =
       , productDetails = decodedProductDetails
       , date = Nothing
       , datePicker = datePicker
+      , giftAidDeclaration = False
       , cartItems = decodedInitialCartItems
       , cartEmptyInShopify = List.length decodedInitialCartItems == 0
       }
@@ -289,6 +291,7 @@ type Msg
     | ClickedAddVariant Int
     | ClickedRemoveVariant Int
     | InputVariantQuantity Int String
+    | ToggleGiftAidDeclaration
     | CartUpdated (Result Http.Error ())
     | CartInitialised (Result Http.Error ())
     | ClickedUpdateCart
@@ -335,6 +338,9 @@ update msg model =
             , Cmd.none
             )
 
+        ToggleGiftAidDeclaration ->
+            ( { model | giftAidDeclaration = not model.giftAidDeclaration }, Cmd.none )
+
         CartUpdated _ ->
             -- todo parse returned cart for new cart items
             ( model, Browser.Navigation.load "/cart" )
@@ -354,6 +360,7 @@ update msg model =
                         (\item ->
                             { id = item.variantId
                             , lineItem = ticketDetailString model
+                            , giftAidDeclaration = False
                             , quantity = item.quantity
                             }
                         )
@@ -374,7 +381,12 @@ update msg model =
 
 
 type alias CartAddPost =
-    List { id : Int, lineItem : String, quantity : Int }
+    List
+        { id : Int
+        , lineItem : String
+        , giftAidDeclaration : Bool
+        , quantity : Int
+        }
 
 
 type alias CartUpdatePost =
@@ -425,6 +437,7 @@ cartAddEncoder posts =
                         , ( "properties"
                           , Json.Encode.object
                                 [ ( "Exhibition", Json.Encode.string post.lineItem )
+                                , ( "GiftAidDeclaration", Json.Encode.bool post.giftAidDeclaration )
                                 ]
                           )
                         , ( "quantity", Json.Encode.int post.quantity )
@@ -568,13 +581,13 @@ view model =
                     [ Html.text (ticketDetailString model)
                     ]
                 , Html.button [ Html.Attributes.class "button button--secondary", Html.Events.onClick ClickedResetDatePicker ] [ Html.text "Choose another date" ]
-                , viewProductVariantSelector model.cartItems model.productDetails.variants model.productDetails.variantDescriptions
+                , viewProductVariantSelector model
                 ]
         ]
 
 
-viewProductVariantSelector : List CartItem -> List ProductVariant -> List String -> Html Msg
-viewProductVariantSelector cartItems productVariants productVariantDescriptionList =
+viewProductVariantSelector : Model -> Html Msg
+viewProductVariantSelector model =
     Html.div []
         [ Html.table [ Html.Attributes.style "margin" "2rem 0" ]
             [ Html.thead []
@@ -582,7 +595,18 @@ viewProductVariantSelector cartItems productVariants productVariantDescriptionLi
                 , Html.th [] [ Html.text "Price per ticket" ]
                 , Html.th [] [ Html.text "Quantity" ]
                 ]
-            , viewProductVariants cartItems productVariants productVariantDescriptionList
+            , viewProductVariants model.cartItems model.productDetails.variants model.productDetails.variantDescriptions
+            ]
+        , Html.div [ Html.Attributes.class "gift-aid-container" ]
+            [ Html.label []
+                [ Html.input
+                    [ Html.Attributes.type_ "checkbox"
+                    , Html.Events.onClick ToggleGiftAidDeclaration
+                    , Html.Attributes.checked model.giftAidDeclaration
+                    ]
+                    []
+                , Html.text "Gift aid stuff"
+                ]
             ]
         , Html.button
             [ Html.Attributes.class "button"
