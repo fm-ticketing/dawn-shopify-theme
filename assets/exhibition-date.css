@@ -67,12 +67,12 @@
 .elm-datepicker--prev,
 .elm-datepicker--next {
   background-color: inherit;
-  border: 6px solid transparent;
+  border: 10px solid transparent;
+  cursor: pointer;
   display: block;
   height: 0;
   padding: 0 0.2em;
   width: 0;
-  cursor: pointer;
 }
 
 .elm-datepicker--prev {
