@@ -1,7 +1,7 @@
 .product {
   --green: #789D57;
   --light-green: #EEF2E9;
-  --light-grey: #f9f3e9;
+  --light-grey: #FFFFFF;
   --dark-grey: #B1B5B8;
 }
 
@@ -44,7 +44,7 @@
 }
 
 .elm-datepicker--month-container {
-  display: row;
+  display: flex;
   flex: 1 1 auto;
   flex-direction: column;
   padding: 0.5em;
