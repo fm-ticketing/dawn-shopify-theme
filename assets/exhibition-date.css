@@ -1,110 +1,145 @@
 .elm-datepicker--container {
   height: 200px;
-  position: relative; }
+  position: relative;
+}
 
 .elm-datepicker--input:focus {
-  outline: 0; }
+  outline: 0;
+}
 
 .elm-datepicker--picker {
-  position: absolute;
+  background-color: white;
   border: 1px solid #CCC;
+  position: absolute;
   z-index: 10;
-  background-color: white; }
+}
 
 .elm-datepicker--picker-header,
 .elm-datepicker--weekdays {
-  background: #F2F2F2; }
+  background: #F2F2F2;
+}
 
 .elm-datepicker--picker-header {
+  align-items: center;
   display: flex;
-  align-items: center; }
+}
 
 .elm-datepicker--prev-container,
 .elm-datepicker--next-container {
+  cursor: pointer;
   flex: 0 1 auto;
-  cursor: pointer; }
+}
 
 .elm-datepicker--month-container {
-  flex: 1 1 auto;
-  padding: 0.5em;
   display: flex;
-  flex-direction: column; }
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding: 0.5em;
+}
 
 .elm-datepicker--month,
 .elm-datepicker--year {
-  flex: 1 1 auto;
   cursor: default;
-  text-align: center; }
+  flex: 1 1 auto;
+  text-align: center;
+}
 
 .elm-datepicker--year {
   font-size: 0.6em;
-  font-weight: 700; }
+  font-weight: 700;
+}
 
 .elm-datepicker--prev,
 .elm-datepicker--next {
-  border: 6px solid transparent;
   background-color: inherit;
+  border: 6px solid transparent;
   display: block;
-  width: 0;
   height: 0;
-  padding: 0 0.2em; }
+  padding: 0 0.2em;
+  width: 0;
+}
 
 .elm-datepicker--prev {
-  border-right-color: #AAA; }
-  .elm-datepicker--prev:hover {
-    border-right-color: #BBB; }
+  border-right-color: #AAA;
+}
+
+.elm-datepicker--prev:hover {
+  border-right-color: #BBB;
+}
 
 .elm-datepicker--next {
-  border-left-color: #AAA; }
-  .elm-datepicker--next:hover {
-    border-left-color: #BBB; }
+  border-left-color: #AAA;
+}
+
+.elm-datepicker--next:hover {
+  border-left-color: #BBB;
+}
 
 .elm-datepicker--table {
-  border-spacing: 0;
   border-collapse: collapse;
-  font-size: 0.8em; }
-  .elm-datepicker--table td {
-    width: 2em;
-    height: 2em;
-    text-align: center; }
+  border-spacing: 0;
+  font-size: 0.8em;
+}
+.elm-datepicker--table td {
+  height: 2em;
+  text-align: center;
+  width: 2em;
+}
 
 .elm-datepicker--row {
-  border-top: 1px solid #F2F2F2; }
+  border-top: 1px solid #F2F2F2;
+}
 
 .elm-datepicker--dow {
   border-bottom: 1px solid #CCC;
-  cursor: default; }
+  cursor: default;
+}
 
 .elm-datepicker--day {
-  cursor: pointer; }
-  .elm-datepicker--day:hover {
-    background: #F2F2F2; }
+  cursor: pointer;
+}
+
+.elm-datepicker--day:hover {
+  background: #F2F2F2;
+}
 
 .elm-datepicker--disabled {
+  color: #DDD;
   cursor: default;
-  color: #DDD; }
-  .elm-datepicker--disabled:hover {
-    background: inherit; }
+}
+
+.elm-datepicker--disabled:hover {
+  background: inherit;
+}
 
 .elm-datepicker--picked {
+  background: darkblue;
   color: white;
-  background: darkblue; }
-  .elm-datepicker--picked:hover {
-    background: darkblue; }
+}
+
+.elm-datepicker--picked:hover {
+  background: darkblue;
+}
 
 .elm-datepicker--today {
-  font-weight: bold; }
+  font-weight: bold;
+}
 
 .elm-datepicker--other-month {
-  color: #AAA; }
-  .elm-datepicker--other-month.elm-datepicker--disabled {
-    color: #EEE; }
-  .elm-datepicker--other-month.elm-datepicker--picked {
-    color: white; }
+  color: #AAA;
+}
+
+.elm-datepicker--other-month.elm-datepicker--disabled {
+  color: #EEE;
+}
+
+.elm-datepicker--other-month.elm-datepicker--picked {
+  color: white;
+}
 
 .gift-aid-container {
   background: no-repeat top 10px left/200px url('./giftaid-logo.png');
   border: solid 1px black;
-  padding: 80px 20px 10px 20px;
   margin-bottom: 20px;
+  padding: 80px 20px 10px 20px;
 }
