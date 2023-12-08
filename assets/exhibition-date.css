@@ -46,7 +46,7 @@
 .elm-datepicker--month-container {
   display: flex;
   flex: 1 1 auto;
-  flex-direction: column;
+  flex-direction: row;
   padding: 0.5em;
   font-size: 2rem;
 }
