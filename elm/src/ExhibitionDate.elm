@@ -34,6 +34,7 @@ type alias Flags =
     { exhibitionList : Json.Decode.Value
     , closedDateList : Json.Decode.Value
     , productDetails : Json.Decode.Value
+    , giftAidCopy : Json.Decode.Value
     , initialCart : Json.Decode.Value
     }
 
@@ -42,6 +43,7 @@ type alias Model =
     { exhibitionList : List Exhibition
     , closedDateList : List ClosedDate
     , productDetails : ProductDetails
+    , giftAidCopy : GiftAidCopy
     , date : Maybe Date.Date
     , datePicker : DatePicker.DatePicker
     , giftAidDeclaration : Bool
@@ -71,6 +73,10 @@ type alias ProductDetails =
 
 type alias ProductVariant =
     { id : Int, title : String, price : Int }
+
+
+type alias GiftAidCopy =
+    { heading : String, info : String, declaration : String }
 
 
 type alias CartItem =
@@ -106,7 +112,7 @@ datePickerSettings model =
     let
         isDisabled : Date.Date -> Date.Date -> Bool
         isDisabled today date =
-            Date.compare today date
+            Date.compare (Date.add Date.Days -1 today) date
                 /= LT
                 || List.member date
                     (List.concat (List.map (\{ closedOn } -> closedOn) model.closedDateList))
@@ -152,6 +158,14 @@ init flags =
                 Err error ->
                     { id = 0, variants = [], variantDescriptions = [] }
 
+        decodedGiftAidCopy =
+            case Json.Decode.decodeValue giftAidCopyDecoder flags.giftAidCopy of
+                Ok goodGiftAidCopy ->
+                    goodGiftAidCopy
+
+                Err _ ->
+                    { heading = "", info = "", declaration = "" }
+
         decodedInitialCartItems =
             case Json.Decode.decodeValue cartItemsDecoder flags.initialCart of
                 Ok goodCartItems ->
@@ -166,6 +180,7 @@ init flags =
     ( { exhibitionList = decodedExhibitionList
       , closedDateList = decodedClosedDateList
       , productDetails = decodedProductDetails
+      , giftAidCopy = decodedGiftAidCopy
       , date = Nothing
       , datePicker = datePicker
       , giftAidDeclaration = False
@@ -232,6 +247,15 @@ productVariantDecoder =
 productIdDecoder : Json.Decode.Decoder Int
 productIdDecoder =
     Json.Decode.field "id" Json.Decode.int
+
+
+giftAidCopyDecoder : Json.Decode.Decoder GiftAidCopy
+giftAidCopyDecoder =
+    Json.Decode.map3
+        GiftAidCopy
+        (Json.Decode.field "gift_aid_heading" Json.Decode.string)
+        (Json.Decode.field "gift_aid_info" Json.Decode.string)
+        (Json.Decode.field "gift_aid_declaration" Json.Decode.string)
 
 
 exhibitionDecoder : Json.Decode.Decoder Exhibition
@@ -623,7 +647,7 @@ viewProductVariantSelector model =
             , viewProductVariants model.cartItems model.productDetails.variants model.productDetails.variantDescriptions
             ]
         , if hasGiftAidTicket model.productDetails.variants model.cartItems then
-            viewGiftAidDeclaration model.giftAidDeclaration
+            viewGiftAidDeclaration model.giftAidCopy model.giftAidDeclaration
 
           else
             Html.text ""
@@ -760,17 +784,19 @@ hasGiftAidTicket allVariants cartItems =
         > 0
 
 
-viewGiftAidDeclaration : Bool -> Html Msg
-viewGiftAidDeclaration giftAidDeclaration =
+viewGiftAidDeclaration : GiftAidCopy -> Bool -> Html Msg
+viewGiftAidDeclaration giftAidCopy giftAidDeclaration =
     Html.div [ Html.Attributes.class "gift-aid-container" ]
-        [ Html.label []
+        [ Html.h2 [] [ Html.text giftAidCopy.heading ]
+        , Html.p [] [ Html.text giftAidCopy.info ]
+        , Html.label []
             [ Html.input
                 [ Html.Attributes.type_ "checkbox"
                 , Html.Events.onClick ToggleGiftAidDeclaration
                 , Html.Attributes.checked giftAidDeclaration
                 ]
                 []
-            , Html.text "Gift aid stuff"
+            , Html.text giftAidCopy.declaration
             ]
         ]
 
