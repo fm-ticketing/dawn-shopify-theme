@@ -80,7 +80,7 @@
 }
 
 .elm-datepicker--prev:hover {
-  border-right-color: var(--dark-grey);
+  border-right-color: #333333;
 }
 
 .elm-datepicker--next {
@@ -88,7 +88,7 @@
 }
 
 .elm-datepicker--next:hover {
-  border-left-color: var(--dark-grey);
+  border-left-color: #333333;
 }
 
 .elm-datepicker--table {
