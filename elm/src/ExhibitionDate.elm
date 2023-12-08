@@ -329,7 +329,32 @@ update msg model =
             )
 
         ClickedRemoveVariant variantId ->
-            ( { model | cartItems = removeOneOfVariant model.cartItems variantId }
+            let
+                updatedCartItems : List CartItem
+                updatedCartItems =
+                    List.map
+                        (\item ->
+                            if item.variantId == variantId then
+                                { item | quantity = item.quantity - 1 }
+
+                            else
+                                item
+                        )
+                        model.cartItems
+
+                newCartContainsGiftAidTicket : Bool
+                newCartContainsGiftAidTicket =
+                    hasGiftAidTicket model.productDetails.variants updatedCartItems
+
+                updatedGiftAidDeclaration : Bool
+                updatedGiftAidDeclaration =
+                    if not newCartContainsGiftAidTicket then
+                        False
+
+                    else
+                        model.giftAidDeclaration
+            in
+            ( { model | cartItems = removeOneOfVariant model.cartItems variantId, giftAidDeclaration = updatedGiftAidDeclaration }
             , Cmd.none
             )
 
@@ -597,7 +622,11 @@ viewProductVariantSelector model =
                 ]
             , viewProductVariants model.cartItems model.productDetails.variants model.productDetails.variantDescriptions
             ]
-        , viewGiftAidDeclaration model.giftAidDeclaration
+        , if hasGiftAidTicket model.productDetails.variants model.cartItems then
+            viewGiftAidDeclaration model.giftAidDeclaration
+
+          else
+            Html.text ""
         , Html.button
             [ Html.Attributes.class "button"
             , Html.Events.onClick ClickedUpdateCart
@@ -709,29 +738,41 @@ viewQuantity cartItems variantId =
 
 quantityFromVariantId : List CartItem -> Int -> Int
 quantityFromVariantId cartItems variantId =
-    --todo
     List.filter (\item -> item.variantId == variantId) cartItems
         |> List.map (\itemWithVariantId -> itemWithVariantId.quantity)
         |> List.sum
 
 
+hasGiftAidTicket : List ProductVariant -> List CartItem -> Bool
+hasGiftAidTicket allVariants cartItems =
+    let
+        giftAidIds =
+            List.filter (\variant -> String.contains "gift aid" (String.toLower variant.title)) allVariants
+                |> List.map (\variant -> variant.id)
+
+        cartItemVariantIds =
+            List.filter (\item -> item.quantity > 0) cartItems
+                |> List.map (\item -> item.variantId)
+    in
+    (List.filter (\id -> List.member id giftAidIds) cartItemVariantIds
+        |> List.length
+    )
+        > 0
+
+
 viewGiftAidDeclaration : Bool -> Html Msg
 viewGiftAidDeclaration giftAidDeclaration =
-    if True then
-        Html.div [ Html.Attributes.class "gift-aid-container" ]
-            [ Html.label []
-                [ Html.input
-                    [ Html.Attributes.type_ "checkbox"
-                    , Html.Events.onClick ToggleGiftAidDeclaration
-                    , Html.Attributes.checked giftAidDeclaration
-                    ]
-                    []
-                , Html.text "Gift aid stuff"
+    Html.div [ Html.Attributes.class "gift-aid-container" ]
+        [ Html.label []
+            [ Html.input
+                [ Html.Attributes.type_ "checkbox"
+                , Html.Events.onClick ToggleGiftAidDeclaration
+                , Html.Attributes.checked giftAidDeclaration
                 ]
+                []
+            , Html.text "Gift aid stuff"
             ]
-
-    else
-        Html.text ""
+        ]
 
 
 ticketDetailString : Model -> String

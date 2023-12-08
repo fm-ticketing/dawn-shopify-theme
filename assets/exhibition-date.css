@@ -101,3 +101,10 @@
     color: #EEE; }
   .elm-datepicker--other-month.elm-datepicker--picked {
     color: white; }
+
+.gift-aid-container {
+  background: no-repeat top 10px left/200px url('./giftaid-logo.png');
+  border: solid 1px black;
+  padding: 80px 20px 10px 20px;
+  margin-bottom: 20px;
+}
