@@ -329,7 +329,32 @@ update msg model =
             )
 
         ClickedRemoveVariant variantId ->
-            ( { model | cartItems = removeOneOfVariant model.cartItems variantId }
+            let
+                updatedCartItems : List CartItem
+                updatedCartItems =
+                    List.map
+                        (\item ->
+                            if item.variantId == variantId then
+                                { item | quantity = item.quantity - 1 }
+
+                            else
+                                item
+                        )
+                        model.cartItems
+
+                newCartContainsGiftAidTicket : Bool
+                newCartContainsGiftAidTicket =
+                    hasGiftAidTicket model.productDetails.variants updatedCartItems
+
+                updatedGiftAidDeclaration : Bool
+                updatedGiftAidDeclaration =
+                    if not newCartContainsGiftAidTicket then
+                        False
+
+                    else
+                        model.giftAidDeclaration
+            in
+            ( { model | cartItems = removeOneOfVariant model.cartItems variantId, giftAidDeclaration = updatedGiftAidDeclaration }
             , Cmd.none
             )
 
