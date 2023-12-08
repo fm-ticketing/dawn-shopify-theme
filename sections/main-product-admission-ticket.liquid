@@ -615,6 +615,14 @@
 
   {% assign ticket_descriptions = ticket_description | strip_newlines | remove: '  ' | split: ',' %}
 
+  {% capture gift_aid_text %}
+    {{ product.metafields.custom.gift_aid_text }}
+  {% endcapture %}
+
+  {% capture gift_aid_declaration_text %}
+    {{ product.metafields.custom.gift_aid_declaration_text }}
+  {% endcapture %}
+
   <script>
     Elm.ExhibitionDate.init({
       node: document.getElementById('exhibition-date'),
@@ -626,7 +634,13 @@
         productDetails:
           { id: {{ product.id }},
             variants: {{ product.variants | json }},
-            variantDescriptions: {{ ticket_descriptions | json }} },
+            variantDescriptions: {{ ticket_descriptions | json }} 
+          },
+        giftAidCopy: 
+          { gift_aid_heading: {{ product.metafields.custom.gift_aid_heading | json }},
+            gift_aid_info: {{ gift_aid_text | json }},
+            gift_aid_declaration: {{ gift_aid_declaration_text | json }}
+          },
         initialCart: {{ cart | json }}
           }
     });
