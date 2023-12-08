@@ -11,11 +11,6 @@
   margin: 0 auto;
 }
 
-.product:not(.product--no-media) .product__media-wrapper {
-    max-width: 64%;
-   width: calc(64% - 1rem / 2);
-}
-
 .product__media-wrapper {
   padding-left: 0;
 }
