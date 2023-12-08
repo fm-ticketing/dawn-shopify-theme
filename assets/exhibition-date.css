@@ -1,7 +1,7 @@
 .product {
   --green: #789D57;
   --light-green: #EEF2E9;
-  --light-grey: #E9EDF0;
+  --light-grey: #f9f3e9;
   --dark-grey: #B1B5B8;
 }
 
@@ -59,7 +59,7 @@
 }
 
 .elm-datepicker--year {
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
 
 .elm-datepicker--prev,
@@ -70,6 +70,7 @@
   height: 0;
   padding: 0 0.2em;
   width: 0;
+  cursor: pointer;
 }
 
 .elm-datepicker--prev {
@@ -91,7 +92,7 @@
 .elm-datepicker--table {
   border-collapse: collapse;
   border-spacing: 0;
-  font-size: 0.8em;
+  font-size: 1em;
   width: 100%;
 }
 .elm-datepicker--table td {
