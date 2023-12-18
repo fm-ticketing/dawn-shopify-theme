@@ -5,6 +5,22 @@
   --dark-grey: #B1B5B8;
 }
 
+
+ul.exhibition-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.exhibition-list li {
+  display: flex;
+  flex-direction: column;
+}
+
+.exhibition-list li h3 {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
 .elm-datepicker--container {
   position: relative;
 }

@@ -599,16 +599,14 @@ subscriptions _ =
 view : Model -> Html Msg
 view model =
     Html.div [ Html.Attributes.class "page-width" ]
-        [ Html.h3 [] [ Html.text "Exhibitions" ]
-        , Html.ul []
+        [ Html.ul [ Html.Attributes.class "exhibition-list" ]
             (List.map
                 (\{ title, startDate, endDate } ->
                     Html.li []
-                        [ Html.b [] [ Html.text title ]
+                        [ Html.h3 [] [ Html.text title ]
                         , Html.text
                             (String.join " "
-                                [ " from"
-                                , Date.format fmDateFormat startDate
+                                [ Date.format fmDateFormat startDate
                                 , "to"
                                 , Date.format fmDateFormat endDate
                                 ]
