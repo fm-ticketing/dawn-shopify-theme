@@ -9,6 +9,8 @@
           "type": "announcement",
           "settings": {
             "text": "Welcome to our store",
+            "text_alignment": "center",
+            "color_scheme": "scheme-1",
             "link": ""
           }
         }
@@ -33,6 +35,7 @@
 
       ],
       "settings": {
+        "color_scheme": "scheme-1",
         "logo_position": "middle-center",
         "menu": "",
         "menu_type_desktop": "dropdown",
