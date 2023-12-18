@@ -9048,7 +9048,6 @@ var $author$project$ExhibitionDate$update = F2(
 	});
 var $elm$json$Json$Decode$value = _Json_decodeValue;
 var $author$project$ExhibitionDate$ClickedResetDatePicker = {$: 1};
-var $elm$html$Html$b = _VirtualDom_node('b');
 var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
@@ -10402,15 +10401,11 @@ var $author$project$ExhibitionDate$view = function (model) {
 		_List_fromArray(
 			[
 				A2(
-				$elm$html$Html$h3,
-				_List_Nil,
+				$elm$html$Html$ul,
 				_List_fromArray(
 					[
-						$elm$html$Html$text('Exhibitions')
-					])),
-				A2(
-				$elm$html$Html$ul,
-				_List_Nil,
+						$elm$html$Html$Attributes$class('exhibition-list')
+					]),
 				A2(
 					$elm$core$List$map,
 					function (_v0) {
@@ -10423,7 +10418,7 @@ var $author$project$ExhibitionDate$view = function (model) {
 							_List_fromArray(
 								[
 									A2(
-									$elm$html$Html$b,
+									$elm$html$Html$h3,
 									_List_Nil,
 									_List_fromArray(
 										[
@@ -10435,7 +10430,6 @@ var $author$project$ExhibitionDate$view = function (model) {
 										' ',
 										_List_fromArray(
 											[
-												' from',
 												A2($justinmimbs$date$Date$format, $author$project$ExhibitionDate$fmDateFormat, startDate),
 												'to',
 												A2($justinmimbs$date$Date$format, $author$project$ExhibitionDate$fmDateFormat, endDate)
