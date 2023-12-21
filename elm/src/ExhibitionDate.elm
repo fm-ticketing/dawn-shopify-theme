@@ -191,14 +191,6 @@ init flags =
         [ Cmd.map ToDatePickerMsg datePickerCmd
         , if List.length decodedInitialCartItems > 0 then
             cartInitialisePost
-                (List.map
-                    (\variantId ->
-                        { id = variantId
-                        , quantity = 0
-                        }
-                    )
-                    (variantsInCart decodedInitialCartItems)
-                )
 
           else
             Cmd.none
@@ -397,8 +389,8 @@ update msg model =
         CartInitialised _ ->
             ( { model | cartItems = [] }
             , -- Causes flash - need to figure how to update cart widget
-              -- Browser.Navigation.reload
-              Cmd.none
+              Browser.Navigation.reload
+              -- Cmd.none
             )
 
         ClickedUpdateCart ->
@@ -464,11 +456,11 @@ cartUpdatePost post =
         }
 
 
-cartInitialisePost : CartUpdatePost -> Cmd Msg
-cartInitialisePost post =
+cartInitialisePost : Cmd Msg
+cartInitialisePost =
     Http.post
-        { url = "/cart/update.js"
-        , body = Http.jsonBody (cartUpdateEncoder post)
+        { url = "/cart/clear.js"
+        , body = Http.emptyBody
 
         -- todo expect valid cart items
         , expect = Http.expectWhatever CartInitialised
@@ -598,39 +590,43 @@ subscriptions _ =
 
 view : Model -> Html Msg
 view model =
-    Html.div [ Html.Attributes.class "page-width" ]
-        [ Html.ul [ Html.Attributes.class "exhibition-list" ]
-            (List.map
-                (\{ title, startDate, endDate } ->
-                    Html.li []
-                        [ Html.h3 [] [ Html.text title ]
-                        , Html.text
-                            (String.join " "
-                                [ Date.format fmDateFormat startDate
-                                , "to"
-                                , Date.format fmDateFormat endDate
-                                ]
-                            )
-                        ]
-                )
-                model.exhibitionList
-            )
-        , if model.date == Nothing then
-            Html.div []
-                [ Html.h2 [] [ Html.text "Select visit date" ]
-                , DatePicker.view model.date (datePickerSettings model) model.datePicker
-                    |> Html.map ToDatePickerMsg
-                ]
+    if not model.cartEmptyInShopify then
+        Html.text ""
 
-          else
-            Html.div []
-                [ Html.h2 []
-                    [ Html.text (ticketDetailString model)
+    else
+        Html.div [ Html.Attributes.class "page-width" ]
+            [ Html.ul [ Html.Attributes.class "exhibition-list" ]
+                (List.map
+                    (\{ title, startDate, endDate } ->
+                        Html.li []
+                            [ Html.h3 [] [ Html.text title ]
+                            , Html.text
+                                (String.join " "
+                                    [ Date.format fmDateFormat startDate
+                                    , "to"
+                                    , Date.format fmDateFormat endDate
+                                    ]
+                                )
+                            ]
+                    )
+                    model.exhibitionList
+                )
+            , if model.date == Nothing then
+                Html.div []
+                    [ Html.h2 [] [ Html.text "Select visit date" ]
+                    , DatePicker.view model.date (datePickerSettings model) model.datePicker
+                        |> Html.map ToDatePickerMsg
                     ]
-                , Html.button [ Html.Attributes.class "button button--secondary", Html.Events.onClick ClickedResetDatePicker ] [ Html.text "Choose another date" ]
-                , viewProductVariantSelector model
-                ]
-        ]
+
+              else
+                Html.div []
+                    [ Html.h2 []
+                        [ Html.text (ticketDetailString model)
+                        ]
+                    , Html.button [ Html.Attributes.class "button button--secondary", Html.Events.onClick ClickedResetDatePicker ] [ Html.text "Choose another date" ]
+                    , viewProductVariantSelector model
+                    ]
+            ]
 
 
 viewProductVariantSelector : Model -> Html Msg
