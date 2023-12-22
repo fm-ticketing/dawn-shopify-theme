@@ -476,10 +476,16 @@ cartAddEncoder posts =
                     Json.Encode.object
                         [ ( "id", Json.Encode.int post.id )
                         , ( "properties"
-                          , Json.Encode.object
-                                [ ( "Exhibition", Json.Encode.string post.lineItem )
-                                , ( "GiftAidDeclaration", Json.Encode.bool post.giftAidDeclaration )
-                                ]
+                          , if post.giftAidDeclaration then
+                                Json.Encode.object
+                                    [ ( "Exhibition", Json.Encode.string post.lineItem )
+                                    , ( "GiftAidDeclaration", Json.Encode.bool post.giftAidDeclaration )
+                                    ]
+
+                            else
+                                Json.Encode.object
+                                    [ ( "Exhibition", Json.Encode.string post.lineItem )
+                                    ]
                           )
                         , ( "quantity", Json.Encode.int post.quantity )
                         , ( "sections", Json.Encode.list Json.Encode.string [ "cart-icon-bubble" ] )
