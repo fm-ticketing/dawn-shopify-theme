@@ -106,7 +106,7 @@
   },
   "products": {
     "general_admission": {
-      "edit_tickets": "Edit ticket selection"
+      "edit_tickets": "Restart ticket selection"
     },
     "product": {
       "add_to_cart": "Add to basket",
