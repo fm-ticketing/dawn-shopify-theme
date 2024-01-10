@@ -626,10 +626,14 @@ view model =
 
               else
                 Html.div []
-                    [ Html.h2 []
+                    [ Html.button
+                        [ Html.Attributes.class "button button--secondary"
+                        , Html.Events.onClick ClickedResetDatePicker
+                        ]
+                        [ Html.text "Choose another date" ]
+                    , Html.h2 []
                         [ Html.text (ticketDetailString model)
                         ]
-                    , Html.button [ Html.Attributes.class "button button--secondary", Html.Events.onClick ClickedResetDatePicker ] [ Html.text "Choose another date" ]
                     , viewProductVariantSelector model
                     ]
             ]
