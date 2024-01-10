@@ -10462,14 +10462,6 @@ var $author$project$ExhibitionDate$view = function (model) {
 				_List_fromArray(
 					[
 						A2(
-						$elm$html$Html$h2,
-						_List_Nil,
-						_List_fromArray(
-							[
-								$elm$html$Html$text(
-								$author$project$ExhibitionDate$ticketDetailString(model))
-							])),
-						A2(
 						$elm$html$Html$button,
 						_List_fromArray(
 							[
@@ -10479,6 +10471,14 @@ var $author$project$ExhibitionDate$view = function (model) {
 						_List_fromArray(
 							[
 								$elm$html$Html$text('Choose another date')
+							])),
+						A2(
+						$elm$html$Html$h2,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text(
+								$author$project$ExhibitionDate$ticketDetailString(model))
 							])),
 						$author$project$ExhibitionDate$viewProductVariantSelector(model)
 					]))
