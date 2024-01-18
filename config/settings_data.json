@@ -114,6 +114,7 @@
     "show_cart_note": false,
     "cart_drawer_collection": "",
     "checkout_logo_image": "shopify:\/\/shop_images\/0ff6b41c-6573-a90b-8aea-cf63a3e56f22.png",
+    "checkout_logo_size": "large",
     "checkout_accent_color": "#810755",
     "checkout_button_color": "#810755",
     "checkout_error_color": "#ff3352",
