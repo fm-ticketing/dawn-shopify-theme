@@ -268,6 +268,15 @@ exhibitionListDecoder =
     Json.Decode.list exhibitionDecoder
 
 
+orderExhibitionListByStartDate : List Exhibition -> List Exhibition
+orderExhibitionListByStartDate exhibitionList =
+    List.sortWith
+        (\a b ->
+            Date.compare a.startDate b.startDate
+        )
+        exhibitionList
+
+
 closedDateDecoder : Json.Decode.Decoder ClosedDate
 closedDateDecoder =
     Json.Decode.map
@@ -615,7 +624,7 @@ view model =
                                 )
                             ]
                     )
-                    model.exhibitionList
+                    (orderExhibitionListByStartDate model.exhibitionList)
                 )
             , if model.date == Nothing then
                 Html.div []
