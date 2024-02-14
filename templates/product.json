@@ -16,11 +16,6 @@
           "settings": {
           }
         },
-        "price": {
-          "type": "price",
-          "settings": {
-          }
-        },
         "description": {
           "type": "description",
           "settings": {
@@ -31,6 +26,11 @@
           "settings": {
             "text": "{{ product.metafields.descriptors.subtitle.value }}",
             "text_style": "subtitle"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
           }
         },
         "variant_picker": {
@@ -109,9 +109,9 @@
       "block_order": [
         "vendor",
         "title",
-        "price",
         "description",
         "caption",
+        "price",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
@@ -125,7 +125,7 @@
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "",
-        "media_size": "large",
+        "media_size": "small",
         "constrain_to_viewport": true,
         "media_fit": "contain",
         "gallery_layout": "stacked",
