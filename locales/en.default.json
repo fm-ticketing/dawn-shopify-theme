@@ -526,6 +526,9 @@
         "update_tip": "Update dontation",
         "message": "Thank you for donating ",
         "preset_label": " "
+      },
+      "marketing": {
+        "accept_marketing_checkbox_label": "Join our mailing list to hear about our exhibitions, events, offers and news."
       }
     }
   }
