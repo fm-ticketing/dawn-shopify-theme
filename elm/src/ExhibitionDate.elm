@@ -94,7 +94,7 @@ fmDateFormat =
 
 fmDateFormatWithWeekday : String
 fmDateFormatWithWeekday =
-    "E d MMM yyyy"
+    "EEEE d MMM yyyy"
 
 
 lastExhibitionEndDate : Model -> Date.Date

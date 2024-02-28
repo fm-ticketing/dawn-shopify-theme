@@ -8732,7 +8732,7 @@ var $author$project$ExhibitionDate$removeOneOfVariant = F2(
 			},
 			initialCartItems);
 	});
-var $author$project$ExhibitionDate$fmDateFormatWithWeekday = 'E d MMM yyyy';
+var $author$project$ExhibitionDate$fmDateFormatWithWeekday = 'EEEE d MMM yyyy';
 var $justinmimbs$date$Date$isBetween = F3(
 	function (_v0, _v1, _v2) {
 		var a = _v0;
