@@ -679,9 +679,9 @@ viewProductVariants cartItems productVariants productVariantDescriptions =
             (\variant ->
                 Html.tr []
                     [ Html.td []
-                        [ Html.text variant.title
+                        [ Html.span [ Html.Attributes.class "ticket-title" ] [ Html.text variant.title ]
                         , Html.br [] []
-                        , viewProductVariantDescription variant.id productVariantDescriptions
+                        , Html.span [ Html.Attributes.class "ticket-description" ] [ viewProductVariantDescription variant.id productVariantDescriptions ]
                         ]
                     , Html.td [] [ Html.text (viewPrice variant.price) ]
                     , Html.td [] [ viewQuantity cartItems variant.id ]

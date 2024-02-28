@@ -10319,9 +10319,27 @@ var $author$project$ExhibitionDate$viewProductVariants = F3(
 								_List_Nil,
 								_List_fromArray(
 									[
-										$elm$html$Html$text(variant.M),
+										A2(
+										$elm$html$Html$span,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('ticket-title')
+											]),
+										_List_fromArray(
+											[
+												$elm$html$Html$text(variant.M)
+											])),
 										A2($elm$html$Html$br, _List_Nil, _List_Nil),
-										A2($author$project$ExhibitionDate$viewProductVariantDescription, variant.j, productVariantDescriptions)
+										A2(
+										$elm$html$Html$span,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('ticket-description')
+											]),
+										_List_fromArray(
+											[
+												A2($author$project$ExhibitionDate$viewProductVariantDescription, variant.j, productVariantDescriptions)
+											]))
 									])),
 								A2(
 								$elm$html$Html$td,
