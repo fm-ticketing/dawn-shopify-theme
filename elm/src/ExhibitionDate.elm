@@ -659,11 +659,7 @@ viewProductVariantSelector model =
                 ]
             , viewProductVariants model.cartItems model.productDetails.variants model.productDetails.variantDescriptions
             ]
-        , if hasGiftAidTicket model.productDetails.variants model.cartItems then
-            viewGiftAidDeclaration model.giftAidCopy model.giftAidDeclaration
-
-          else
-            Html.text ""
+        , viewGiftAidDeclaration model.giftAidCopy model.giftAidDeclaration
         , Html.button
             [ Html.Attributes.class "button"
             , Html.Events.onClick ClickedUpdateCart
