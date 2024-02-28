@@ -171,6 +171,12 @@ ul.exhibition-list {
   color: white;
 }
 
+.ticket-title {
+}
+
+.ticket-description {
+}
+
 .gift-aid-container {
   background: no-repeat top 10px left/200px url('./giftaid-logo.png');
   border: solid 1px var(--dark-grey);
