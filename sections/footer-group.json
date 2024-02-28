@@ -2,6 +2,15 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "custom_liquid_D7eAL3": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "&nbsp;\n<br>\n<br>\n&nbsp;\n<br>\n<br>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
     "footer": {
       "type": "footer",
       "blocks": {
@@ -56,6 +65,7 @@
     }
   },
   "order": [
+    "custom_liquid_D7eAL3",
     "footer"
   ]
 }
