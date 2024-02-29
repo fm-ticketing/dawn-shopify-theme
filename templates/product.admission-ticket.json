@@ -1,19 +1,5 @@
 {
   "sections": {
-    "rich_text_wxxVdB": {
-      "type": "rich-text",
-      "custom_css": [
-
-      ],
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "",
-        "full_width": true,
-        "padding_top": 40,
-        "padding_bottom": 52
-      }
-    },
     "main-product-admission-ticket": {
       "type": "main-product-admission-ticket",
       "blocks": {
@@ -59,7 +45,6 @@
     }
   },
   "order": [
-    "rich_text_wxxVdB",
     "main-product-admission-ticket"
   ]
 }
