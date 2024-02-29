@@ -90,6 +90,9 @@
               >
                 {{- block.settings.text -}}
               </p>
+
+              <div id="exhibition-date"></div>
+
             {%- when 'title' -%}
               <div class="product__title" {{ block.shopify_attributes }}>
                 <h1>{{ product.title | escape }}</h1>
@@ -100,7 +103,6 @@
                 </a>
               </div>
 
-              <div id="exhibition-date"></div>
 
             {%- when 'price' -%}
               <div class="no-js-hidden" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>

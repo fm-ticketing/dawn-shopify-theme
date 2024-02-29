@@ -21,7 +21,6 @@
         "text_BQM7P3"
       ],
       "custom_css": [
-        ".product__text {margin-top: 100px;}"
       ],
       "settings": {
         "enable_sticky_info": true,
