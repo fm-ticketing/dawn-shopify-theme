@@ -94,7 +94,7 @@ fmDateFormat =
 
 fmDateFormatWithWeekday : String
 fmDateFormatWithWeekday =
-    "E d MMM yyyy"
+    "EEEE d MMM yyyy"
 
 
 lastExhibitionEndDate : Model -> Date.Date
@@ -659,11 +659,7 @@ viewProductVariantSelector model =
                 ]
             , viewProductVariants model.cartItems model.productDetails.variants model.productDetails.variantDescriptions
             ]
-        , if hasGiftAidTicket model.productDetails.variants model.cartItems then
-            viewGiftAidDeclaration model.giftAidCopy model.giftAidDeclaration
-
-          else
-            Html.text ""
+        , viewGiftAidDeclaration model.giftAidCopy model.giftAidDeclaration
         , Html.button
             [ Html.Attributes.class "button"
             , Html.Events.onClick ClickedUpdateCart
@@ -679,9 +675,9 @@ viewProductVariants cartItems productVariants productVariantDescriptions =
             (\variant ->
                 Html.tr []
                     [ Html.td []
-                        [ Html.text variant.title
+                        [ Html.span [ Html.Attributes.class "ticket-title" ] [ Html.text variant.title ]
                         , Html.br [] []
-                        , viewProductVariantDescription variant.id productVariantDescriptions
+                        , Html.span [ Html.Attributes.class "ticket-description" ] [ viewProductVariantDescription variant.id productVariantDescriptions ]
                         ]
                     , Html.td [] [ Html.text (viewPrice variant.price) ]
                     , Html.td [] [ viewQuantity cartItems variant.id ]
