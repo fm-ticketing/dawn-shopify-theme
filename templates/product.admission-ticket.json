@@ -21,7 +21,8 @@
         "text_BQM7P3"
       ],
       "custom_css": [
-
+        ".ticket-title {font-size: 18px; font-weight: 500;}",
+        ".ticket.description {font-size: 14px;}"
       ],
       "settings": {
         "enable_sticky_info": true,
