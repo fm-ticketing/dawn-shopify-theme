@@ -11,7 +11,7 @@
         "text_BQM7P3": {
           "type": "text",
           "settings": {
-            "text": "All full price (including concession rate) Foundling Museum tickets are treated as a charitable donation to the Museum and as a thank you we automatically convert them into Annual Passes at no extra cost. This means you can enjoy visiting the Museum, our exhibitions & displays for a year from your initial visit.",
+            "text": "All full price adult and concession tickets are treated as a charitable donation to the Museum and as a thank you we automatically convert them into annual passes at no extra cost. This means you can enjoy visiting the Museum, our exhibitions and displays for a whole year from the date of your initial visit.",
             "text_style": "body"
           }
         }
@@ -21,6 +21,7 @@
         "text_BQM7P3"
       ],
       "custom_css": [
+
       ],
       "settings": {
         "enable_sticky_info": true,
