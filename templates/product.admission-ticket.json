@@ -3,6 +3,13 @@
     "main-product-admission-ticket": {
       "type": "main-product-admission-ticket",
       "blocks": {
+        "text_DHr4HA": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.title }}",
+            "text_style": "subtitle"
+          }
+        },
         "text_BQM7P3": {
           "type": "text",
           "settings": {
@@ -24,6 +31,7 @@
         }
       },
       "block_order": [
+        "text_DHr4HA",
         "text_BQM7P3",
         "title",
         "caption"
