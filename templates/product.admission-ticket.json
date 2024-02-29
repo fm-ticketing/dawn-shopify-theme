@@ -3,13 +3,6 @@
     "main-product-admission-ticket": {
       "type": "main-product-admission-ticket",
       "blocks": {
-        "text_DHr4HA": {
-          "type": "text",
-          "settings": {
-            "text": "{{ product.title }}",
-            "text_style": "subtitle"
-          }
-        },
         "title": {
           "type": "title",
           "settings": {
@@ -21,20 +14,11 @@
             "text": "All full price (including concession rate) Foundling Museum tickets are treated as a charitable donation to the Museum and as a thank you we automatically convert them into Annual Passes at no extra cost. This means you can enjoy visiting the Museum, our exhibitions & displays for a year from your initial visit.",
             "text_style": "body"
           }
-        },
-        "caption": {
-          "type": "text",
-          "settings": {
-            "text": "{{ product.metafields.descriptors.subtitle.value }}",
-            "text_style": "subtitle"
-          }
         }
       },
       "block_order": [
-        "text_DHr4HA",
         "title",
-        "text_BQM7P3",
-        "caption"
+        "text_BQM7P3"
       ],
       "custom_css": [
         ".product__text {margin-top: 100px;}"
