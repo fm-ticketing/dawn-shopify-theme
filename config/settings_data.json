@@ -382,8 +382,7 @@
   "platform_customizations": {
     "custom_css": [
       ".icon-cart .cart_count {display: none;}",
-      ".nav a.icon-cart span {display: none;}",
-      ".elm-datepicker--container {margin-bottom:500px;}"
+      ".nav a.icon-cart span {display: none;}"
     ]
   }
 }
