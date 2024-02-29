@@ -531,6 +531,13 @@
         "accept_marketing_checkbox_label": "Join our mailing list to hear about our exhibitions, events, offers and news.",
         "accept_shop_pay_marketing_checkbox_label": "Join our mailing list to hear about our exhibitions, events, offers and news"
       }
+    },
+    "notices": {
+      "order": {
+        "financial_status": {
+          "authorized": "Authorised"
+        }
+      }
     }
   }
 }
