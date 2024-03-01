@@ -37,7 +37,7 @@ ul.exhibition-list {
 
 .elm-datepicker--picker {
   background-color: white;
-  border: 1px solid var(--dark-grey);
+  padding-bottom: 4rem;
   position: absolute;
   width: 91%;
   z-index: 10;
@@ -50,7 +50,15 @@ ul.exhibition-list {
 
 .elm-datepicker--picker-header {
   align-items: center;
+  border-left: 1px solid var(--dark-grey);
+  border-right: 1px solid var(--dark-grey);
   display: flex;
+}
+
+.elm-datepicker--table {
+  border-bottom: 1px solid var(--dark-grey);
+  border-left: 1px solid var(--dark-grey);
+  border-right: 1px solid var(--dark-grey);
 }
 
 .elm-datepicker--prev-container,
