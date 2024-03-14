@@ -382,7 +382,8 @@
   "platform_customizations": {
     "custom_css": [
       ".icon-cart .cart_count {display: none;}",
-      ".nav a.icon-cart span {display: none;}"
+      ".nav a.icon-cart span {display: none;}",
+      "ul.exhibition-list {display:none;}"
     ]
   }
 }
