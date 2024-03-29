@@ -87,6 +87,11 @@ type alias CartItem =
     }
 
 
+fmAttendanceDateFormat : String
+fmAttendanceDateFormat =
+    "dd/MM/yyyy"
+
+
 fmDateFormat : String
 fmDateFormat =
     "d MMM yyyy"
@@ -409,7 +414,8 @@ update msg model =
                     (List.map
                         (\item ->
                             { id = item.variantId
-                            , lineItem = ticketDetailString model
+                            , exhibitionTitleWithDate = ticketDetailString model
+                            , attendanceDate = attendanceDateString model.date
                             , giftAidDeclaration = model.giftAidDeclaration
                             , quantity = item.quantity
                             }
@@ -433,7 +439,8 @@ update msg model =
 type alias CartAddPost =
     List
         { id : Int
-        , lineItem : String
+        , exhibitionTitleWithDate : String
+        , attendanceDate : String
         , giftAidDeclaration : Bool
         , quantity : Int
         }
@@ -487,13 +494,15 @@ cartAddEncoder posts =
                         , ( "properties"
                           , if post.giftAidDeclaration then
                                 Json.Encode.object
-                                    [ ( "Exhibition", Json.Encode.string post.lineItem )
+                                    [ ( "Exhibition", Json.Encode.string post.exhibitionTitleWithDate )
+                                    , ( "Date", Json.Encode.string post.attendanceDate )
                                     , ( "GiftAidDeclaration", Json.Encode.bool post.giftAidDeclaration )
                                     ]
 
                             else
                                 Json.Encode.object
-                                    [ ( "Exhibition", Json.Encode.string post.lineItem )
+                                    [ ( "Exhibition", Json.Encode.string post.exhibitionTitleWithDate )
+                                    , ( "Date", Json.Encode.string post.attendanceDate )
                                     ]
                           )
                         , ( "quantity", Json.Encode.int post.quantity )
@@ -821,6 +830,16 @@ ticketDetailString model =
                 [ maybeExhibitionTitle model
                 , Date.format fmDateFormatWithWeekday aDate
                 ]
+
+
+attendanceDateString : Maybe Date.Date -> String
+attendanceDateString maybeDate =
+    case maybeDate of
+        Nothing ->
+            "No date selected"
+
+        Just aDate ->
+            Date.format fmAttendanceDateFormat aDate
 
 
 maybeExhibitionTitle : Model -> String
