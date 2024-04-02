@@ -135,6 +135,14 @@
     "content_for_index": [
 
     ],
+    "blocks": {
+      "7916451724185839711": {
+        "type": "shopify:\/\/apps\/avis-product-options\/blocks\/avisplus-product-options\/e076618e-4c9c-447f-ad6d-4f1577799c29",
+        "disabled": false,
+        "settings": {
+        }
+      }
+    },
     "color_schemes": {
       "background-1": {
         "settings": {
