@@ -22,9 +22,19 @@
         "padding_top": 20,
         "padding_bottom": 20
       }
+    },
+    "custom_liquid_Bcjy3y": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<script type=\"text\/javascript\" async src=\"\/\/l.getsitecontrol.com\/y798p6mw.js\"><\/script>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
     }
   },
   "order": [
-    "header"
+    "header",
+    "custom_liquid_Bcjy3y"
   ]
 }
