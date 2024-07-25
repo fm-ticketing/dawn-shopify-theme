@@ -14,6 +14,7 @@
       "blocks": {
         "text": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "text": "Welcome to the Foundling Museum Shop!",
             "text_style": "body"
@@ -21,6 +22,7 @@
         },
         "button": {
           "type": "buttons",
+          "disabled": true,
           "settings": {
             "button_label_1": "Categories",
             "button_link_1": "shopify:\/\/collections",
@@ -35,10 +37,10 @@
         "text",
         "button"
       ],
-      "disabled": true,
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
+        "image": "shopify:\/\/shop_images\/hogarth_bookmark_7.jpg",
+        "image_overlay_opacity": 0,
+        "image_height": "small",
         "desktop_content_position": "bottom-center",
         "show_text_box": false,
         "desktop_content_alignment": "center",
