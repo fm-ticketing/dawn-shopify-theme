@@ -1,15 +1,17 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
 {
   "sections": {
     "image_banner": {
       "type": "image-banner",
       "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Image banner",
-            "heading_size": "h0"
-          }
-        },
         "text": {
           "type": "text",
           "settings": {
@@ -30,12 +32,12 @@
         }
       },
       "block_order": [
-        "heading",
         "text",
         "button"
       ],
       "disabled": true,
       "settings": {
+        "image": "shopify:\/\/shop_images\/hogarth_bookmark_2_5a28b623-6f94-4d67-813c-0fd658a7c7db.jpg",
         "image_overlay_opacity": 40,
         "image_height": "large",
         "desktop_content_position": "bottom-center",
