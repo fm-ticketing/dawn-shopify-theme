@@ -18,7 +18,7 @@
       ],
       "settings": {
         "logo_position": "top-left",
-        "menu": "categories",
+        "menu": "main-menu",
         "menu_type_desktop": "mega",
         "sticky_header_type": "on-scroll-up",
         "show_line_separator": true,
