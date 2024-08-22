@@ -44,17 +44,6 @@
     },
     "rich_text": {
       "type": "rich-text",
-      "blocks": {
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>The Foundling Museum tells the story of the UK’s first children’s charity and its first public art gallery. Our Shop offers books and gifts based upon the Hospital's founding principles, with novels about the care system to supporting contemporary artists, and inspired by our unique collection of art and artefacts; from Hogarth and Handel, to Yinka Shonibare and Jacqueline Wilson.<\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "text"
-      ],
       "settings": {
         "desktop_content_position": "center",
         "content_alignment": "center",
