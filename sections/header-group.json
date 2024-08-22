@@ -17,7 +17,7 @@
 
       ],
       "settings": {
-        "logo_position": "top-left",
+        "logo_position": "top-center",
         "menu": "main-menu",
         "menu_type_desktop": "mega",
         "sticky_header_type": "reduce-logo-size",

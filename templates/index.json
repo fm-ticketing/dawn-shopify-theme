@@ -12,14 +12,6 @@
     "image_banner": {
       "type": "image-banner",
       "blocks": {
-        "text": {
-          "type": "text",
-          "disabled": true,
-          "settings": {
-            "text": "Welcome to the Foundling Museum Shop!",
-            "text_style": "body"
-          }
-        },
         "button": {
           "type": "buttons",
           "disabled": true,
@@ -34,7 +26,6 @@
         }
       },
       "block_order": [
-        "text",
         "button"
       ],
       "settings": {
