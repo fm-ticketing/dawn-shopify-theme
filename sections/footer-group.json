@@ -11,44 +11,6 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
-    "newsletter_fdPqL9": {
-      "type": "newsletter",
-      "blocks": {
-        "heading_kQNC4a": {
-          "type": "heading",
-          "disabled": true,
-          "settings": {
-            "heading": "Subscribe to our emails",
-            "heading_size": "h1"
-          }
-        },
-        "paragraph_tqwDUh": {
-          "type": "paragraph",
-          "disabled": true,
-          "settings": {
-            "text": "<p>Be the first to know about new collections and exclusive offers.<\/p>"
-          }
-        },
-        "email_form_PdeKpQ": {
-          "type": "email_form",
-          "disabled": true,
-          "settings": {
-          }
-        }
-      },
-      "block_order": [
-        "heading_kQNC4a",
-        "paragraph_tqwDUh",
-        "email_form_PdeKpQ"
-      ],
-      "disabled": true,
-      "settings": {
-        "color_scheme": "",
-        "full_width": false,
-        "padding_top": 40,
-        "padding_bottom": 52
-      }
-    },
     "custom_liquid_D7eAL3": {
       "type": "custom-liquid",
       "settings": {
@@ -63,9 +25,8 @@
       "blocks": {
         "footer-0": {
           "type": "link_list",
-          "disabled": true,
           "settings": {
-            "heading": "Quick links",
+            "heading": "",
             "menu": "footer"
           }
         },
@@ -84,22 +45,13 @@
             "heading": "Our mission",
             "subtext": "<p>Share contact information, store details, and brand content with your customers.<\/p>"
           }
-        },
-        "link_list_xeQpQL": {
-          "type": "link_list",
-          "settings": {
-            "heading": "Quick links",
-            "menu": "footer"
-          }
         }
       },
       "block_order": [
         "footer-0",
         "footer-1",
-        "footer-2",
-        "link_list_xeQpQL"
+        "footer-2"
       ],
-      "disabled": true,
       "custom_css": [
 
       ],
@@ -120,7 +72,6 @@
     }
   },
   "order": [
-    "newsletter_fdPqL9",
     "custom_liquid_D7eAL3",
     "footer"
   ]
