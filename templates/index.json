@@ -54,13 +54,6 @@
     "rich_text": {
       "type": "rich-text",
       "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "",
-            "heading_size": "h2"
-          }
-        },
         "text": {
           "type": "text",
           "settings": {
@@ -69,7 +62,6 @@
         }
       },
       "block_order": [
-        "heading",
         "text"
       ],
       "settings": {
@@ -124,18 +116,11 @@
             "product": "",
             "second_image": false
           }
-        },
-        "collection-1": {
-          "type": "collection",
-          "settings": {
-            "collection": ""
-          }
         }
       },
       "block_order": [
         "collection-0",
-        "product",
-        "collection-1"
+        "product"
       ],
       "disabled": true,
       "settings": {
