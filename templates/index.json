@@ -30,9 +30,10 @@
       ],
       "settings": {
         "image": "shopify:\/\/shop_images\/18th_century_women2.jpg",
+        "image_2": "shopify:\/\/shop_images\/D9CC6DD4-B3C3-4D52-AA22-E6053494565D_6f9707b0-477e-429c-9577-b321bd8922e8.jpg",
         "image_overlay_opacity": 0,
-        "image_height": "medium",
-        "desktop_content_position": "bottom-center",
+        "image_height": "adapt",
+        "desktop_content_position": "middle-center",
         "show_text_box": false,
         "desktop_content_alignment": "center",
         "color_scheme": "scheme-3",
