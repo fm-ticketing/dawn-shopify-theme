@@ -2610,7 +2610,7 @@ menu-drawer + .header__search {
 }
 
 .header:not(.header--has-menu) * > .header__search {
-  
+  display: none;
 }
 
 .header__search {
@@ -2619,7 +2619,7 @@ menu-drawer + .header__search {
 }
 
 .header--top-center > .header__search {
-  
+  display: none;
 }
 
 .header--top-center * > .header__search {
@@ -2634,7 +2634,7 @@ menu-drawer + .header__search {
 
   .header:not(.header--top-center) > .header__search,
   .header--top-center * > .header__search {
-    
+    display: none;
   }
 }
 
@@ -3509,7 +3509,7 @@ details-disclosure > details {
     display: none !important;
 }
 details-modal.header__search {
-  display: none !important;
+  
 }
 
 .header>.header__heading-link {
