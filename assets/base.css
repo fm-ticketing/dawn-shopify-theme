@@ -3515,3 +3515,8 @@ details-modal.header__search {
 .header>.header__heading-link {
     pointer-events: none !important;
 }
+
+.site-nav > li:first-child .site-nav__label,
+.mobile-nav > li:first-child .mobile-nav__label {
+    color: red;
+}
