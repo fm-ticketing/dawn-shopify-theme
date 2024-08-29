@@ -3516,7 +3516,7 @@ details-modal.header__search {
     pointer-events: none !important;
 }
 
-.site-nav > li:first-child .site-nav__label,
-.mobile-nav > li:first-child .mobile-nav__label {
+.site-nav > li:last-child .site-nav__label,
+.mobile-nav > li:last-child .mobile-nav__label {
     color: red;
 }
