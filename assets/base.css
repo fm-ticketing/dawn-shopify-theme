@@ -2406,7 +2406,7 @@ product-info .loading__spinner:not(.hidden) ~ *,
 
   .header--middle-left {
     grid-template-areas: 'heading navigation icons';
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: auto auto 1fr;
     column-gap: 2rem;
   }
 
@@ -2630,11 +2630,6 @@ menu-drawer + .header__search {
   .header:not(.header--top-center) * > .header__search,
   .header--top-center > .header__search {
     display: inline-flex;
-  }
-
-  .header:not(.header--top-center) > .header__search,
-  .header--top-center * > .header__search {
-    display: none;
   }
 }
 
