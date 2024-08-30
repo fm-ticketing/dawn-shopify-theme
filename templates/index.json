@@ -83,6 +83,7 @@
       "block_order": [
         "button"
       ],
+      "disabled": true,
       "settings": {
         "image": "shopify:\/\/shop_images\/20240829_131149_48f7f5af-86ac-43e6-b319-8a6d7a2cf741.jpg",
         "image_overlay_opacity": 0,
