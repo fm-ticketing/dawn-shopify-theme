@@ -92,8 +92,8 @@
         "slide_fdzdd3"
       ],
       "settings": {
-        "layout": "full_bleed",
-        "slide_height": "large",
+        "layout": "grid",
+        "slide_height": "medium",
         "slider_visual": "dots",
         "auto_rotate": true,
         "change_slides_speed": 5,
