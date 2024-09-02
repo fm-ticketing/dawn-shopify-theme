@@ -12,24 +12,6 @@
     "slideshow_ikWW8P": {
       "type": "slideshow",
       "blocks": {
-        "slide_CLL9md": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/20240829_122722.jpg",
-            "heading": "",
-            "heading_size": "h1",
-            "subheading": "",
-            "button_label": "",
-            "link": "",
-            "button_style_secondary": false,
-            "box_align": "middle-center",
-            "show_text_box": false,
-            "text_alignment": "center",
-            "image_overlay_opacity": 0,
-            "color_scheme": "",
-            "text_alignment_mobile": "center"
-          }
-        },
         "slide_cmW3LH": {
           "type": "slide",
           "settings": {
@@ -45,6 +27,24 @@
             "text_alignment": "center",
             "image_overlay_opacity": 0,
             "color_scheme": "scheme-1",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_CLL9md": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/20240829_122722.jpg",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "",
             "text_alignment_mobile": "center"
           }
         },
@@ -86,8 +86,8 @@
         }
       },
       "block_order": [
-        "slide_CLL9md",
         "slide_cmW3LH",
+        "slide_CLL9md",
         "slide_jywtWR",
         "slide_fdzdd3"
       ],
@@ -96,7 +96,7 @@
         "slide_height": "medium",
         "slider_visual": "dots",
         "auto_rotate": true,
-        "change_slides_speed": 5,
+        "change_slides_speed": 7,
         "image_behavior": "none",
         "show_text_below": true,
         "accessibility_info": "Foundling Museum Shop"
