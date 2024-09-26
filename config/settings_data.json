@@ -1,8 +1,17 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
 {
   "current": {
-    "logo": "shopify:\/\/shop_images\/0ff6b41c-6573-a90b-8aea-cf63a3e56f22.png",
+    "logo": "shopify://shop_images/0ff6b41c-6573-a90b-8aea-cf63a3e56f22.png",
     "logo_width": 120,
-    "favicon": "shopify:\/\/shop_images\/Screenshot_2024-01-19_at_15.21.59.png",
+    "favicon": "shopify://shop_images/Screenshot_2024-01-19_at_15.21.59.png",
     "type_header_font": "open_sans_n4",
     "heading_scale": 100,
     "type_body_font": "open_sans_n4",
@@ -113,7 +122,7 @@
     "show_vendor": false,
     "show_cart_note": false,
     "cart_drawer_collection": "",
-    "checkout_logo_image": "shopify:\/\/shop_images\/0ff6b41c-6573-a90b-8aea-cf63a3e56f22.png",
+    "checkout_logo_image": "shopify://shop_images/0ff6b41c-6573-a90b-8aea-cf63a3e56f22.png",
     "checkout_logo_size": "large",
     "checkout_accent_color": "#810755",
     "checkout_button_color": "#810755",
@@ -135,14 +144,6 @@
     "content_for_index": [
 
     ],
-    "blocks": {
-      "7916451724185839711": {
-        "type": "shopify:\/\/apps\/avis-product-options\/blocks\/avisplus-product-options\/e076618e-4c9c-447f-ad6d-4f1577799c29",
-        "disabled": false,
-        "settings": {
-        }
-      }
-    },
     "color_schemes": {
       "background-1": {
         "settings": {
@@ -391,7 +392,8 @@
     "custom_css": [
       ".icon-cart .cart_count {display: none;}",
       ".nav a.icon-cart span {display: none;}",
-      "ul.exhibition-list {display:none;}"
+      "ul.exhibition-list {display: none;}",
+      ".underlined-link {display: none;}"
     ]
   }
 }
