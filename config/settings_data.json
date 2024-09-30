@@ -390,7 +390,7 @@
   },
   "platform_customizations": {
     "custom_css": [
-      ".icon-cart .cart_count {display: none;}",
+      ".icon-cart .cart_count {}",
       ".nav a.icon-cart span {display: none;}",
       "ul.exhibition-list {display: none;}",
       "@media (min-width: 990px) {.header {display: flex !important; justify-content: space-between !important; }}",
