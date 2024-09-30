@@ -394,7 +394,8 @@
       ".nav a.icon-cart span {display: none;}",
       "ul.exhibition-list {display: none;}",
       "@media (min-width: 990px) {.header {display: flex !important; justify-content: space-between !important; }}",
-      "#HeaderMenu-sale {color: #e14c72;}"
+      "#HeaderMenu-sale {color: #e14c72;}",
+      ".underlined-link {display: none; }"
     ]
   }
 }
