@@ -156,7 +156,7 @@
         "description_style": "body",
         "collection": "homepage",
         "products_to_show": 25,
-        "columns_desktop": 5,
+        "columns_desktop": 4,
         "full_width": false,
         "show_view_all": false,
         "view_all_style": "solid",
