@@ -18,7 +18,7 @@
           "type": "link_list",
           "settings": {
             "heading": "",
-            "menu": "footer"
+            "menu": "footer-menu"
           }
         },
         "footer-1": {
