@@ -30,24 +30,6 @@
           "settings": {
           }
         },
-        "collapsible_tab_e8yrnD": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Delivery Information",
-            "icon": "none",
-            "content": "<p>{{ shop.brand.short_description }}</p>",
-            "page": ""
-          }
-        },
-        "collapsible_tab_4hnRJX": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "About the Author",
-            "icon": "none",
-            "content": "<p>{{ product.metafields.custom.about_the_author | metafield_tag }}</p>",
-            "page": ""
-          }
-        },
         "caption": {
           "type": "text",
           "settings": {
@@ -137,8 +119,6 @@
         "vendor",
         "title",
         "description",
-        "collapsible_tab_e8yrnD",
-        "collapsible_tab_4hnRJX",
         "caption",
         "price",
         "variant_picker",
@@ -251,6 +231,7 @@
     },
     "related-products": {
       "type": "related-products",
+      "disabled": true,
       "settings": {
         "heading": "You may also like",
         "heading_size": "h2",
