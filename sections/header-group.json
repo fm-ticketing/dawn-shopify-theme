@@ -11,6 +11,38 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
+    "announcement_bar_GtJwAd": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_MiHwTc": {
+          "type": "announcement",
+          "settings": {
+            "text": "Every purchase helps support the Foundling Museum.",
+            "link": ""
+          }
+        },
+        "announcement_c7JmgB": {
+          "type": "announcement",
+          "settings": {
+            "text": "UK delivery £4.50. Worldwide shipping available. Click here for more information.",
+            "link": "shopify://pages/delivery-information"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_MiHwTc",
+        "announcement_c7JmgB"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "show_line_separator": true,
+        "show_social": false,
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    },
     "header": {
       "type": "header",
       "custom_css": [
@@ -35,7 +67,7 @@
     "custom_liquid_w6GRrL": {
       "type": "custom-liquid",
       "settings": {
-        "custom_liquid": "<script type=\"text\/javascript\" async src=\"\/\/l.getsitecontrol.com\/y798p6mw.js\"><\/script>",
+        "custom_liquid": "<script type=\"text/javascript\" async src=\"//l.getsitecontrol.com/y798p6mw.js\"></script>",
         "color_scheme": "",
         "padding_top": 40,
         "padding_bottom": 52
@@ -43,6 +75,7 @@
     }
   },
   "order": [
+    "announcement_bar_GtJwAd",
     "header",
     "custom_liquid_w6GRrL"
   ]
