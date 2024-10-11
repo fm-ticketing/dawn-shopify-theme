@@ -49,6 +49,7 @@ type alias Model =
     , giftAidDeclaration : Bool
     , cartItems : List CartItem
     , cartEmptyInShopify : Bool
+    , cartItemsMessage : String
     }
 
 
@@ -196,6 +197,7 @@ init flags =
       , giftAidDeclaration = False
       , cartItems = decodedInitialCartItems
       , cartEmptyInShopify = List.length decodedInitialCartItems == 0
+      , cartItemsMessage = ""
       }
     , Cmd.batch
         [ Cmd.map ToDatePickerMsg datePickerCmd
@@ -359,14 +361,7 @@ update msg model =
             ( { model | date = Nothing }, Cmd.none )
 
         ClickedAddVariant variantId ->
-            ( { model
-                | cartItems =
-                    if reachedMaxTickets model.cartItems then
-                        model.cartItems
-
-                    else
-                        addOneOfVariant model.cartItems variantId
-              }
+            ( maybeAddVariant model variantId
             , Cmd.none
             )
 
@@ -468,6 +463,18 @@ reachedMaxTickets itemsInCart =
         |> List.sum
     )
         >= maxTickets
+
+
+maybeAddVariant : Model -> Int -> Model
+maybeAddVariant model variantId =
+    if reachedMaxTickets model.cartItems then
+        { model
+            | cartItems = model.cartItems
+            , cartItemsMessage = "For large groups, please contact tours@foundlingmuseum.org.uk to arrange your visit."
+        }
+
+    else
+        { model | cartItems = addOneOfVariant model.cartItems variantId }
 
 
 cartAddPost : CartAddPost -> Cmd Msg
@@ -663,7 +670,13 @@ view model =
                     ]
 
               else
-                Html.div []
+                Html.div
+                    [ if reachedMaxTickets model.cartItems then
+                        Html.Attributes.class "reached-max"
+
+                      else
+                        Html.Attributes.class ""
+                    ]
                     [ Html.button
                         [ Html.Attributes.class "button button--secondary"
                         , Html.Events.onClick ClickedResetDatePicker
@@ -672,6 +685,12 @@ view model =
                     , Html.h2 []
                         [ Html.text (ticketDetailString model)
                         ]
+                    , if reachedMaxTickets model.cartItems then
+                        Html.p [ Html.Attributes.class "warning" ]
+                            [ Html.text model.cartItemsMessage ]
+
+                      else
+                        Html.text ""
                     , viewProductVariantSelector model
                     ]
             ]
@@ -778,7 +797,7 @@ viewQuantity cartItems variantId =
     in
     Html.div [ Html.Attributes.class "quantity" ]
         [ Html.button
-            [ Html.Attributes.class "quantity__button"
+            [ Html.Attributes.class "quantity__button minus"
             , Html.Attributes.disabled (quantity < 1)
             , Html.Events.onClick (ClickedRemoveVariant variantId)
             ]
@@ -791,7 +810,7 @@ viewQuantity cartItems variantId =
             ]
             []
         , Html.button
-            [ Html.Attributes.class "quantity__button"
+            [ Html.Attributes.class "quantity__button plus"
             , Html.Events.onClick (ClickedAddVariant variantId)
             ]
             [ Html.text "+" ]
