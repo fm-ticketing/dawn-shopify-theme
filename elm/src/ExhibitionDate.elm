@@ -87,6 +87,11 @@ type alias CartItem =
     }
 
 
+maxTickets : Int
+maxTickets =
+    7
+
+
 fmAttendanceDateFormat : String
 fmAttendanceDateFormat =
     "dd/MM/yyyy"
@@ -354,7 +359,14 @@ update msg model =
             ( { model | date = Nothing }, Cmd.none )
 
         ClickedAddVariant variantId ->
-            ( { model | cartItems = addOneOfVariant model.cartItems variantId }
+            ( { model
+                | cartItems =
+                    if reachedMaxTickets model.cartItems then
+                        model.cartItems
+
+                    else
+                        addOneOfVariant model.cartItems variantId
+              }
             , Cmd.none
             )
 
@@ -448,6 +460,14 @@ type alias CartAddPost =
 
 type alias CartUpdatePost =
     List { id : Int, quantity : Int }
+
+
+reachedMaxTickets : List CartItem -> Bool
+reachedMaxTickets itemsInCart =
+    (List.map (\item -> item.quantity) itemsInCart
+        |> List.sum
+    )
+        >= maxTickets
 
 
 cartAddPost : CartAddPost -> Cmd Msg
