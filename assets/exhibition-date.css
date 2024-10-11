@@ -21,6 +21,18 @@ ul.exhibition-list {
   margin-bottom: 0;
 }
 
+.reached-max .warning {
+  border: 2px solid var(--dark-grey);
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.reached-max button.plus {
+  color: var(--light-grey);
+  cursor: revert;
+}
+
 .elm-datepicker--container {
   height: 475px;
   position: relative;

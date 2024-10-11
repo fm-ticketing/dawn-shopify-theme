@@ -18,7 +18,7 @@
           "type": "link_list",
           "settings": {
             "heading": "",
-            "menu": "footer"
+            "menu": "footer-menu"
           }
         },
         "footer-1": {
@@ -32,7 +32,7 @@
         "image_XRTB4m": {
           "type": "image",
           "settings": {
-            "image": "shopify:\/\/shop_images\/images_8c344140-d4c2-4b97-b8f3-c763cfdf6b43.png",
+            "image": "shopify://shop_images/images_8c344140-d4c2-4b97-b8f3-c763cfdf6b43.png",
             "image_width": 180,
             "alignment": "right"
           }
@@ -41,8 +41,8 @@
           "type": "text",
           "disabled": true,
           "settings": {
-            "heading": "Our mission",
-            "subtext": "<p>Share contact information, store details, and brand content with your customers.<\/p>"
+            "heading": "",
+            "subtext": ""
           }
         }
       },
