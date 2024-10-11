@@ -1,12 +1,12 @@
 /*
-* ------------------------------------------------------------
-* IMPORTANT: The contents of this file are auto-generated.
-*
-* This file may be updated by the Shopify admin theme editor
-* or related systems. Please exercise caution as any changes
-* made to this file may be overwritten.
-* ------------------------------------------------------------
-*/
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "t:sections.header.name",
   "type": "header",
@@ -14,24 +14,24 @@
     "announcement_bar_GtJwAd": {
       "type": "announcement-bar",
       "blocks": {
-        "announcement_MiHwTc": {
-          "type": "announcement",
-          "settings": {
-            "text": "Every purchase supports the Foundling Museum.",
-            "link": ""
-          }
-        },
         "announcement_c7JmgB": {
           "type": "announcement",
           "settings": {
             "text": "UK delivery £3.50. Worldwide shipping available. Click here for more information.",
             "link": "shopify://pages/delivery-information"
           }
+        },
+        "announcement_MiHwTc": {
+          "type": "announcement",
+          "settings": {
+            "text": "Every purchase supports the Foundling Museum.",
+            "link": ""
+          }
         }
       },
       "block_order": [
-        "announcement_MiHwTc",
-        "announcement_c7JmgB"
+        "announcement_c7JmgB",
+        "announcement_MiHwTc"
       ],
       "settings": {
         "color_scheme": "",
