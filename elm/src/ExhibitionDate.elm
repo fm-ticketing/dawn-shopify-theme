@@ -835,7 +835,7 @@ viewQuantity cartItems variantId =
             , Html.Attributes.value (String.fromInt quantity)
             , Html.Attributes.type_ "number"
             , Html.Attributes.min "0"
-            , Html.Attributes.max "7"
+            , Html.Attributes.max (String.fromInt maxTickets)
             , Html.Events.onInput (InputVariantQuantity variantId)
             ]
             []

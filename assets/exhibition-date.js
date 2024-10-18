@@ -10341,7 +10341,8 @@ var $author$project$ExhibitionDate$viewQuantity = F2(
 							$elm$core$String$fromInt(quantity)),
 							$elm$html$Html$Attributes$type_('number'),
 							$elm$html$Html$Attributes$min('0'),
-							$elm$html$Html$Attributes$max('7'),
+							$elm$html$Html$Attributes$max(
+							$elm$core$String$fromInt($author$project$ExhibitionDate$maxTickets)),
 							$elm$html$Html$Events$onInput(
 							$author$project$ExhibitionDate$InputVariantQuantity(variantId))
 						]),
