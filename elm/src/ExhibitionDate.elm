@@ -396,7 +396,7 @@ update msg model =
             )
 
         InputVariantQuantity variantId input ->
-            ( { model | cartItems = updateVariantQuantity model.cartItems variantId input }
+            ( { model | cartItems = updateVariantQuantity model.cartItems variantId (setMaxInput model.cartItems input) }
             , Cmd.none
             )
 
@@ -463,6 +463,34 @@ reachedMaxTickets itemsInCart =
         |> List.sum
     )
         >= maxTickets
+
+
+setMaxInput : List CartItem -> String -> String
+setMaxInput itemsInCart numberTicketsRequested =
+    let
+        numberRequested : Int
+        numberRequested =
+            String.toInt numberTicketsRequested
+                |> Maybe.withDefault 0
+
+        cartTotal : Int
+        cartTotal =
+            List.map (\item -> item.quantity) itemsInCart
+                |> List.sum
+
+        numberAllowed : Int
+        numberAllowed =
+            if numberRequested + cartTotal <= maxTickets then
+                numberRequested
+
+            else if maxTickets - cartTotal > 0 then
+                maxTickets - cartTotal
+
+            else
+                0
+    in
+    numberAllowed
+        |> String.fromInt
 
 
 maybeAddVariant : Model -> Int -> Model
@@ -806,6 +834,8 @@ viewQuantity cartItems variantId =
             [ Html.Attributes.class "quantity__input"
             , Html.Attributes.value (String.fromInt quantity)
             , Html.Attributes.type_ "number"
+            , Html.Attributes.min "0"
+            , Html.Attributes.max "7"
             , Html.Events.onInput (InputVariantQuantity variantId)
             ]
             []

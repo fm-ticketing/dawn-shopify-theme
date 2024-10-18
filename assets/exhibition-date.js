@@ -5164,7 +5164,7 @@ var $elm$core$Array$treeFromBuilder = F2(
 	});
 var $elm$core$Array$builderToArray = F2(
 	function (reverseNodeList, builder) {
-		if (!builder.f) {
+		if (!builder.g) {
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
 				$elm$core$Elm$JsArray$length(builder.i),
@@ -5172,11 +5172,11 @@ var $elm$core$Array$builderToArray = F2(
 				$elm$core$Elm$JsArray$empty,
 				builder.i);
 		} else {
-			var treeLen = builder.f * $elm$core$Array$branchFactor;
+			var treeLen = builder.g * $elm$core$Array$branchFactor;
 			var depth = $elm$core$Basics$floor(
 				A2($elm$core$Basics$logBase, $elm$core$Array$branchFactor, treeLen - 1));
 			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.j) : builder.j;
-			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.f);
+			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.g);
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
 				$elm$core$Elm$JsArray$length(builder.i) + treeLen,
@@ -5195,7 +5195,7 @@ var $elm$core$Array$initializeHelp = F5(
 				return A2(
 					$elm$core$Array$builderToArray,
 					false,
-					{j: nodeList, f: (len / $elm$core$Array$branchFactor) | 0, i: tail});
+					{j: nodeList, g: (len / $elm$core$Array$branchFactor) | 0, i: tail});
 			} else {
 				var leaf = $elm$core$Array$Leaf(
 					A3($elm$core$Elm$JsArray$initialize, $elm$core$Array$branchFactor, fromIndex, fn));
@@ -7512,7 +7512,7 @@ var $author$project$ExhibitionDate$init = function (flags) {
 	return _Utils_Tuple2(
 		{
 			af: !$elm$core$List$length(decodedInitialCartItems),
-			h: decodedInitialCartItems,
+			f: decodedInitialCartItems,
 			ag: '',
 			Q: decodedClosedDateList,
 			t: $elm$core$Maybe$Nothing,
@@ -8751,12 +8751,12 @@ var $author$project$ExhibitionDate$reachedMaxTickets = function (itemsInCart) {
 };
 var $author$project$ExhibitionDate$maybeAddVariant = F2(
 	function (model, variantId) {
-		return $author$project$ExhibitionDate$reachedMaxTickets(model.h) ? _Utils_update(
+		return $author$project$ExhibitionDate$reachedMaxTickets(model.f) ? _Utils_update(
 			model,
-			{h: model.h, ag: 'For large groups, please contact tours@foundlingmuseum.org.uk to arrange your visit.'}) : _Utils_update(
+			{f: model.f, ag: 'For large groups, please contact tours@foundlingmuseum.org.uk to arrange your visit.'}) : _Utils_update(
 			model,
 			{
-				h: A2($author$project$ExhibitionDate$addOneOfVariant, model.h, variantId)
+				f: A2($author$project$ExhibitionDate$addOneOfVariant, model.f, variantId)
 			});
 	});
 var $elm$browser$Browser$Navigation$reload = _Browser_reload(false);
@@ -8772,6 +8772,22 @@ var $author$project$ExhibitionDate$removeOneOfVariant = F2(
 					}) : item;
 			},
 			initialCartItems);
+	});
+var $author$project$ExhibitionDate$setMaxInput = F2(
+	function (itemsInCart, numberTicketsRequested) {
+		var numberRequested = A2(
+			$elm$core$Maybe$withDefault,
+			0,
+			$elm$core$String$toInt(numberTicketsRequested));
+		var cartTotal = $elm$core$List$sum(
+			A2(
+				$elm$core$List$map,
+				function (item) {
+					return item.e;
+				},
+				itemsInCart));
+		var numberAllowed = (_Utils_cmp(numberRequested + cartTotal, $author$project$ExhibitionDate$maxTickets) < 1) ? numberRequested : ((($author$project$ExhibitionDate$maxTickets - cartTotal) > 0) ? ($author$project$ExhibitionDate$maxTickets - cartTotal) : 0);
+		return $elm$core$String$fromInt(numberAllowed);
 	});
 var $author$project$ExhibitionDate$fmDateFormatWithWeekday = 'EEEE d MMM yyyy';
 var $justinmimbs$date$Date$isBetween = F3(
@@ -9022,14 +9038,14 @@ var $author$project$ExhibitionDate$update = F2(
 							item,
 							{e: item.e - 1}) : item;
 					},
-					model.h);
+					model.f);
 				var newCartContainsGiftAidTicket = A2($author$project$ExhibitionDate$hasGiftAidTicket, model.F.V, updatedCartItems);
 				var updatedGiftAidDeclaration = (!newCartContainsGiftAidTicket) ? false : model.r;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{
-							h: A2($author$project$ExhibitionDate$removeOneOfVariant, model.h, variantId),
+							f: A2($author$project$ExhibitionDate$removeOneOfVariant, model.f, variantId),
 							r: updatedGiftAidDeclaration
 						}),
 					$elm$core$Platform$Cmd$none);
@@ -9040,7 +9056,11 @@ var $author$project$ExhibitionDate$update = F2(
 					_Utils_update(
 						model,
 						{
-							h: A3($author$project$ExhibitionDate$updateVariantQuantity, model.h, variantId, input)
+							f: A3(
+								$author$project$ExhibitionDate$updateVariantQuantity,
+								model.f,
+								variantId,
+								A2($author$project$ExhibitionDate$setMaxInput, model.f, input))
 						}),
 					$elm$core$Platform$Cmd$none);
 			case 5:
@@ -9057,7 +9077,7 @@ var $author$project$ExhibitionDate$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{h: _List_Nil}),
+						{f: _List_Nil}),
 					$elm$browser$Browser$Navigation$reload);
 			default:
 				return _Utils_Tuple2(
@@ -9074,13 +9094,13 @@ var $author$project$ExhibitionDate$update = F2(
 									e: item.e
 								};
 							},
-							model.h)) : $author$project$ExhibitionDate$cartUpdatePost(
+							model.f)) : $author$project$ExhibitionDate$cartUpdatePost(
 						A2(
 							$elm$core$List$map,
 							function (item) {
 								return {k: item.q, e: item.e};
 							},
-							model.h)));
+							model.f)));
 		}
 	});
 var $elm$json$Json$Decode$value = _Json_decodeValue;
@@ -10271,6 +10291,8 @@ var $author$project$ExhibitionDate$InputVariantQuantity = F2(
 		return {$: 4, a: a, b: b};
 	});
 var $elm$html$Html$Attributes$disabled = $elm$html$Html$Attributes$boolProperty('disabled');
+var $elm$html$Html$Attributes$max = $elm$html$Html$Attributes$stringProperty('max');
+var $elm$html$Html$Attributes$min = $elm$html$Html$Attributes$stringProperty('min');
 var $author$project$ExhibitionDate$quantityFromVariantId = F2(
 	function (cartItems, variantId) {
 		return $elm$core$List$sum(
@@ -10318,6 +10340,8 @@ var $author$project$ExhibitionDate$viewQuantity = F2(
 							$elm$html$Html$Attributes$value(
 							$elm$core$String$fromInt(quantity)),
 							$elm$html$Html$Attributes$type_('number'),
+							$elm$html$Html$Attributes$min('0'),
+							$elm$html$Html$Attributes$max('7'),
 							$elm$html$Html$Events$onInput(
 							$author$project$ExhibitionDate$InputVariantQuantity(variantId))
 						]),
@@ -10436,7 +10460,7 @@ var $author$project$ExhibitionDate$viewProductVariantSelector = function (model)
 										$elm$html$Html$text('Quantity')
 									]))
 							])),
-						A3($author$project$ExhibitionDate$viewProductVariants, model.h, model.F.V, model.F.ae)
+						A3($author$project$ExhibitionDate$viewProductVariants, model.f, model.F.V, model.F.ae)
 					])),
 				A2($author$project$ExhibitionDate$viewGiftAidDeclaration, model.S, model.r),
 				A2(
@@ -10522,7 +10546,7 @@ var $author$project$ExhibitionDate$view = function (model) {
 				$elm$html$Html$div,
 				_List_fromArray(
 					[
-						$author$project$ExhibitionDate$reachedMaxTickets(model.h) ? $elm$html$Html$Attributes$class('reached-max') : $elm$html$Html$Attributes$class('')
+						$author$project$ExhibitionDate$reachedMaxTickets(model.f) ? $elm$html$Html$Attributes$class('reached-max') : $elm$html$Html$Attributes$class('')
 					]),
 				_List_fromArray(
 					[
@@ -10545,7 +10569,7 @@ var $author$project$ExhibitionDate$view = function (model) {
 								$elm$html$Html$text(
 								$author$project$ExhibitionDate$ticketDetailString(model))
 							])),
-						$author$project$ExhibitionDate$reachedMaxTickets(model.h) ? A2(
+						$author$project$ExhibitionDate$reachedMaxTickets(model.f) ? A2(
 						$elm$html$Html$p,
 						_List_fromArray(
 							[
