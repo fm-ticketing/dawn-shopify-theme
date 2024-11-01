@@ -30,25 +30,6 @@
             "text_alignment_mobile": "center"
           }
         },
-        "slide_EU3VHw": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/20241031_140306_1_11.jpg",
-            "heading": "",
-            "heading_size": "h2",
-            "subheading": "",
-            "button_label": "Visit our Christmas range",
-            "link": "shopify://collections/christmas",
-            "button_style_secondary": false,
-            "box_align": "bottom-right",
-            "show_text_box": false,
-            "text_alignment": "right",
-            "image_overlay_opacity": 0,
-            "color_scheme": "background-1",
-            "text_alignment_mobile": "center"
-          }
-        },
         "slide_jywtWR": {
           "type": "slide",
           "settings": {
@@ -64,6 +45,24 @@
             "text_alignment": "right",
             "image_overlay_opacity": 0,
             "color_scheme": "scheme-1",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_EU3VHw": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/xmascollection1.jpg",
+            "heading": "",
+            "heading_size": "h2",
+            "subheading": "",
+            "button_label": "Visit our Christmas range",
+            "link": "shopify://collections/christmas",
+            "button_style_secondary": false,
+            "box_align": "bottom-left",
+            "show_text_box": false,
+            "text_alignment": "left",
+            "image_overlay_opacity": 0,
+            "color_scheme": "inverse",
             "text_alignment_mobile": "center"
           }
         },
@@ -106,8 +105,8 @@
       },
       "block_order": [
         "slide_cmW3LH",
-        "slide_EU3VHw",
         "slide_jywtWR",
+        "slide_EU3VHw",
         "slide_CLL9md",
         "slide_fdzdd3"
       ],
