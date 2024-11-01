@@ -32,6 +32,7 @@
         },
         "slide_EU3VHw": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/20241031_140306_1_11.jpg",
             "heading": "",
