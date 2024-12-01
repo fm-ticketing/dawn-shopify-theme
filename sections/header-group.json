@@ -23,6 +23,7 @@
         },
         "announcement_c7JmgB": {
           "type": "announcement",
+          "disabled": true,
           "settings": {
             "text": "UK delivery £3.50. Worldwide shipping available. Click here for more information.",
             "link": "shopify://pages/delivery-information"
