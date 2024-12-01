@@ -14,6 +14,13 @@
     "announcement_bar_GtJwAd": {
       "type": "announcement-bar",
       "blocks": {
+        "announcement_Ky4jGi": {
+          "type": "announcement",
+          "settings": {
+            "text": "FREE SHIPPING for all UK online orders placed on 1 December for Museum Shop Sunday!",
+            "link": ""
+          }
+        },
         "announcement_c7JmgB": {
           "type": "announcement",
           "settings": {
@@ -30,6 +37,7 @@
         }
       },
       "block_order": [
+        "announcement_Ky4jGi",
         "announcement_c7JmgB",
         "announcement_MiHwTc"
       ],
@@ -45,9 +53,7 @@
     },
     "header": {
       "type": "header",
-      "custom_css": [
-
-      ],
+      "custom_css": [],
       "settings": {
         "logo_position": "top-left",
         "menu": "main-menu",
