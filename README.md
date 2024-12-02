@@ -1,6 +1,34 @@
 # FM-Ticketing theme
 ## Custom version of Dawn
 
+[Staging](https://foundling-test-test.myshopify.com/)
+[Production](https://shop.foundling.org/)
+
+## Release integration with Shopify
+- Pushing to branch `staging` will release changes to Staging
+- Pushing to branch `main` will release changes to Production
+
+### Exhibition date picker component
+
+Compiled from Elm and added as javascript node at id `exhibition-date`.
+
+`cd elm` before using dev and compile commands.
+
+#### Serve to localhost
+
+`elm-live src/ExhibitionDate.elm --hot -- --output=exhibition-date.js`
+
+#### Development
+
+`elm make src/ExhibitionDate.elm --output=../assets/exhibition-date.js`
+
+#### Production
+
+`elm make src/ExhibitionDate.elm --optimize --output=../assets/exhibition-date.js`
+
+
+## Dawn shopify theme README for developers
+
 [Getting started](#getting-started) |
 [Staying up to date with Dawn changes](#staying-up-to-date-with-dawn-changes) |
 [Developer tools](#developer-tools) |
@@ -45,24 +73,6 @@ git pull upstream main
 ## Developer tools
 
 There are a number of really useful tools that the Shopify Themes team uses during development. Dawn is already set up to work with these tools.
-
-### Exhibition date picker component
-
-Compiled from Elm and added as javascript node at id `exhibition-date`.
-
-`cd elm` before using dev and compile commands.
-
-#### Serve to localhost
-
-`elm-live src/ExhibitionDate.elm --hot -- --output=exhibition-date.js`
-
-#### Development
-
-`elm make src/ExhibitionDate.elm --output=../assets/exhibition-date.js`
-
-#### Production
-
-`elm make src/ExhibitionDate.elm --optimize --output=../assets/exhibition-date.js`
 
 ### Start local dev server
 
