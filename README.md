@@ -1,8 +1,8 @@
 # FM-Ticketing theme
 ## Custom version of Dawn
 
-[Staging](https://foundling-test-test.myshopify.com/)
-[Production](https://shop.foundling.org/)
+- [Staging](https://foundling-test-test.myshopify.com/)
+- [Production](https://shop.foundling.org/)
 
 ## Release integration with Shopify
 - Pushing to branch `staging` will release changes to Staging
