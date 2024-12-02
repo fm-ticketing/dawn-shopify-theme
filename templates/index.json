@@ -1,32 +1,32 @@
 /*
-* ------------------------------------------------------------
-* IMPORTANT: The contents of this file are auto-generated.
-*
-* This file may be updated by the Shopify admin theme editor
-* or related systems. Please exercise caution as any changes
-* made to this file may be overwritten.
-* ------------------------------------------------------------
-*/
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "slideshow_ikWW8P": {
       "type": "slideshow",
       "blocks": {
-        "slide_cmW3LH": {
+        "slide_EU3VHw": {
           "type": "slide",
-          "disabled": true,
           "settings": {
+            "image": "shopify://shop_images/xmascollection1.jpg",
             "heading": "",
-            "heading_size": "h1",
+            "heading_size": "h2",
             "subheading": "",
-            "button_label": "",
-            "link": "",
+            "button_label": "Visit our Christmas range",
+            "link": "shopify://collections/christmas",
             "button_style_secondary": false,
-            "box_align": "middle-center",
+            "box_align": "bottom-left",
             "show_text_box": false,
-            "text_alignment": "center",
+            "text_alignment": "left",
             "image_overlay_opacity": 0,
-            "color_scheme": "scheme-1",
+            "color_scheme": "inverse",
             "text_alignment_mobile": "center"
           }
         },
@@ -83,13 +83,32 @@
             "color_scheme": "scheme-1",
             "text_alignment_mobile": "center"
           }
+        },
+        "slide_cmW3LH": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "scheme-1",
+            "text_alignment_mobile": "center"
+          }
         }
       },
       "block_order": [
-        "slide_cmW3LH",
+        "slide_EU3VHw",
         "slide_jywtWR",
         "slide_CLL9md",
-        "slide_fdzdd3"
+        "slide_fdzdd3",
+        "slide_cmW3LH"
       ],
       "settings": {
         "layout": "grid",
