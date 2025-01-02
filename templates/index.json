@@ -14,6 +14,7 @@
       "blocks": {
         "slide_EU3VHw": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/xmascollection1.jpg",
             "heading": "",
