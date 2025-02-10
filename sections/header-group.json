@@ -25,7 +25,7 @@
         "announcement_c7JmgB": {
           "type": "announcement",
           "settings": {
-            "text": "UK delivery £3.50. Worldwide shipping available. Click here for more information.",
+            "text": "UK delivery is £3.50. Click here for more shipping information.",
             "link": "shopify://pages/delivery-information"
           }
         },
