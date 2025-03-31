@@ -12,21 +12,21 @@
     "slideshow_ikWW8P": {
       "type": "slideshow",
       "blocks": {
-        "slide_EU3VHw": {
+        "slide_cmW3LH": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/xmascollection1.jpg",
+            "image": "shopify://shop_images/12_ac2d84ef-1480-4559-90d2-e0bc55adf886.jpg",
             "heading": "",
-            "heading_size": "h2",
+            "heading_size": "h1",
             "subheading": "",
-            "button_label": "Visit our Christmas range",
-            "link": "shopify://collections/christmas",
+            "button_label": "Shop Books",
+            "link": "shopify://collections/books-1",
             "button_style_secondary": false,
-            "box_align": "bottom-left",
+            "box_align": "middle-right",
             "show_text_box": false,
-            "text_alignment": "left",
+            "text_alignment": "right",
             "image_overlay_opacity": 0,
-            "color_scheme": "inverse",
+            "color_scheme": "scheme-1",
             "text_alignment_mobile": "center"
           }
         },
@@ -55,14 +55,14 @@
             "heading": "",
             "heading_size": "h1",
             "subheading": "",
-            "button_label": "",
-            "link": "",
+            "button_label": "Shop Kids",
+            "link": "shopify://collections/kids",
             "button_style_secondary": false,
-            "box_align": "middle-center",
+            "box_align": "bottom-right",
             "show_text_box": false,
-            "text_alignment": "center",
+            "text_alignment": "right",
             "image_overlay_opacity": 0,
-            "color_scheme": "",
+            "color_scheme": "background-1",
             "text_alignment_mobile": "center"
           }
         },
@@ -73,42 +73,43 @@
             "heading": "",
             "heading_size": "h1",
             "subheading": "",
-            "button_label": "",
-            "link": "",
+            "button_label": "Shop this product",
+            "link": "shopify://products/threads-of-feeling",
             "button_style_secondary": false,
-            "box_align": "middle-center",
+            "box_align": "middle-right",
             "show_text_box": false,
-            "text_alignment": "center",
+            "text_alignment": "right",
             "image_overlay_opacity": 0,
-            "color_scheme": "scheme-1",
+            "color_scheme": "background-1",
             "text_alignment_mobile": "center"
           }
         },
-        "slide_cmW3LH": {
+        "slide_EU3VHw": {
           "type": "slide",
           "disabled": true,
           "settings": {
+            "image": "shopify://shop_images/xmascollection1.jpg",
             "heading": "",
-            "heading_size": "h1",
+            "heading_size": "h2",
             "subheading": "",
-            "button_label": "",
-            "link": "",
+            "button_label": "Visit our Christmas range",
+            "link": "shopify://collections/christmas",
             "button_style_secondary": false,
-            "box_align": "middle-center",
+            "box_align": "bottom-left",
             "show_text_box": false,
-            "text_alignment": "center",
+            "text_alignment": "left",
             "image_overlay_opacity": 0,
-            "color_scheme": "scheme-1",
+            "color_scheme": "inverse",
             "text_alignment_mobile": "center"
           }
         }
       },
       "block_order": [
-        "slide_EU3VHw",
+        "slide_cmW3LH",
         "slide_jywtWR",
         "slide_CLL9md",
         "slide_fdzdd3",
-        "slide_cmW3LH"
+        "slide_EU3VHw"
       ],
       "settings": {
         "layout": "grid",

@@ -16,6 +16,7 @@
       "blocks": {
         "announcement_Ky4jGi": {
           "type": "announcement",
+          "disabled": true,
           "settings": {
             "text": "FREE SHIPPING for all UK online orders placed on 1 December for Museum Shop Sunday!",
             "link": ""
@@ -23,9 +24,8 @@
         },
         "announcement_c7JmgB": {
           "type": "announcement",
-          "disabled": true,
           "settings": {
-            "text": "UK delivery £3.50. Worldwide shipping available. Click here for more information.",
+            "text": "UK delivery is £3.50. Click here for more shipping information.",
             "link": "shopify://pages/delivery-information"
           }
         },
@@ -42,6 +42,32 @@
         "announcement_c7JmgB",
         "announcement_MiHwTc"
       ],
+      "settings": {
+        "color_scheme": "",
+        "show_line_separator": true,
+        "show_social": false,
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    },
+    "announcement_bar_czmVjp": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_LNQpCx": {
+          "type": "announcement",
+          "disabled": true,
+          "settings": {
+            "text": "Back to main website",
+            "link": "https://foundlingmuseum.org.uk/"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_LNQpCx"
+      ],
+      "custom_css": [],
       "settings": {
         "color_scheme": "",
         "show_line_separator": true,
@@ -73,6 +99,7 @@
     },
     "custom_liquid_w6GRrL": {
       "type": "custom-liquid",
+      "disabled": true,
       "settings": {
         "custom_liquid": "<script type=\"text/javascript\" async src=\"//l.getsitecontrol.com/y798p6mw.js\"></script>",
         "color_scheme": "",
@@ -83,6 +110,7 @@
   },
   "order": [
     "announcement_bar_GtJwAd",
+    "announcement_bar_czmVjp",
     "header",
     "custom_liquid_w6GRrL"
   ]
