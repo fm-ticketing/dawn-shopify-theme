@@ -807,14 +807,26 @@ viewProductVariantDescription variantId productVariantDescriptions =
 
 viewPrice : Int -> String
 viewPrice priceInt =
+    let
+        rawPrice =
+            toFloat priceInt / 100
+
+        priceString =
+            String.fromFloat rawPrice
+
+        -- plus 1 to account for the .
+        price =
+            if String.contains "." priceString then
+                priceString |> String.padRight (String.length (String.fromInt priceInt) + 1) '0'
+
+            else
+                priceString ++ ".00"
+    in
     if priceInt == 0 then
         "£0.00"
 
     else
-        "£"
-            ++ String.fromFloat (toFloat priceInt / 100)
-            -- plus 2 to account for the £ and .
-            |> String.padRight (String.length (String.fromInt priceInt) + 2) '0'
+        "£" ++ price
 
 
 viewQuantity : List CartItem -> Int -> Html Msg
