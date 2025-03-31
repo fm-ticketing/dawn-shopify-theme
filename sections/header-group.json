@@ -52,6 +52,32 @@
         "enable_language_selector": false
       }
     },
+    "announcement_bar_czmVjp": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_LNQpCx": {
+          "type": "announcement",
+          "disabled": true,
+          "settings": {
+            "text": "Back to main website",
+            "link": "https://foundlingmuseum.org.uk/"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_LNQpCx"
+      ],
+      "custom_css": [],
+      "settings": {
+        "color_scheme": "",
+        "show_line_separator": true,
+        "show_social": false,
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    },
     "header": {
       "type": "header",
       "custom_css": [],
@@ -79,31 +105,6 @@
         "color_scheme": "",
         "padding_top": 40,
         "padding_bottom": 52
-      }
-    },
-    "announcement_bar_czmVjp": {
-      "type": "announcement-bar",
-      "blocks": {
-        "announcement_LNQpCx": {
-          "type": "announcement",
-          "settings": {
-            "text": "Back to main website",
-            "link": "https://foundlingmuseum.org.uk/"
-          }
-        }
-      },
-      "block_order": [
-        "announcement_LNQpCx"
-      ],
-      "custom_css": [],
-      "settings": {
-        "color_scheme": "",
-        "show_line_separator": true,
-        "show_social": false,
-        "auto_rotate": false,
-        "change_slides_speed": 5,
-        "enable_country_selector": false,
-        "enable_language_selector": false
       }
     }
   },
