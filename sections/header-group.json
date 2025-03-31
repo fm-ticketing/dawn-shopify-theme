@@ -95,6 +95,7 @@
       "block_order": [
         "announcement_LNQpCx"
       ],
+      "custom_css": [],
       "settings": {
         "color_scheme": "",
         "show_line_separator": true,
@@ -108,8 +109,8 @@
   },
   "order": [
     "announcement_bar_GtJwAd",
+    "announcement_bar_czmVjp",
     "header",
-    "custom_liquid_w6GRrL",
-    "announcement_bar_czmVjp"
+    "custom_liquid_w6GRrL"
   ]
 }
