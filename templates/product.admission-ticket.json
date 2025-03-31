@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main-product-admission-ticket": {
@@ -14,7 +5,8 @@
       "blocks": {
         "title": {
           "type": "title",
-          "settings": {}
+          "settings": {
+          }
         },
         "text_BQM7P3": {
           "type": "text",
@@ -46,16 +38,9 @@
         "padding_top": 24,
         "padding_bottom": 12
       }
-    },
-    "1733848545b88dcc35": {
-      "type": "apps",
-      "settings": {
-        "include_margins": true
-      }
     }
   },
   "order": [
-    "main-product-admission-ticket",
-    "1733848545b88dcc35"
+    "main-product-admission-ticket"
   ]
 }
