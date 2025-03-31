@@ -3521,6 +3521,7 @@ details-modal.header__search {
     color: red;
 }
 
-slideshow-component.announcement-bar.page-width button {
-    display: none;
+p.announcement-bar__message.h5 svg {
+    display: none !important;
 }
+
