@@ -10207,12 +10207,15 @@ var $elm$core$String$padRight = F3(
 				$elm$core$String$fromChar(_char)));
 	});
 var $author$project$ExhibitionDate$viewPrice = function (priceInt) {
-	return (!priceInt) ? '£0.00' : A3(
+	var rawPrice = priceInt / 100;
+	var priceString = $elm$core$String$fromFloat(rawPrice);
+	var price = A2($elm$core$String$contains, '.', priceString) ? A3(
 		$elm$core$String$padRight,
 		$elm$core$String$length(
-			$elm$core$String$fromInt(priceInt)) + 2,
+			$elm$core$String$fromInt(priceInt)) + 1,
 		'0',
-		'£' + $elm$core$String$fromFloat(priceInt / 100));
+		priceString) : (priceString + '.00');
+	return (!priceInt) ? '£0.00' : ('£' + price);
 };
 var $elm$core$String$replace = F3(
 	function (before, after, string) {
