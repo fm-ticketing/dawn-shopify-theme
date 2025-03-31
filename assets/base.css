@@ -3520,3 +3520,7 @@ details-modal.header__search {
 .Header__MainNav a[href="/collections/sale"] {
     color: red;
 }
+
+slideshow-component.announcement-bar.page-width button {
+    display: none;
+}
