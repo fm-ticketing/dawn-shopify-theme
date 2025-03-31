@@ -3520,3 +3520,7 @@ details-modal.header__search {
 .Header__MainNav a[href="/collections/sale"] {
     color: red;
 }
+
+svg.icon.icon-caret {
+    transform: rotate(180deg);
+}
