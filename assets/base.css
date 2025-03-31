@@ -3521,6 +3521,6 @@ details-modal.header__search {
     color: red;
 }
 
-svg.icon.icon-caret {
-    transform: rotate(90deg);
+.svg.icon.icon-caret {
+    transform: rotate(180deg);
 }
