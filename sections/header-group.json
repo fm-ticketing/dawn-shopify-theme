@@ -73,17 +73,43 @@
     },
     "custom_liquid_w6GRrL": {
       "type": "custom-liquid",
+      "disabled": true,
       "settings": {
         "custom_liquid": "<script type=\"text/javascript\" async src=\"//l.getsitecontrol.com/y798p6mw.js\"></script>",
         "color_scheme": "",
         "padding_top": 40,
         "padding_bottom": 52
       }
+    },
+    "announcement_bar_czmVjp": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_LNQpCx": {
+          "type": "announcement",
+          "settings": {
+            "text": "Back to main website",
+            "link": "https://foundlingmuseum.org.uk/"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_LNQpCx"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "show_line_separator": true,
+        "show_social": false,
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
     }
   },
   "order": [
     "announcement_bar_GtJwAd",
     "header",
-    "custom_liquid_w6GRrL"
+    "custom_liquid_w6GRrL",
+    "announcement_bar_czmVjp"
   ]
 }
