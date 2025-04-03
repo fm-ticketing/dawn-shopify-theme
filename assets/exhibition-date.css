@@ -204,3 +204,12 @@ ul.exhibition-list {
   margin-bottom: 20px;
   padding: 80px 20px 10px 20px;
 }
+
+.gift-aid-container .add-to-cart-button-container {
+  display: flex;
+}
+
+.gift-aid-container button {
+  margin: 10px;
+  width: 100%;
+}
