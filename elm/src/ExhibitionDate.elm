@@ -46,7 +46,6 @@ type alias Model =
     , giftAidCopy : GiftAidCopy
     , date : Maybe Date.Date
     , datePicker : DatePicker.DatePicker
-    , giftAidDeclaration : Bool
     , cartItems : List CartItem
     , cartEmptyInShopify : Bool
     , cartItemsMessage : String
@@ -194,7 +193,6 @@ init flags =
       , giftAidCopy = decodedGiftAidCopy
       , date = Nothing
       , datePicker = datePicker
-      , giftAidDeclaration = False
       , cartItems = decodedInitialCartItems
       , cartEmptyInShopify = List.length decodedInitialCartItems == 0
       , cartItemsMessage = ""
@@ -376,20 +374,8 @@ update msg model =
                                 item
                         )
                         model.cartItems
-
-                newCartContainsGiftAidTicket : Bool
-                newCartContainsGiftAidTicket =
-                    hasGiftAidTicket model.productDetails.variants updatedCartItems
-
-                updatedGiftAidDeclaration : Bool
-                updatedGiftAidDeclaration =
-                    if not newCartContainsGiftAidTicket then
-                        False
-
-                    else
-                        model.giftAidDeclaration
             in
-            ( { model | cartItems = removeOneOfVariant model.cartItems variantId, giftAidDeclaration = updatedGiftAidDeclaration }
+            ( { model | cartItems = removeOneOfVariant model.cartItems variantId }
             , Cmd.none
             )
 
@@ -410,7 +396,7 @@ update msg model =
             )
 
         ClickedUpdateCart withGiftAid ->
-            ( { model | giftAidDeclaration = withGiftAid }
+            ( model
             , if model.cartEmptyInShopify then
                 cartAddPost
                     (List.map
@@ -418,7 +404,7 @@ update msg model =
                             { id = item.variantId
                             , exhibitionTitleWithDate = ticketDetailString model
                             , attendanceDate = attendanceDateString model.date
-                            , giftAidDeclaration = model.giftAidDeclaration
+                            , giftAidDeclaration = withGiftAid
                             , quantity = item.quantity
                             }
                         )
@@ -854,23 +840,6 @@ quantityFromVariantId cartItems variantId =
     List.filter (\item -> item.variantId == variantId) cartItems
         |> List.map (\itemWithVariantId -> itemWithVariantId.quantity)
         |> List.sum
-
-
-hasGiftAidTicket : List ProductVariant -> List CartItem -> Bool
-hasGiftAidTicket allVariants cartItems =
-    let
-        giftAidIds =
-            List.filter (\variant -> String.contains "gift aid" (String.toLower variant.title)) allVariants
-                |> List.map (\variant -> variant.id)
-
-        cartItemVariantIds =
-            List.filter (\item -> item.quantity > 0) cartItems
-                |> List.map (\item -> item.variantId)
-    in
-    (List.filter (\id -> List.member id giftAidIds) cartItemVariantIds
-        |> List.length
-    )
-        > 0
 
 
 viewGiftAidDeclaration : GiftAidCopy -> Html Msg
