@@ -30,24 +30,6 @@
             "text_alignment_mobile": "center"
           }
         },
-        "slide_jywtWR": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/tokens_banner.jpg",
-            "heading": "",
-            "heading_size": "h2",
-            "subheading": "",
-            "button_label": "Shop this product",
-            "link": "shopify://products/introduction-to-the-tokens",
-            "button_style_secondary": false,
-            "box_align": "middle-right",
-            "show_text_box": false,
-            "text_alignment": "right",
-            "image_overlay_opacity": 0,
-            "color_scheme": "scheme-1",
-            "text_alignment_mobile": "center"
-          }
-        },
         "slide_CLL9md": {
           "type": "slide",
           "settings": {
@@ -84,6 +66,24 @@
             "text_alignment_mobile": "center"
           }
         },
+        "slide_jywtWR": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/tokens_banner.jpg",
+            "heading": "",
+            "heading_size": "h2",
+            "subheading": "",
+            "button_label": "Shop this product",
+            "link": "shopify://products/introduction-to-the-tokens",
+            "button_style_secondary": false,
+            "box_align": "middle-right",
+            "show_text_box": false,
+            "text_alignment": "right",
+            "image_overlay_opacity": 0,
+            "color_scheme": "scheme-1",
+            "text_alignment_mobile": "center"
+          }
+        },
         "slide_EU3VHw": {
           "type": "slide",
           "disabled": true,
@@ -106,9 +106,9 @@
       },
       "block_order": [
         "slide_cmW3LH",
-        "slide_jywtWR",
         "slide_CLL9md",
         "slide_fdzdd3",
+        "slide_jywtWR",
         "slide_EU3VHw"
       ],
       "settings": {
