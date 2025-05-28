@@ -30,6 +30,24 @@
             "text_alignment_mobile": "center"
           }
         },
+        "slide_74UGh9": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/20250528_124736.jpg",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "Shop Gifts",
+            "link": "shopify://collections/homeware-gifts",
+            "button_style_secondary": false,
+            "box_align": "top-left",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "scheme-1",
+            "text_alignment_mobile": "center"
+          }
+        },
         "slide_CLL9md": {
           "type": "slide",
           "settings": {
@@ -41,24 +59,6 @@
             "link": "shopify://collections/kids",
             "button_style_secondary": false,
             "box_align": "bottom-right",
-            "show_text_box": false,
-            "text_alignment": "right",
-            "image_overlay_opacity": 0,
-            "color_scheme": "background-1",
-            "text_alignment_mobile": "center"
-          }
-        },
-        "slide_fdzdd3": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/20240902_113635.jpg",
-            "heading": "",
-            "heading_size": "h1",
-            "subheading": "",
-            "button_label": "Shop this product",
-            "link": "shopify://products/threads-of-feeling",
-            "button_style_secondary": false,
-            "box_align": "middle-right",
             "show_text_box": false,
             "text_alignment": "right",
             "image_overlay_opacity": 0,
@@ -83,33 +83,13 @@
             "color_scheme": "scheme-1",
             "text_alignment_mobile": "center"
           }
-        },
-        "slide_EU3VHw": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/xmascollection1.jpg",
-            "heading": "",
-            "heading_size": "h2",
-            "subheading": "",
-            "button_label": "Visit our Christmas range",
-            "link": "shopify://collections/christmas",
-            "button_style_secondary": false,
-            "box_align": "bottom-left",
-            "show_text_box": false,
-            "text_alignment": "left",
-            "image_overlay_opacity": 0,
-            "color_scheme": "inverse",
-            "text_alignment_mobile": "center"
-          }
         }
       },
       "block_order": [
         "slide_cmW3LH",
+        "slide_74UGh9",
         "slide_CLL9md",
-        "slide_fdzdd3",
-        "slide_jywtWR",
-        "slide_EU3VHw"
+        "slide_jywtWR"
       ],
       "settings": {
         "layout": "grid",
