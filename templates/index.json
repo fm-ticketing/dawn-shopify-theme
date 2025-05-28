@@ -12,24 +12,6 @@
     "slideshow_ikWW8P": {
       "type": "slideshow",
       "blocks": {
-        "slide_cmW3LH": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/20250407_112320.jpg",
-            "heading": "",
-            "heading_size": "h1",
-            "subheading": "",
-            "button_label": "Shop Books",
-            "link": "shopify://collections/books-1",
-            "button_style_secondary": false,
-            "box_align": "middle-right",
-            "show_text_box": false,
-            "text_alignment": "right",
-            "image_overlay_opacity": 0,
-            "color_scheme": "scheme-1",
-            "text_alignment_mobile": "center"
-          }
-        },
         "slide_74UGh9": {
           "type": "slide",
           "settings": {
@@ -43,6 +25,24 @@
             "box_align": "top-left",
             "show_text_box": false,
             "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "scheme-1",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_cmW3LH": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/20250407_112320.jpg",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "Shop Books",
+            "link": "shopify://collections/books-1",
+            "button_style_secondary": false,
+            "box_align": "middle-right",
+            "show_text_box": false,
+            "text_alignment": "right",
             "image_overlay_opacity": 0,
             "color_scheme": "scheme-1",
             "text_alignment_mobile": "center"
@@ -86,8 +86,8 @@
         }
       },
       "block_order": [
-        "slide_cmW3LH",
         "slide_74UGh9",
+        "slide_cmW3LH",
         "slide_CLL9md",
         "slide_jywtWR"
       ],
