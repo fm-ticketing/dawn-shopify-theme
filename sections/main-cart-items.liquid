@@ -527,3 +527,24 @@
   ]
 }
 {% endschema %}
+
+<script>
+  fetch('/cart.js')
+    .then(response => response.json())
+    .then(cart => {
+      const hasTargetProduct = cart.items.some(item =>
+        item.product_id === 48012205490478 // ⬅️ Replace this with your actual product ID
+      );
+
+      if (hasTargetProduct) {
+        const interval = setInterval(function () {
+          if (window.getsitecontrol) {
+            window.getsitecontrol('show', '399534'); // ⬅️ This is your widget ID
+            clearInterval(interval);
+          }
+        }, 200);
+      }
+    });
+</script>
+
+
