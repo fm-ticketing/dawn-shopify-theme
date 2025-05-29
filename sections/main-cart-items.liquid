@@ -529,22 +529,34 @@
 {% endschema %}
 
 <script>
-  fetch('/cart.js')
-    .then(response => response.json())
-    .then(cart => {
-      const hasTargetProduct = cart.items.some(item =>
-        item.product_id === 8953145557294 // ⬅️ Replace this with your actual product ID
-      );
+  // Wait for GetSiteControl to be available
+  const waitForGSC = setInterval(() => {
+    if (typeof window.getsitecontrol === 'function') {
+      console.log('✅ GetSiteControl loaded');
 
-      if (hasTargetProduct) {
-        const interval = setInterval(function () {
-          if (window.getsitecontrol) {
-            window.getsitecontrol('show', '399534'); // ⬅️ This is your widget ID
-            clearInterval(interval);
+      fetch('/cart.js')
+        .then(response => response.json())
+        .then(cart => {
+          console.log('🛒 Cart loaded:', cart.items);
+
+          const hasTargetProduct = cart.items.some(item =>
+            item.product_id === 8953145557294 // ⬅️ Replace with your product ID
+          );
+
+          console.log('🎯 Has target product:', hasTargetProduct);
+
+          if (hasTargetProduct) {
+            console.log('🚀 Triggering popup...');
+            window.getsitecontrol('show', '399534');
           }
-        }, 200);
-      }
-    });
+        });
+
+      clearInterval(waitForGSC);
+    } else {
+      console.log('⏳ Waiting for GetSiteControl...');
+    }
+  }, 200);
 </script>
+
 
 
