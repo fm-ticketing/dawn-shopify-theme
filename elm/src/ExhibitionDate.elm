@@ -46,7 +46,6 @@ type alias Model =
     , giftAidCopy : GiftAidCopy
     , date : Maybe Date.Date
     , datePicker : DatePicker.DatePicker
-    , giftAidDeclaration : Bool
     , cartItems : List CartItem
     , cartEmptyInShopify : Bool
     , cartItemsMessage : String
@@ -77,7 +76,7 @@ type alias ProductVariant =
 
 
 type alias GiftAidCopy =
-    { heading : String, info : String, declaration : String }
+    { heading : String, info : String }
 
 
 type alias CartItem =
@@ -175,7 +174,7 @@ init flags =
                     goodGiftAidCopy
 
                 Err _ ->
-                    { heading = "", info = "", declaration = "" }
+                    { heading = "", info = "" }
 
         decodedInitialCartItems =
             case Json.Decode.decodeValue cartItemsDecoder flags.initialCart of
@@ -194,7 +193,6 @@ init flags =
       , giftAidCopy = decodedGiftAidCopy
       , date = Nothing
       , datePicker = datePicker
-      , giftAidDeclaration = False
       , cartItems = decodedInitialCartItems
       , cartEmptyInShopify = List.length decodedInitialCartItems == 0
       , cartItemsMessage = ""
@@ -255,11 +253,10 @@ productIdDecoder =
 
 giftAidCopyDecoder : Json.Decode.Decoder GiftAidCopy
 giftAidCopyDecoder =
-    Json.Decode.map3
+    Json.Decode.map2
         GiftAidCopy
         (Json.Decode.field "gift_aid_heading" Json.Decode.string)
         (Json.Decode.field "gift_aid_info" Json.Decode.string)
-        (Json.Decode.field "gift_aid_declaration" Json.Decode.string)
 
 
 exhibitionDecoder : Json.Decode.Decoder Exhibition
@@ -328,10 +325,9 @@ type Msg
     | ClickedAddVariant Int
     | ClickedRemoveVariant Int
     | InputVariantQuantity Int String
-    | ToggleGiftAidDeclaration
     | CartUpdated (Result Http.Error ())
     | CartInitialised (Result Http.Error ())
-    | ClickedUpdateCart
+    | ClickedUpdateCart Bool
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -378,20 +374,8 @@ update msg model =
                                 item
                         )
                         model.cartItems
-
-                newCartContainsGiftAidTicket : Bool
-                newCartContainsGiftAidTicket =
-                    hasGiftAidTicket model.productDetails.variants updatedCartItems
-
-                updatedGiftAidDeclaration : Bool
-                updatedGiftAidDeclaration =
-                    if not newCartContainsGiftAidTicket then
-                        False
-
-                    else
-                        model.giftAidDeclaration
             in
-            ( { model | cartItems = removeOneOfVariant model.cartItems variantId, giftAidDeclaration = updatedGiftAidDeclaration }
+            ( { model | cartItems = removeOneOfVariant model.cartItems variantId }
             , Cmd.none
             )
 
@@ -399,9 +383,6 @@ update msg model =
             ( { model | cartItems = updateVariantQuantity model.cartItems variantId (setMaxInput model.cartItems input) }
             , Cmd.none
             )
-
-        ToggleGiftAidDeclaration ->
-            ( { model | giftAidDeclaration = not model.giftAidDeclaration }, Cmd.none )
 
         CartUpdated _ ->
             -- todo parse returned cart for new cart items
@@ -414,7 +395,7 @@ update msg model =
               -- Cmd.none
             )
 
-        ClickedUpdateCart ->
+        ClickedUpdateCart withGiftAid ->
             ( model
             , if model.cartEmptyInShopify then
                 cartAddPost
@@ -423,7 +404,7 @@ update msg model =
                             { id = item.variantId
                             , exhibitionTitleWithDate = ticketDetailString model
                             , attendanceDate = attendanceDateString model.date
-                            , giftAidDeclaration = model.giftAidDeclaration
+                            , giftAidDeclaration = withGiftAid
                             , quantity = item.quantity
                             }
                         )
@@ -735,12 +716,7 @@ viewProductVariantSelector model =
                 ]
             , viewProductVariants model.cartItems model.productDetails.variants model.productDetails.variantDescriptions
             ]
-        , viewGiftAidDeclaration model.giftAidCopy model.giftAidDeclaration
-        , Html.button
-            [ Html.Attributes.class "button"
-            , Html.Events.onClick ClickedUpdateCart
-            ]
-            [ Html.text "Update basket" ]
+        , viewGiftAidDeclaration model.giftAidCopy
         ]
 
 
@@ -866,38 +842,35 @@ quantityFromVariantId cartItems variantId =
         |> List.sum
 
 
-hasGiftAidTicket : List ProductVariant -> List CartItem -> Bool
-hasGiftAidTicket allVariants cartItems =
-    let
-        giftAidIds =
-            List.filter (\variant -> String.contains "gift aid" (String.toLower variant.title)) allVariants
-                |> List.map (\variant -> variant.id)
-
-        cartItemVariantIds =
-            List.filter (\item -> item.quantity > 0) cartItems
-                |> List.map (\item -> item.variantId)
-    in
-    (List.filter (\id -> List.member id giftAidIds) cartItemVariantIds
-        |> List.length
-    )
-        > 0
-
-
-viewGiftAidDeclaration : GiftAidCopy -> Bool -> Html Msg
-viewGiftAidDeclaration giftAidCopy giftAidDeclaration =
+viewGiftAidDeclaration : GiftAidCopy -> Html Msg
+viewGiftAidDeclaration giftAidCopy =
     Html.div [ Html.Attributes.class "gift-aid-container" ]
         [ Html.h2 [] [ Html.text giftAidCopy.heading ]
-        , Html.p [] [ Html.text giftAidCopy.info ]
-        , Html.label []
-            [ Html.input
-                [ Html.Attributes.type_ "checkbox"
-                , Html.Events.onClick ToggleGiftAidDeclaration
-                , Html.Attributes.checked giftAidDeclaration
+        , viewGiftAidInfo giftAidCopy.info
+        , Html.div [ Html.Attributes.class "add-to-cart-button-container" ]
+            [ Html.button
+                [ Html.Attributes.class "button"
+                , Html.Events.onClick (ClickedUpdateCart True)
                 ]
-                []
-            , Html.text giftAidCopy.declaration
+                [ Html.text "Add to basket with Gift Aid" ]
+            , Html.button
+                [ Html.Attributes.class "button"
+                , Html.Events.onClick (ClickedUpdateCart False)
+                ]
+                [ Html.text "Add to basket without Gift Aid" ]
             ]
         ]
+
+
+viewGiftAidInfo : String -> Html Msg
+viewGiftAidInfo giftAidInfo =
+    Html.div []
+        (List.map
+            (\paragraph ->
+                Html.p [] [ Html.text paragraph ]
+            )
+            (String.split "<br>" giftAidInfo)
+        )
 
 
 ticketDetailString : Model -> String
