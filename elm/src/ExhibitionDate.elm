@@ -846,7 +846,7 @@ viewGiftAidDeclaration : GiftAidCopy -> Html Msg
 viewGiftAidDeclaration giftAidCopy =
     Html.div [ Html.Attributes.class "gift-aid-container" ]
         [ Html.h2 [] [ Html.text giftAidCopy.heading ]
-        , Html.p [] [ Html.text giftAidCopy.info ]
+        , viewGiftAidInfo giftAidCopy.info
         , Html.div [ Html.Attributes.class "add-to-cart-button-container" ]
             [ Html.button
                 [ Html.Attributes.class "button"
@@ -860,6 +860,17 @@ viewGiftAidDeclaration giftAidCopy =
                 [ Html.text "Add to basket without Gift Aid" ]
             ]
         ]
+
+
+viewGiftAidInfo : String -> Html Msg
+viewGiftAidInfo giftAidInfo =
+    Html.div []
+        (List.map
+            (\paragraph ->
+                Html.p [] [ Html.text paragraph ]
+            )
+            (String.split "<br>" giftAidInfo)
+        )
 
 
 ticketDetailString : Model -> String
