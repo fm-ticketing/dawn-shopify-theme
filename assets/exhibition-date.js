@@ -10106,6 +10106,23 @@ var $elm$html$Html$th = _VirtualDom_node('th');
 var $author$project$ExhibitionDate$ClickedUpdateCart = function (a) {
 	return {$: 7, a: a};
 };
+var $author$project$ExhibitionDate$viewGiftAidInfo = function (giftAidInfo) {
+	return A2(
+		$elm$html$Html$div,
+		_List_Nil,
+		A2(
+			$elm$core$List$map,
+			function (paragraph) {
+				return A2(
+					$elm$html$Html$p,
+					_List_Nil,
+					_List_fromArray(
+						[
+							$elm$html$Html$text(paragraph)
+						]));
+			},
+			A2($elm$core$String$split, '<br>', giftAidInfo)));
+};
 var $author$project$ExhibitionDate$viewGiftAidDeclaration = function (giftAidCopy) {
 	return A2(
 		$elm$html$Html$div,
@@ -10122,13 +10139,7 @@ var $author$project$ExhibitionDate$viewGiftAidDeclaration = function (giftAidCop
 					[
 						$elm$html$Html$text(giftAidCopy.aw)
 					])),
-				A2(
-				$elm$html$Html$p,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$elm$html$Html$text(giftAidCopy.ax)
-					])),
+				$author$project$ExhibitionDate$viewGiftAidInfo(giftAidCopy.ax),
 				A2(
 				$elm$html$Html$div,
 				_List_fromArray(
