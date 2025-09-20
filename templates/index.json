@@ -17,7 +17,7 @@
           "settings": {
             "image": "shopify://shop_images/20250528_124736.jpg",
             "heading": "",
-            "heading_size": "h1",
+            "heading_size": "h0",
             "subheading": "",
             "button_label": "Shop Gifts",
             "link": "shopify://collections/homeware-gifts",
