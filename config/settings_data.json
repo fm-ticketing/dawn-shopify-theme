@@ -122,6 +122,7 @@
     "show_vendor": false,
     "show_cart_note": false,
     "cart_drawer_collection": "",
+    "cart_color_scheme": "background-2",
     "checkout_logo_image": "shopify://shop_images/0ff6b41c-6573-a90b-8aea-cf63a3e56f22.png",
     "checkout_logo_size": "large",
     "checkout_accent_color": "#810755",
@@ -160,7 +161,7 @@
           "background_gradient": "",
           "text": "#121212",
           "button": "#121212",
-          "button_label": "#f3f3f3",
+          "button_label": "#000000",
           "secondary_button_label": "#121212",
           "shadow": "#121212"
         }
