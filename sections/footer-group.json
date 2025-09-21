@@ -1,12 +1,12 @@
 /*
-* ------------------------------------------------------------
-* IMPORTANT: The contents of this file are auto-generated.
-*
-* This file may be updated by the Shopify admin theme editor
-* or related systems. Please exercise caution as any changes
-* made to this file may be overwritten.
-* ------------------------------------------------------------
-*/
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "t:sections.footer.name",
   "type": "footer",
@@ -32,7 +32,7 @@
         "image_XRTB4m": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/images_8c344140-d4c2-4b97-b8f3-c763cfdf6b43.png",
+            "image": "shopify://shop_images/Foundling_Logo_bright_ochre.png",
             "image_width": 180,
             "alignment": "right"
           }
@@ -52,9 +52,7 @@
         "image_XRTB4m",
         "footer-2"
       ],
-      "custom_css": [
-
-      ],
+      "custom_css": [],
       "settings": {
         "color_scheme": "scheme-1",
         "newsletter_enable": false,
