@@ -92,7 +92,7 @@
         "slide_cmW3LH"
       ],
       "settings": {
-        "layout": "grid",
+        "layout": "full_bleed",
         "slide_height": "medium",
         "slider_visual": "dots",
         "auto_rotate": false,
@@ -158,13 +158,13 @@
         "show_description": false,
         "description_style": "body",
         "collection": "homepage",
-        "products_to_show": 24,
+        "products_to_show": 20,
         "columns_desktop": 4,
         "full_width": false,
         "show_view_all": false,
         "view_all_style": "solid",
         "enable_desktop_slider": false,
-        "color_scheme": "background-1",
+        "color_scheme": "background-2",
         "image_ratio": "adapt",
         "image_shape": "default",
         "show_secondary_image": true,
@@ -173,8 +173,8 @@
         "enable_quick_add": false,
         "columns_mobile": "2",
         "swipe_on_mobile": false,
-        "padding_top": 28,
-        "padding_bottom": 36
+        "padding_top": 20,
+        "padding_bottom": 20
       }
     },
     "collage": {
@@ -205,8 +205,8 @@
         "desktop_layout": "left",
         "mobile_layout": "collage",
         "card_styles": "product-card-wrapper",
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
+        "color_scheme": "background-2",
+        "padding_top": 20,
         "padding_bottom": 36
       }
     },
@@ -287,8 +287,8 @@
       "disabled": true,
       "settings": {
         "page": "",
-        "heading_size": "h1",
-        "color_scheme": "",
+        "heading_size": "h0",
+        "color_scheme": "background-2",
         "padding_top": 36,
         "padding_bottom": 36
       }
