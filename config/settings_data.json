@@ -10,12 +10,12 @@
 {
   "current": {
     "logo": "shopify://shop_images/Foundling_Logo_bright_ochre.png",
-    "logo_width": 100,
+    "logo_width": 250,
     "favicon": "shopify://shop_images/Foundling_Logo_bright_ochre.png",
     "type_header_font": "open_sans_n4",
-    "heading_scale": 120,
+    "heading_scale": 130,
     "type_body_font": "open_sans_n4",
-    "body_scale": 100,
+    "body_scale": 110,
     "page_width": 1600,
     "spacing_sections": 0,
     "spacing_grid_horizontal": 8,
