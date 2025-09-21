@@ -43,7 +43,7 @@
         "announcement_MiHwTc"
       ],
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "background-2",
         "show_line_separator": true,
         "show_social": false,
         "auto_rotate": false,
@@ -87,8 +87,8 @@
         "menu_type_desktop": "mega",
         "sticky_header_type": "reduce-logo-size",
         "show_line_separator": true,
-        "color_scheme": "background-1",
-        "menu_color_scheme": "background-1",
+        "color_scheme": "background-2",
+        "menu_color_scheme": "background-2",
         "enable_country_selector": false,
         "enable_language_selector": false,
         "mobile_logo_position": "center",
@@ -102,9 +102,9 @@
       "disabled": true,
       "settings": {
         "custom_liquid": "<script type=\"text/javascript\" async src=\"//l.getsitecontrol.com/y798p6mw.js\"></script>",
-        "color_scheme": "",
-        "padding_top": 40,
-        "padding_bottom": 52
+        "color_scheme": "background-2",
+        "padding_top": 20,
+        "padding_bottom": 20
       }
     }
   },
