@@ -22,6 +22,13 @@
             "link": ""
           }
         },
+        "announcement_gpnchG": {
+          "type": "announcement",
+          "settings": {
+            "text": "Welcome to our store",
+            "link": ""
+          }
+        },
         "announcement_c7JmgB": {
           "type": "announcement",
           "settings": {
@@ -39,6 +46,7 @@
       },
       "block_order": [
         "announcement_Ky4jGi",
+        "announcement_gpnchG",
         "announcement_c7JmgB",
         "announcement_MiHwTc"
       ],
