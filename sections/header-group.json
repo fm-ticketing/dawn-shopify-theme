@@ -70,10 +70,18 @@
             "text": "Back to main website",
             "link": "https://foundlingmuseum.org.uk/"
           }
+        },
+        "announcement_rH3Rbk": {
+          "type": "announcement",
+          "settings": {
+            "text": "Last day of shipping for 2025 is the 19th December. Happy Holidays!",
+            "link": ""
+          }
         }
       },
       "block_order": [
-        "announcement_LNQpCx"
+        "announcement_LNQpCx",
+        "announcement_rH3Rbk"
       ],
       "custom_css": [],
       "settings": {
