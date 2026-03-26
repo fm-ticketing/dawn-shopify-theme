@@ -22,11 +22,18 @@
             "text": "All full price adult and concession tickets are treated as a charitable donation to the Museum and as a thank you we automatically convert them into annual passes at no extra cost. This means you can enjoy visiting the Museum, our exhibitions and displays for a whole year from the date of your initial visit.",
             "text_style": "body"
           }
+        },
+        "foyer_foundling_museum_exhibition_date_WqP7Fg": {
+          "type": "shopify://apps/foyer-foundling-museum/blocks/exhibition_date/019d24d4-b934-76ad-bc0c-d8b29c4adfac",
+          "settings": {
+            "proxy-url": "apps/proxy"
+          }
         }
       },
       "block_order": [
         "title",
-        "text_BQM7P3"
+        "text_BQM7P3",
+        "foyer_foundling_museum_exhibition_date_WqP7Fg"
       ],
       "custom_css": [
         ".ticket-title {font-size: 18px; font-weight: 500;}",
