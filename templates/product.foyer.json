@@ -15,7 +15,7 @@
         "heading_amawci": {
           "type": "heading",
           "settings": {
-            "heading": "Talk about your brand{{ product.title }}",
+            "heading": "{{ product.title }}",
             "heading_size": "h1"
           }
         }
