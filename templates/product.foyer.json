@@ -9,25 +9,41 @@
  */
 {
   "sections": {
-    "17748960167b3c48f8": {
-      "type": "apps",
+    "rich_text_JdmHAH": {
+      "type": "rich-text",
       "blocks": {
-        "foyer_foundling_museum_exhibition_date_k3mi8E": {
-          "type": "shopify://apps/foyer-foundling-museum/blocks/exhibition_date/019d3f5c-b6a3-7ed4-886a-22c0d6bad7e7",
+        "heading_amawci": {
+          "type": "heading",
           "settings": {
-            "proxy-url": "apps/proxy"
+            "heading": "Talk about your brand{{ product.title }}",
+            "heading_size": "h1"
           }
         }
       },
       "block_order": [
-        "foyer_foundling_museum_exhibition_date_k3mi8E"
+        "heading_amawci"
       ],
+      "name": "t:sections.rich-text.presets.name",
       "settings": {
-        "include_margins": true
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
       }
     },
     "main": {
       "type": "main-product",
+      "blocks": {
+        "title_9ArGrL": {
+          "type": "title",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title_9ArGrL"
+      ],
       "disabled": true,
       "settings": {
         "enable_sticky_info": true,
@@ -43,6 +59,23 @@
         "enable_video_looping": false,
         "padding_top": 20,
         "padding_bottom": 12
+      }
+    },
+    "17748960167b3c48f8": {
+      "type": "apps",
+      "blocks": {
+        "foyer_foundling_museum_exhibition_date_k3mi8E": {
+          "type": "shopify://apps/foyer-foundling-museum/blocks/exhibition_date/019d3f5c-b6a3-7ed4-886a-22c0d6bad7e7",
+          "settings": {
+            "proxy-url": "apps/proxy"
+          }
+        }
+      },
+      "block_order": [
+        "foyer_foundling_museum_exhibition_date_k3mi8E"
+      ],
+      "settings": {
+        "include_margins": true
       }
     },
     "related-products": {
@@ -66,8 +99,9 @@
     }
   },
   "order": [
-    "17748960167b3c48f8",
+    "rich_text_JdmHAH",
     "main",
+    "17748960167b3c48f8",
     "related-products"
   ]
 }
