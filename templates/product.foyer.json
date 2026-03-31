@@ -15,13 +15,20 @@
         "heading_amawci": {
           "type": "heading",
           "settings": {
-            "heading": "{{ product.title }}",
+            "heading": "Admission Tickets",
             "heading_size": "h1"
+          }
+        },
+        "text_bf6qgn": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Enjoy free entry for a year with your ticket.</strong>Your ticket is valid for a whole year from the date of purchase, so you can visit us as many times as you like.</p>"
           }
         }
       },
       "block_order": [
-        "heading_amawci"
+        "heading_amawci",
+        "text_bf6qgn"
       ],
       "name": "t:sections.rich-text.presets.name",
       "settings": {
