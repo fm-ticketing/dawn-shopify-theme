@@ -24,8 +24,16 @@
         },
         "announcement_gpnchG": {
           "type": "announcement",
+          "disabled": true,
           "settings": {
             "text": "Welcome to our store",
+            "link": ""
+          }
+        },
+        "announcement_MiHwTc": {
+          "type": "announcement",
+          "settings": {
+            "text": "Every purchase supports the Foundling Museum.",
             "link": ""
           }
         },
@@ -35,20 +43,13 @@
             "text": "UK delivery is £3.50. Click here for more shipping information.",
             "link": "shopify://pages/delivery-information"
           }
-        },
-        "announcement_MiHwTc": {
-          "type": "announcement",
-          "settings": {
-            "text": "Every purchase supports the Foundling Museum.",
-            "link": ""
-          }
         }
       },
       "block_order": [
         "announcement_Ky4jGi",
         "announcement_gpnchG",
-        "announcement_c7JmgB",
-        "announcement_MiHwTc"
+        "announcement_MiHwTc",
+        "announcement_c7JmgB"
       ],
       "settings": {
         "color_scheme": "background-1",
