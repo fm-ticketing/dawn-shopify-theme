@@ -22,7 +22,7 @@
         "text_bf6qgn": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>Enjoy free entry for a year with your ticket. </strong>Your ticket is valid for a whole year from the date of purchase, so you can visit us as many times as you like.</p><p>Occasionally, galleries may need to close at short notice for operational reasons. We make every effort to keep all areas open and to update visitors in advance, but this is not always possible. </p><p>If you have booked tickets for a day affected by a full closure, we will contact you to offer an alternative date or a full refund. </p><p>Thank you for your understanding and support.<br/><br/></p>"
+            "text": "<p><strong>Enjoy free entry for a year with your ticket. </strong>Your ticket is valid for a whole year from the date of purchase, so you can visit us as many times as you like.</p><p></p>"
           }
         }
       },
@@ -46,10 +46,18 @@
         "title_9ArGrL": {
           "type": "title",
           "settings": {}
+        },
+        "text_xGDccU": {
+          "type": "text",
+          "settings": {
+            "text": "",
+            "text_style": "body"
+          }
         }
       },
       "block_order": [
-        "title_9ArGrL"
+        "title_9ArGrL",
+        "text_xGDccU"
       ],
       "disabled": true,
       "settings": {
@@ -103,12 +111,36 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+    },
+    "rich_text_NxYFak": {
+      "type": "rich-text",
+      "blocks": {
+        "text_iF3RJP": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Occasionally, galleries may need to close at short notice for operational reasons. We make every effort to keep all areas open and to update visitors in advance, but this is not always possible.</p><p>On rare occasions the Museum may need to close at short notice. If you have booked tickets for a day affected by a full closure, we will contact you to offer an alternative date or a full refund.</p><p>Thank you for your understanding and support.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_iF3RJP"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
     }
   },
   "order": [
     "rich_text_JdmHAH",
     "main",
     "17748960167b3c48f8",
-    "related-products"
+    "related-products",
+    "rich_text_NxYFak"
   ]
 }
