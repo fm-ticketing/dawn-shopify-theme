@@ -143,6 +143,13 @@
       }
     },
     "content_for_index": [],
+    "blocks": {
+      "291063337110306828": {
+        "type": "shopify://apps/foyer-foundling-museum/blocks/cart_validator/019d3f5c-b6a3-7ed4-886a-22c0d6bad7e7",
+        "disabled": false,
+        "settings": {}
+      }
+    },
     "color_schemes": {
       "background-1": {
         "settings": {
